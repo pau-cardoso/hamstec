@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Colors from '../../config/colors';
 import {fontSize, fontWeight, monospace} from '../../config/typography';
 
@@ -19,32 +20,36 @@ export default TextPairing = ({primaryText, secondaryText, type, size}) => {
 			break;
 	}
 	switch (size) {
-		case 'x10':
+		case 13:
 			textStyles.push(fontSize.x10);
 			break;
 
-		case 'x20':
+		case 14:
 			textStyles.push(fontSize.x20);
 			break;
 
-		case 'x30':
+		case 16:
 			textStyles.push(fontSize.x30);
 			break;
 
-		case 'x40':
+		case 19:
 			textStyles.push(fontSize.x40);
 			break;
 
-		case 'x50':
+		case 24:
 			textStyles.push(fontSize.x50);
 			break;
 
-		case 'x60':
+		case 32:
 			textStyles.push(fontSize.x60);
 			break;
 
-			default:
+		case 38:
 			textStyles.push(fontSize.x70);
+			break;
+
+			default:
+			textStyles.push(fontSize.x30);
 			break;
 	}
 	return (
@@ -57,3 +62,10 @@ export default TextPairing = ({primaryText, secondaryText, type, size}) => {
 		</View>
 	);
 }
+
+TextPairing.propTypes = {
+  primaryText: PropTypes.string,
+  secondaryText: PropTypes.string,
+	type: PropTypes.oneOf(['regular', 'medium', 'semibold']),
+	size: PropTypes.oneOf([13, 14, 16, 19, 24, 32, 38]),
+};
