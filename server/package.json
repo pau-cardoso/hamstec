@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend for Hamstec mobile app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pau-cardoso/hamstec.git"
+  },
+  "author": "Paulina Cardoso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pau-cardoso/hamstec/issues"
+  },
+  "homepage": "https://github.com/pau-cardoso/hamstec#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {}
+}
