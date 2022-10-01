@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Colors from '../../config/colors';
 import {fontSize, fontWeight, fontColor, monospace} from '../../config/typography';
 
-export default TextPairing = ({text, secondaryText, type, size, color}) => {
+export default function TextPairing({text, secondaryText, type, size, color}) {
 	const textStyles = [monospace.base];
 	switch (type) {
 		case 'medium':

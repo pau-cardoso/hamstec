@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import colors from '../../config/colors';
-import shadow from '../../config/base';
+import shadowStyle from '../../config/base';
 import TextPairing from '../TextPairing/TextPairing';
 
 export default function Button({ onPress, children }) {
   return(
     <View>
       <TouchableOpacity onPress={onPress}>
-        <View style={[styles.container, styles.text]}>
+        <View style={[styles.container, styles.text, styles.shadow]}>
           <TextPairing
             text={children}
             type='medium'
@@ -30,6 +30,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.brand,
   },
+  shadow: {
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 2,
+  }
 });
 
 Button.defaultProps = {
