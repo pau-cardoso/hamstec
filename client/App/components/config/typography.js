@@ -1,4 +1,4 @@
-import colors from './colors';
+import {neutral} from './colors';
 import * as Font from 'expo-font';
 import {
 	Jost_400Regular,
@@ -151,43 +151,83 @@ export const body = {
     ...fontSize.x10,
     ...lineHeight.x10,
     ...fontWeight.regular,
-    color: colors.primary_text,
   },
   x20: {
     ...fontSize.x20,
     ...lineHeight.x20,
     ...fontWeight.regular,
-    color: colors.primary_text,
   },
   x30: {
     ...fontSize.x30,
     ...lineHeight.x30,
     ...fontWeight.regular,
-    color: colors.primary_text,
   },
   x40: {
     ...fontSize.x40,
     ...lineHeight.x40,
     ...fontWeight.regular,
-    color: colors.primary_text,
   },
   x50: {
     ...fontSize.x50,
     ...lineHeight.x50,
     ...fontWeight.regular,
-    color: colors.primary_text,
+  },
+}
+
+export const fontColor = {
+  white: {
+    color: neutral.white,
+  },
+  black: {
+    color: neutral.black,
+  },
+  s050: {
+    color: neutral.s050,
+  },
+  s100: {
+    color: neutral.s100,
+  },
+  s150: {
+    color: neutral.s150,
+  },
+  s200: {
+    color: neutral.s200,
+  },
+  s250: {
+    color: neutral.s250,
+  },
+  s300: {
+    color: neutral.s300,
+  },
+  s400: {
+    color: neutral.s400,
+  },
+  s500: {
+    color: neutral.s500,
+  },
+  s600: {
+    color: neutral.s600,
+  },
+  s700: {
+    color: neutral.s700,
+  },
+  s800: {
+    color: neutral.s800,
+  },
+  s900: {
+    color: neutral.s900,
   },
 }
 
 export const type = {
 	body: {
 		fontFamily: 'Jost_400Regular',
+    ...fontColor.s800,
 	}
 }
 
 export const monospace = {
   base: {
     fontFamily: 'Jost_400Regular',
-    letterSpacing: letterSpacing.x30,
   },
 }
