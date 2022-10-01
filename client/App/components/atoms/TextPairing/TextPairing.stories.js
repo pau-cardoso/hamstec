@@ -5,11 +5,11 @@ import TextPairing from './TextPairing';
 
 storiesOf('TextPairing', module)
   .add('Header', () => (
-    <TextPairing primaryText="Agregar producto" type='semibold' size={38} />
+    <TextPairing text="Agregar producto" type='semibold' size={38} />
   ))
   .add('Subheading', () => (
-    <TextPairing primaryText="Planta baja" type='semibold' size={32} />
+    <TextPairing text="Planta baja" type='semibold' size={32} />
   ))
   .add('Body', () => (
-    <TextPairing primaryText="Entrada" type='regular' size={16} />
+    <TextPairing text="Entrada" type='regular' size={16} />
   ));
