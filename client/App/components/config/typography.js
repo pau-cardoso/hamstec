@@ -1,4 +1,4 @@
-import {neutral} from './colors';
+import {neutral, primary} from './colors';
 import * as Font from 'expo-font';
 import {
 	Jost_400Regular,
@@ -180,6 +180,9 @@ export const fontColor = {
   },
   black: {
     color: neutral.black,
+  },
+  brand: {
+    color: primary.brand,
   },
   s050: {
     color: neutral.s050,

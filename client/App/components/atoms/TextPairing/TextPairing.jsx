@@ -50,6 +50,9 @@ export default function TextPairing({text, secondaryText, type, size, color}) {
 		case 'black':
 			textStyles.push(fontColor.black);
 			break
+		case 'brand':
+			textStyles.push(fontColor.brand);
+			break
 		case 's050':
 			textStyles.push(fontColor.s050);
 			break
@@ -87,7 +90,7 @@ export default function TextPairing({text, secondaryText, type, size, color}) {
 			textStyles.push(fontColor.s900);
 			break
 	}
-	1
+
 	return (
 		<View>
 	  <Text style={textStyles}>{text}</Text>
