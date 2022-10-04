@@ -5,6 +5,7 @@
 
 function loadStories() {
   require("../App/components/atoms/Button/Button.stories");
+  require("../App/components/atoms/IconButton/IconButton.stories");
   require("../App/components/atoms/Tab/Tab.stories");
   require("../App/components/atoms/TextField/TextField.stories");
   require("../App/components/atoms/TextPairing/TextPairing.stories");
@@ -12,6 +13,7 @@ function loadStories() {
 
 const stories = [
   "../App/components/atoms/Button/Button.stories",
+  "../App/components/atoms/IconButton/IconButton.stories",
   "../App/components/atoms/Tab/Tab.stories",
   "../App/components/atoms/TextField/TextField.stories",
   "../App/components/atoms/TextPairing/TextPairing.stories",
