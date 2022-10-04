@@ -12,8 +12,12 @@
     "prestorybook": "rnstl"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@expo-google-fonts/jost": "^0.2.2",
     "@expo/webpack-config": "^0.17.0",
+    "@mui/icons-material": "^5.10.6",
+    "@mui/material": "^5.10.8",
     "expo": "~46.0.9",
     "expo-font": "~10.2.0",
     "expo-status-bar": "~1.4.0",
