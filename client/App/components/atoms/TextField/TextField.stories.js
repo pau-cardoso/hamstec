@@ -2,11 +2,14 @@ import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import TextField from './TextField';
 
-storiesOf('TextField', module)
-  .add('Text input', () => (
+storiesOf('InputField', module)
+  .add('Text', () => (
     <TextField title='Zona' placeholder='Zona' />
   ))
-  .add('Numeric input', () => (
-    <TextField title='Cantidad' keyboardType="numeric" />
+  .add('Multiline', () => (
+    <TextField title='Observaciones' placeholder='Observaciones' multiline numberOfLines={4} />
+  ))
+  .add('Quantity', () => (
+    <TextField title='Cantidad' placeholder='Cantidad' type='quantity' keyboardType="numeric" />
   ))
 ;
