@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { neutral, primary } from '../../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -11,8 +11,10 @@ export default function IconButton({ onPress, iconName, size, color, type }) {
   }
 
   return(
-    <View onPress={onPress} style={buttonStyle}>
-      <Ionicons name={iconName} size={size} color={color} />
+    <View style={buttonStyle}>
+      <TouchableOpacity onPress={onPress}>
+        <Ionicons name={iconName} size={size} color={color} />
+      </TouchableOpacity>
     </View>);
 }
 
