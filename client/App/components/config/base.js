@@ -9,3 +9,7 @@
 	},
 	shadowRadius: 2,
 }
+
+export const padding = {
+	padding: 50,
+}

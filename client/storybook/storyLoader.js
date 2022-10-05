@@ -5,6 +5,7 @@
 
 function loadStories() {
   require("../App/components/atoms/Button/Button.stories");
+  require("../App/components/atoms/Card/Card.stories");
   require("../App/components/atoms/Chip/Chip.stories");
   require("../App/components/atoms/IconButton/IconButton.stories");
   require("../App/components/atoms/Tab/Tab.stories");
@@ -14,6 +15,7 @@ function loadStories() {
 
 const stories = [
   "../App/components/atoms/Button/Button.stories",
+  "../App/components/atoms/Card/Card.stories",
   "../App/components/atoms/Chip/Chip.stories",
   "../App/components/atoms/IconButton/IconButton.stories",
   "../App/components/atoms/Tab/Tab.stories",
