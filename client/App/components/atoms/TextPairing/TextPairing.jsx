@@ -1,12 +1,14 @@
-import { Text, View, StyleSheet } from 'react-native';
-import React, { Component } from 'react';
+import { Text, View } from 'react-native';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Colors from '../../config/colors';
 import {fontSize, fontWeight, fontColor, monospace} from '../../config/typography';
 
 export default function TextPairing({text, secondaryText, type, size, color}) {
 	const textStyles = [monospace.base];
 	switch (type) {
+		case 'light':
+			textStyles.push(fontWeight.light);
+            break;
 		case 'medium':
 			textStyles.push(fontWeight.medium);
 			break;
@@ -105,7 +107,7 @@ export default function TextPairing({text, secondaryText, type, size, color}) {
 TextPairing.propTypes = {
   text: PropTypes.string,
   secondaryText: PropTypes.string,
-	type: PropTypes.oneOf(['regular', 'medium', 'semibold']),
+	type: PropTypes.oneOf(['light', 'regular', 'medium', 'semibold']),
 	size: PropTypes.oneOf([13, 14, 16, 19, 24, 32, 38]),
 	color: PropTypes.oneOf(['white', 'black', 'brand', 's050', 's100', 's150', 's200', 's250', 's300', 's400', 's500', 's600', 's700', 's800', 's900']),
 };
