@@ -12,6 +12,7 @@ function loadStories() {
   require("../App/components/atoms/TextField/TextField.stories");
   require("../App/components/atoms/TextPairing/TextPairing.stories");
   require("../App/components/molecules/ListItem/ListItem.stories");
+  require("../App/components/molecules/PageHeader/PageHeader.stories");
 }
 
 const stories = [
@@ -23,6 +24,7 @@ const stories = [
   "../App/components/atoms/TextField/TextField.stories",
   "../App/components/atoms/TextPairing/TextPairing.stories",
   "../App/components/molecules/ListItem/ListItem.stories",
+  "../App/components/molecules/PageHeader/PageHeader.stories",
 ];
 
 module.exports = {
