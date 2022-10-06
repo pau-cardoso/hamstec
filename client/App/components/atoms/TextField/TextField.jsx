@@ -7,14 +7,7 @@ import {fontSize} from '../../config/typography';
 import TextPairing from '../TextPairing/TextPairing';
 import IconButton from '../IconButton/IconButton';
 
-function onChangeInput(event) {
-
-}
-
 export default function TextField(props) {
-	const [quantity, setQuantity] = React.useState("1");
-	const [text, setText] = React.useState("");
-
 	const inputStyle = [styles.input];
 	if (props.type === 'quantity') {
 		inputStyle.push(fontSize.x60);
@@ -25,19 +18,17 @@ export default function TextField(props) {
 			<TextPairing style={styles.spacing} text={props.title} type='medium' size={14} color='s400' />
 			<View style={styles.inputContainer}>
 				{props.type === 'quantity'?
-					<IconButton onPress={() => setQuantity((parseInt(quantity)-1).toString())} iconName='remove' size={32} />
+					<IconButton onPress={() => props.onChangeText((parseInt(props.value)-1).toString())} iconName='remove' size={32} />
 				: null}
 
 				<TextInput
 					style={inputStyle}
-					onChangeText={props.type === 'quantity'? setQuantity: setText}
-					value={props.type === 'quantity'?  quantity: text}
 					placeholderTextColor={neutral.s200}
 					{...props}
 				/>
 
 				{props.type === 'quantity'?
-					<IconButton onPress={() => setQuantity((parseInt(quantity)+1).toString())} iconName='add' size={32} />
+					<IconButton onPress={() => props.onChangeText((parseInt(props.value)+1).toString())} iconName='add' size={32} />
 				: null}
 			</View>
 		</View>
@@ -69,8 +60,3 @@ const styles = StyleSheet.create({
 		...fontSize.x60
   }
 });
-
-TextField.propTypes = {
-  title: PropTypes.string,
-  isActive: PropTypes.bool,
-};
