@@ -13,6 +13,7 @@ function loadStories() {
   require("../App/components/atoms/TextPairing/TextPairing.stories");
   require("../App/components/molecules/ListItem/ListItem.stories");
   require("../App/components/molecules/PageHeader/PageHeader.stories");
+  require("../App/components/molecules/SearchBar/SearchBar.stories");
 }
 
 const stories = [
@@ -25,6 +26,7 @@ const stories = [
   "../App/components/atoms/TextPairing/TextPairing.stories",
   "../App/components/molecules/ListItem/ListItem.stories",
   "../App/components/molecules/PageHeader/PageHeader.stories",
+  "../App/components/molecules/SearchBar/SearchBar.stories",
 ];
 
 module.exports = {
