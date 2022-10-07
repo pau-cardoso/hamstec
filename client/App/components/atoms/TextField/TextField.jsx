@@ -15,7 +15,7 @@ export default function TextField(props) {
 
 	return (
 		<View style={styles.container}>
-			<TextPairing style={styles.spacing} text={props.title} type='medium' size={14} color='s400' />
+			{ props.title && <TextPairing style={styles.spacing} text={props.title} type='medium' size={14} color='s400' /> }
 			<View style={styles.inputContainer}>
 				{props.type === 'quantity'?
 					<IconButton onPress={() => props.onChangeText((parseInt(props.value)-1).toString())} iconName='remove' size={32} />
@@ -37,13 +37,17 @@ export default function TextField(props) {
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'center',
     alignItems: 'start',
+	  width: '100%',
+  },
+  spacing: {
+	  marginBottom: 4,
   },
   input: {
     backgroundColor: neutral.s050,
 		padding: 12,
 		borderRadius: 8,
+		width: '100%',
 	},
 	quantityContainer: {
 		backgroundColor: neutral.s050,
@@ -51,12 +55,12 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 	},
 	inputContainer: {
-		marginTop: 4,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: neutral.s050,
 		borderRadius: 8,
-		...fontSize.x60
+		...fontSize.x60,
+		width: '100%',
   }
 });

@@ -3,8 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {fontSize, fontWeight, fontColor, monospace} from '../../config/typography';
 
-export default function TextPairing({text, secondaryText, type, size, color}) {
+export default function TextPairing({text, secondaryText, type, size, color, style}) {
 	const textStyles = [monospace.base];
+	textStyles.push(style);
 	switch (type) {
 		case 'light':
 			textStyles.push(fontWeight.light);

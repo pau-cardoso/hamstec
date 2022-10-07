@@ -4,8 +4,9 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { neutral, primary } from '../../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function IconButton({ onPress, iconName, size, color, type }) {
+export default function IconButton({ onPress, iconName, size, color, type, style }) {
   const buttonStyle = [styles.container];
+  buttonStyle.push(style)
   if (type === 'contained') {
     buttonStyle.push(styles.containedButton);
   }
@@ -21,13 +22,13 @@ export default function IconButton({ onPress, iconName, size, color, type }) {
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
-    borderRadius: 50,
-    padding: 6,
     justifyContent: 'center',
     alignItems: 'center',
     aspectRatio: 1,
   },
   containedButton: {
+    borderRadius: 50,
+    padding: 6,
     backgroundColor: primary.s100,
   }
 });
