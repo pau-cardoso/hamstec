@@ -13,3 +13,10 @@
 export const padding = {
 	padding: 50,
 }
+
+export const center = {
+	display: 'flex',
+	justifyContent: 'center',
+  alignItems: 'center',
+	paddingHorizontal: 20,
+}

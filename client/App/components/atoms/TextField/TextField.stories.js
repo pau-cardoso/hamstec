@@ -1,4 +1,5 @@
 import { storiesOf } from '@storybook/react-native';
+import { center } from '../../config/base'
 import React from 'react';
 import TextField from './TextField';
 import { View } from 'react-native';
@@ -18,6 +19,7 @@ function Padre(props) {
 }
 
 storiesOf('InputField', module)
+  .addDecorator((story) => <View style={center}>{story()}</View>)
   .add('Text', () => (
     <Padre title='Zona' placeholder='Zona' />
   ))
