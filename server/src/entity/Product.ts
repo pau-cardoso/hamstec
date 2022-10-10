@@ -13,7 +13,7 @@ export class Product {
     description: string
 
     @Column("money")
-    cost: number
+    price: number
 
     @Column("money")
     installation: number
@@ -22,6 +22,6 @@ export class Product {
     utility: number
 
     @Column("money")
-    public_cost: number
+    public_price: number
 
 }
