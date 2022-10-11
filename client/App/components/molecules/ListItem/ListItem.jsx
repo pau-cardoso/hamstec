@@ -4,10 +4,10 @@ import { StyleSheet, View, Image } from 'react-native';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Card from '../../atoms/Card/Card'
 
-export default function ListItem({ text, secondaryText, image }) {
+export default function ListItem({ text, secondaryText, image, style }) {
   return(
     <Card>
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         { image &&
           <Image
             style={styles.image}

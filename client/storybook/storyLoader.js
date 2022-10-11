@@ -15,6 +15,7 @@ function loadStories() {
   require("../App/components/molecules/PageHeader/PageHeader.stories");
   require("../App/components/molecules/SearchBar/SearchBar.stories");
   require("../App/components/organisms/ProductSearch/ProductSearch.stories");
+  require("../App/components/pages/AgregarProducto/AgregarProducto.stories");
 }
 
 const stories = [
@@ -29,6 +30,7 @@ const stories = [
   "../App/components/molecules/PageHeader/PageHeader.stories",
   "../App/components/molecules/SearchBar/SearchBar.stories",
   "../App/components/organisms/ProductSearch/ProductSearch.stories",
+  "../App/components/pages/AgregarProducto/AgregarProducto.stories",
 ];
 
 module.exports = {
