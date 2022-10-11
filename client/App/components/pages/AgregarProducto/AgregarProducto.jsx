@@ -36,11 +36,43 @@ export default function AgregarProducto({style}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("Todos");
 
-  const renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <ListItem text={item.name} secondaryText={item.code} image={item.image} />
-    </View>
-  );
+  const renderItem = ({ item }) => {
+    // when no input, show all
+    if (searchPhrase === "") {
+      return(
+        <View style={styles.item}>
+          <ListItem text={item.name} secondaryText={item.code} image={item.image} />
+        </View>
+      );
+    }
+
+    // filter of the name
+    if (item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+      return(
+        <View style={styles.item}>
+          <ListItem text={item.name} secondaryText={item.code} image={item.image} />
+        </View>
+      );
+    }
+
+    // filter of the description
+    if (item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+      return(
+        <View style={styles.item}>
+          <ListItem text={item.name} secondaryText={item.code} image={item.image} />
+        </View>
+      );
+    }
+
+    // filter of the brand
+    // if (item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+    //   return(
+    //     <View style={styles.item}>
+    //       <ListItem text={item.name} secondaryText={item.code} image={item.image} />
+    //     </View>
+    //   );
+    // }
+  };
 
   return(
     <View style={[styles.container, style]}>
