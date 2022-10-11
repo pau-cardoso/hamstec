@@ -5,9 +5,9 @@ import TextPairing from '../../atoms/TextPairing/TextPairing';
 import IconButton from '../../atoms/IconButton/IconButton'
 import { neutral, primary } from '../../config/colors';
 
-export default function PageHeader({ title, hasBackButton, hasRightButton, onRightButtonClick }) {
+export default function PageHeader({ title, hasBackButton, hasRightButton, onRightButtonClick, style }) {
   return(
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.leftContainer}>
         { hasBackButton &&
         <View style={styles.backButtonContainer}>

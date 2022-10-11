@@ -5,13 +5,13 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { neutral, primary } from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
 
-export default function Chip({title, onPress, isActive}) {
+export default function Chip({title, onPress, isActive, style}) {
   const containerStyles = [styles.container];
   if (isActive) {
     containerStyles.push(styles.active);
   }
 	return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={style}>
 		  <View style={containerStyles}>
         {isActive ?
           <TextPairing text={title} type='regular' size={16} color='white' />

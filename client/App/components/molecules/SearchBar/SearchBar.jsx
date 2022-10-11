@@ -5,9 +5,9 @@ import TextField from '../../atoms/TextField/TextField';
 import IconButton from '../../atoms/IconButton/IconButton'
 import { neutral } from '../../config/colors';
 
-export default function SearchBar({searchPhrase, setSearchPhrase, onPressFilter}) {
+export default function SearchBar({searchPhrase, setSearchPhrase, onPressFilter, style}) {
   return(
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.searchBar}>
         <IconButton
           iconName='search'
