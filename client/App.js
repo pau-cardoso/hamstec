@@ -1,4 +1,4 @@
-export { default } from '../storybook/index';
+export { default } from './storybook/index';
 
 // import { StatusBar } from 'expo-status-bar';
 // import { StyleSheet, Text, View } from 'react-native';

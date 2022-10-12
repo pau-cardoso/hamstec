@@ -4,33 +4,33 @@
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
-  require("../App/components/atoms/Button/Button.stories");
-  require("../App/components/atoms/Card/Card.stories");
-  require("../App/components/atoms/Chip/Chip.stories");
-  require("../App/components/atoms/IconButton/IconButton.stories");
-  require("../App/components/atoms/Tab/Tab.stories");
-  require("../App/components/atoms/TextField/TextField.stories");
-  require("../App/components/atoms/TextPairing/TextPairing.stories");
-  require("../App/components/molecules/ListItem/ListItem.stories");
-  require("../App/components/molecules/PageHeader/PageHeader.stories");
-  require("../App/components/molecules/SearchBar/SearchBar.stories");
-  require("../App/components/organisms/ProductSearch/ProductSearch.stories");
-  require("../App/components/pages/AgregarProducto/AgregarProducto.stories");
+  require("../components/atoms/Button/Button.stories");
+  require("../components/atoms/Card/Card.stories");
+  require("../components/atoms/Chip/Chip.stories");
+  require("../components/atoms/IconButton/IconButton.stories");
+  require("../components/atoms/Tab/Tab.stories");
+  require("../components/atoms/TextField/TextField.stories");
+  require("../components/atoms/TextPairing/TextPairing.stories");
+  require("../components/molecules/ListItem/ListItem.stories");
+  require("../components/molecules/PageHeader/PageHeader.stories");
+  require("../components/molecules/SearchBar/SearchBar.stories");
+  require("../components/organisms/ProductSearch/ProductSearch.stories");
+  require("../components/pages/AgregarProducto/AgregarProducto.stories");
 }
 
 const stories = [
-  "../App/components/atoms/Button/Button.stories",
-  "../App/components/atoms/Card/Card.stories",
-  "../App/components/atoms/Chip/Chip.stories",
-  "../App/components/atoms/IconButton/IconButton.stories",
-  "../App/components/atoms/Tab/Tab.stories",
-  "../App/components/atoms/TextField/TextField.stories",
-  "../App/components/atoms/TextPairing/TextPairing.stories",
-  "../App/components/molecules/ListItem/ListItem.stories",
-  "../App/components/molecules/PageHeader/PageHeader.stories",
-  "../App/components/molecules/SearchBar/SearchBar.stories",
-  "../App/components/organisms/ProductSearch/ProductSearch.stories",
-  "../App/components/pages/AgregarProducto/AgregarProducto.stories",
+  "../components/atoms/Button/Button.stories",
+  "../components/atoms/Card/Card.stories",
+  "../components/atoms/Chip/Chip.stories",
+  "../components/atoms/IconButton/IconButton.stories",
+  "../components/atoms/Tab/Tab.stories",
+  "../components/atoms/TextField/TextField.stories",
+  "../components/atoms/TextPairing/TextPairing.stories",
+  "../components/molecules/ListItem/ListItem.stories",
+  "../components/molecules/PageHeader/PageHeader.stories",
+  "../components/molecules/SearchBar/SearchBar.stories",
+  "../components/organisms/ProductSearch/ProductSearch.stories",
+  "../components/pages/AgregarProducto/AgregarProducto.stories",
 ];
 
 module.exports = {
