@@ -38,7 +38,7 @@ export default function AgregarProducto({style}) {
 
   const renderItem = ({ item }) => {
     // when no input, show all
-    if (searchPhrase === "") {
+    if (searchPhrase === "" && activeTab === 'Todos') {
       return(
         <View style={styles.item}>
           <ListItem text={item.name} secondaryText={item.code} image={item.image} />
@@ -46,8 +46,10 @@ export default function AgregarProducto({style}) {
       );
     }
 
+    const isBrandActive = item.brand === activeTab || item.brand === 'Todos';
+
     // filter of the name
-    if (item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+    if (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
       return(
         <View style={styles.item}>
           <ListItem text={item.name} secondaryText={item.code} image={item.image} />
@@ -56,22 +58,13 @@ export default function AgregarProducto({style}) {
     }
 
     // filter of the description
-    if (item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+    if (isBrandActive && item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
       return(
         <View style={styles.item}>
           <ListItem text={item.name} secondaryText={item.code} image={item.image} />
         </View>
       );
     }
-
-    // filter of the brand
-    // if (item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-    //   return(
-    //     <View style={styles.item}>
-    //       <ListItem text={item.name} secondaryText={item.code} image={item.image} />
-    //     </View>
-    //   );
-    // }
   };
 
   return(
@@ -103,16 +96,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: neutral.s050,
-  },
-  header: {
-    backgroundColor: neutral.white,
-    paddingHorizontal: 32,
-    paddingVertical: 20,
-  },
-  body: {
-    paddingHorizontal: 32,
-    paddingTop: 22,
-    flex: 1,
   },
   item: {
     marginBottom: 12,
