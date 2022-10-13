@@ -5,6 +5,7 @@ import { Client } from "./entity/Client"
 import { Product } from "./entity/Product"
 import { Project } from "./entity/Project"
 import { Quote } from "./entity/Quote"
+import { QuoteProduct } from "./entity/QuoteProduct"
 import { Section } from "./entity/Section"
 import { User } from "./entity/User"
 
@@ -17,7 +18,7 @@ export const AppDataSource = new DataSource({
     database: "hamstec",
     synchronize: true,
     logging: false,
-    entities: [User, Product, Client, Project, Brand, Section, Quote],
+    entities: [User, Product, Client, Project, Brand, Section, Quote, QuoteProduct],
     migrations: [],
     subscribers: [],
 })
