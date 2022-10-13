@@ -9,13 +9,13 @@ export class Product {
     @Column()
     name: string
 
-    @Column("text")
+    @Column({nullable: true})
     description: string
 
     @Column("money")
     price: number
 
-    @Column("money")
+    @Column("money", {nullable: true, default: 0})
     installation: number
 
     @Column("money")

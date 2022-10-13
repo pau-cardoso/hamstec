@@ -9,10 +9,10 @@ export class Client {
     @Column()
     name: string
 
-    @Column("text")
+    @Column("text", {nullable: true})
     phone: string
 
-    @Column()
+    @Column({nullable: true})
     email: string
 
 }

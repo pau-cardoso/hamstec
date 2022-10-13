@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { Client } from "./Client"
 
 @Entity()
@@ -10,7 +10,7 @@ export class Project {
     @Column()
     name: string
 
-    @Column("text")
+    @Column("text", {nullable: true})
     address: string
 
     @ManyToOne(() => Client)
