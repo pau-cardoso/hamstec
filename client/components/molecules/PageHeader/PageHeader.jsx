@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
 	leftContainer: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'start',
     flexDirection: 'row',
   },
   backButtonContainer: {

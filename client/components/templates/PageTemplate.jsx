@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: neutral.white,
     paddingHorizontal: 32,
-    paddingTop: 20,
+    paddingVertical: 20,
   },
   body: {
     paddingHorizontal: 32,

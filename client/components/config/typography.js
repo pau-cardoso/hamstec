@@ -237,5 +237,6 @@ export const type = {
 export const monospace = {
   base: {
     fontFamily: 'Jost_400Regular',
+    flexWrap: 'wrap',
   },
 }
