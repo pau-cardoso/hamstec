@@ -11,6 +11,7 @@ function loadStories() {
   require("../components/atoms/Tab/Tab.stories");
   require("../components/atoms/TextField/TextField.stories");
   require("../components/atoms/TextPairing/TextPairing.stories");
+  require("../components/molecules/FormGroup/FormGroup.stories");
   require("../components/molecules/ListItem/ListItem.stories");
   require("../components/molecules/PageHeader/PageHeader.stories");
   require("../components/molecules/SearchBar/SearchBar.stories");
@@ -26,6 +27,7 @@ const stories = [
   "../components/atoms/Tab/Tab.stories",
   "../components/atoms/TextField/TextField.stories",
   "../components/atoms/TextPairing/TextPairing.stories",
+  "../components/molecules/FormGroup/FormGroup.stories",
   "../components/molecules/ListItem/ListItem.stories",
   "../components/molecules/PageHeader/PageHeader.stories",
   "../components/molecules/SearchBar/SearchBar.stories",
