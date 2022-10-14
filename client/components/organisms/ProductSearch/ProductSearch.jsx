@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
 import PageHeader from '../../molecules/PageHeader/PageHeader'
 import SearchBar from '../../molecules/SearchBar/SearchBar'
 import Chip from '../../atoms/Chip/Chip'
@@ -14,14 +14,16 @@ export default function ProductSearch({searchPhrase, setSearchPhrase, tabs, acti
         searchPhrase={searchPhrase}
         setSearchPhrase={setSearchPhrase} />
       <View style={[styles.tabGroup, styles.gap]}>
-        { tabs.map((tab, i) => (
-          <Chip
-            key={i}
-            title={tab}
-            style={styles.betweenChips}
-            onPress={() => setActiveTab(tab)}
-            isActive={ activeTab === tab? true : false } />
-        ))}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          { tabs.map((tab, i) => (
+            <Chip
+              key={i}
+              title={tab}
+              style={styles.betweenChips}
+              onPress={() => setActiveTab(tab)}
+              isActive={ activeTab === tab? true : false } />
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
