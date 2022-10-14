@@ -46,7 +46,7 @@ export default function AgregarProducto({style}) {
       );
     }
 
-    const isBrandActive = item.brand === activeTab || item.brand === 'Todos';
+    const isBrandActive = item.brand === activeTab || activeTab === 'Todos';
 
     // filter of the name
     if (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
