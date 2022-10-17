@@ -16,6 +16,7 @@ function loadStories() {
   require("../components/molecules/PageHeader/PageHeader.stories");
   require("../components/molecules/SearchBar/SearchBar.stories");
   require("../components/organisms/ProductSearch/ProductSearch.stories");
+  require("../components/organisms/TableSection/TableSection.stories");
   require("../components/pages/AgregarDetallesProducto/AgregarDetallesProducto.stories");
   require("../components/pages/AgregarProducto/AgregarProducto.stories");
 }
@@ -33,6 +34,7 @@ const stories = [
   "../components/molecules/PageHeader/PageHeader.stories",
   "../components/molecules/SearchBar/SearchBar.stories",
   "../components/organisms/ProductSearch/ProductSearch.stories",
+  "../components/organisms/TableSection/TableSection.stories",
   "../components/pages/AgregarDetallesProducto/AgregarDetallesProducto.stories",
   "../components/pages/AgregarProducto/AgregarProducto.stories",
 ];
