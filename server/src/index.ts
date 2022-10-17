@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser');
 
 const productRouter = require('./routes/product.js')
+const quoteRouter = require('./routes/quote.js')
 
 const app = express()
 const port = 3000
@@ -12,6 +13,7 @@ AppDataSource.initialize()
 app.use(bodyParser.json())
 
 app.use('/product', productRouter);
+app.use('/quote', quoteRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
