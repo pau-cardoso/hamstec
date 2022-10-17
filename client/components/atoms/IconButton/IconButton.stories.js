@@ -11,4 +11,7 @@ storiesOf('IconButton', module)
   .add('Contained', () => (
     <IconButton onPress={action('clicked-text')} iconName='add' type='contained' color={primary.brand}  size={32} />
   ))
+  .add('Full', () => (
+    <IconButton onPress={action('clicked-text')} iconName='add' type='full' color={primary.brand}  size={32} />
+  ))
 ;

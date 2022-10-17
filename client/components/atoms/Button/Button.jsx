@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import colors from '../../config/colors';
-import shadowStyle from '../../config/base';
 import TextPairing from '../TextPairing/TextPairing';
 
 export default function Button({ onPress, children }) {

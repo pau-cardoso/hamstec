@@ -7,8 +7,15 @@ import { Ionicons } from '@expo/vector-icons';
 export default function IconButton({ onPress, iconName, size, color, type, style }) {
   const buttonStyle = [styles.container];
   buttonStyle.push(style)
-  if (type === 'contained') {
-    buttonStyle.push(styles.containedButton);
+  switch (type) {
+    case 'contained':
+      buttonStyle.push(styles.containedButton);
+      break;
+    case 'full':
+      console.log('here')
+      buttonStyle.push(styles.fullButton);
+    default:
+      break;
   }
 
   return(
@@ -25,10 +32,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     aspectRatio: 1,
+    flexDirection: 'row',
   },
   containedButton: {
     borderRadius: 50,
     padding: 6,
+    backgroundColor: primary.s100,
+  },
+  fullButton: {
+    aspectRatio: 'auto',
+    width: '100%',
+    borderRadius: 10,
     backgroundColor: primary.s100,
   }
 });
@@ -43,7 +57,7 @@ IconButton.defaultProps = {
 IconButton.propTypes = {
   onPress: PropTypes.func,
   iconName: PropTypes.string,
-  type: PropTypes.oneOf(['default', 'contained']),
+  type: PropTypes.oneOf(['default', 'contained', 'full']),
   size: PropTypes.number,
   color: PropTypes.string,
 };
