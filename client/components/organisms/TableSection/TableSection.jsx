@@ -12,7 +12,7 @@ export default function TableSection({section, headers, data, onPressAdd, style}
   return(
     <Card>
       <View style={styles.container}>
-        <TextPairing text={section} type='semibold' size={32} />
+        <TextPairing text={section} type='semibold' size={32} style={{marginBottom: 8}} />
         <ScrollView
           horizontal
           contentContainerStyle={{width: '100%'}}

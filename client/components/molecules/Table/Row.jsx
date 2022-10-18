@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
+    marginBottom: 8,
   },
 });
 
