@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import PageHeader from '../../molecules/PageHeader/PageHeader'
 import SearchBar from '../../molecules/SearchBar/SearchBar'
 import Chip from '../../atoms/Chip/Chip'
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   }
 });
 
-SearchBar.propTypes = {
+ProductSearch.propTypes = {
   searchPhrase: PropTypes.string,
   setSearchPhrase: PropTypes.func,
   tabs: PropTypes.array,

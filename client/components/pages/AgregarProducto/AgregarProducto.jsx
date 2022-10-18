@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, FlatList } from 'react-native';
-import { neutral } from '../../config/colors';
 import PageTemplate from '../../templates/PageTemplate';
 import ProductSearch from '../../organisms/ProductSearch/ProductSearch';
 import ListItem from '../../molecules/ListItem/ListItem';
@@ -49,7 +48,7 @@ export default function AgregarProducto({style}) {
     const isBrandActive = item.brand === activeTab || activeTab === 'Todos';
 
     // filter of the name
-    if (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+    if (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())) {
       return(
         <View style={styles.item}>
           <ListItem text={item.name} secondaryText={item.code} image={item.image} />
@@ -58,7 +57,7 @@ export default function AgregarProducto({style}) {
     }
 
     // filter of the description
-    if (isBrandActive && item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+    if (isBrandActive && item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim())) {
       return(
         <View style={styles.item}>
           <ListItem text={item.name} secondaryText={item.code} image={item.image} />
@@ -94,8 +93,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     width: '100%',
-    height: '100%',
-    backgroundColor: neutral.s050,
   },
   item: {
     marginBottom: 12,
