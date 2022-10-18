@@ -1,21 +1,4 @@
 import {neutral, primary} from './colors';
-import * as Font from 'expo-font';
-import {
-  Jost_300Light,
-	Jost_400Regular,
-	Jost_500Medium,
-	Jost_600SemiBold,
-} from '@expo-google-fonts/jost'
-
-let customFonts = {
-  'Jost_300Light': Jost_300Light,
-  'Jost_400Regular': Jost_400Regular,
-  'Jost_500Medium': Jost_500Medium,
-  'Jost_600SemiBold': Jost_600SemiBold,
-};
-
-Font.loadAsync(customFonts);
-
 
 export const fontSize = {
   x10: {
