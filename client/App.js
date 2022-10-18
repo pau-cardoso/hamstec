@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import BottomNavigation from './components/molecules/BottomNavigation/BottomNavigation';
-import AgregarProducto from './components/pages/AgregarProducto/AgregarProducto'
+import Proyectos from './components/pages/Proyectos/Proyectos';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +17,7 @@ export default function App() {
           tabBarStyle: [styles.tabBarStyle],
           headerShown: false,
         }} >
-        <Tab.Screen name="Proyectos" component={AgregarProducto} />
+        <Tab.Screen name="Proyectos" component={Proyectos} />
       </Tab.Navigator>
     </NavigationContainer>
   );
