@@ -1,22 +1,34 @@
-export { default } from './storybook/index';
+// export { default } from './storybook/index';
 
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import BottomNavigation from './components/molecules/BottomNavigation/BottomNavigation';
+import AgregarProducto from './components/pages/AgregarProducto/AgregarProducto'
 
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Aquí se creará la aplicación de Hamstec</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
+const Tab = createBottomTabNavigator();
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        tabBar={props => <BottomNavigation {...props} />}
+        screenOptions={{
+          tabBarStyle: [styles.tabBarStyle],
+          headerShown: false,
+        }} >
+        <Tab.Screen name="Proyectos" component={AgregarProducto} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+// TODO: Fix styling not working
+const styles = StyleSheet.create({
+  tabBarStyle: {
+    margin: 10,
+    left: 50,
+    position: 'absolute',
+    borderRadius: 10,
+  },
+});
