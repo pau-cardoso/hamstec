@@ -6,17 +6,22 @@ import BottomNavigation from './components/molecules/BottomNavigation/BottomNavi
 import AgregarProducto from './components/pages/AgregarProducto/AgregarProducto';
 import Proyectos from './components/pages/Proyectos/Proyectos';
 import AgregarDetallesProducto from './components/pages/AgregarDetallesProducto/AgregarDetallesProducto'
+import AgregarProyecto from './components/pages/AgregarProyecto/AgregarProyecto';
 
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
 function ProjectStack() {
   return (
-    <ProjectStackNavigator.Navigator initialRouteName='Proyectos'>
+    <ProjectStackNavigator.Navigator
+      initialRouteName='Proyectos'
+      screenOptions={{
+        headerShown: false,
+      }} >
       <ProjectStackNavigator.Screen name="Proyectos" component={Proyectos} />
-      <ProjectStackNavigator.Screen name="AgregarProyecto" component={Proyectos} options={{presentation: 'modal'}} />
-      <ProjectStackNavigator.Screen name="Versiones" component={AgregarProducto} />
-      <ProjectStackNavigator.Screen name="Presupuesto" component={AgregarProducto} />
+      <ProjectStackNavigator.Screen name="AgregarProyecto" component={AgregarProyecto} options={{presentation: 'modal'}} />
+      {/* <ProjectStackNavigator.Screen name="Versiones" component={AgregarProducto} /> TODO */}
+      {/* <ProjectStackNavigator.Screen name="Presupuesto" component={AgregarProducto} /> TODO */}
       <ProjectStackNavigator.Screen name="AgregarProducto" component={AgregarProducto} />
       <ProjectStackNavigator.Screen name="AgregarDetalles" component={AgregarDetallesProducto} />
     </ProjectStackNavigator.Navigator>
