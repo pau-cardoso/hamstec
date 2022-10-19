@@ -6,6 +6,7 @@ import PageTemplate from '../../templates/PageTemplate';
 import PageHeader from '../../molecules/PageHeader/PageHeader';
 import FormGroup from '../../molecules/FormGroup/FormGroup';
 import TextField from '../../atoms/TextField/TextField';
+import Card from '../../atoms/Card/Card';
 
 export default function AgregarDetallesProducto({style}) {
   const [zone, setZone] = React.useState("");
@@ -24,13 +25,15 @@ export default function AgregarDetallesProducto({style}) {
         }
         body={
           // TODO: Add onSave method
-          <FormGroup onPressSave={() => {}}>
-            <TextField value={zone} onChangeText={setZone} title='Zona' placeholder='Zona' />
-            <TextField value={area} onChangeText={setArea} title='Area' placeholder='Area' />
-            <TextField value={observations} onChangeText={setObservations} title='Observaciones' placeholder='Observaciones' />
-            <TextField value={note} onChangeText={setNotes} title='Notas' placeholder='Notas' />
-            <TextField value={quantity} onChangeText={setQuantity} title='Cantidad' placeholder='Cantidad' type='quantity' keyboardType="numeric" />
-          </FormGroup>
+          <Card>
+            <FormGroup onPressSave={() => {}}>
+              <TextField value={zone} onChangeText={setZone} title='Zona' placeholder='Zona' />
+              <TextField value={area} onChangeText={setArea} title='Area' placeholder='Area' />
+              <TextField value={observations} onChangeText={setObservations} title='Observaciones' placeholder='Observaciones' />
+              <TextField value={note} onChangeText={setNotes} title='Notas' placeholder='Notas' />
+              <TextField value={quantity} onChangeText={setQuantity} title='Cantidad' placeholder='Cantidad' type='quantity' keyboardType="numeric" />
+            </FormGroup>
+          </Card>
         }
       />
     </View>

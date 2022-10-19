@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
-import Card from '../../atoms/Card/Card'
 import Button from '../../atoms/Button/Button'
 
-export default function FormGroup({ children, onPressSave }) {
+export default function FormGroup({ children, onPressSave, style }) {
   const arrayChildren = React.Children.toArray(children);
 
   return(
-    <Card>
+    <View style={style}>
       <View style={styles.container} >
         { React.Children.map(arrayChildren, (child) => {
           return (
@@ -20,7 +19,7 @@ export default function FormGroup({ children, onPressSave }) {
       <View style={styles.btn}>
         <Button children='Guardar' onPress={onPressSave} />
       </View>
-    </Card>
+    </View>
   );
 }
 
@@ -35,7 +34,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   child: {
-    // flex: '50%',
     width: '100%',
     marginBottom: 12,
   },
