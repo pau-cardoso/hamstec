@@ -1,55 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 
-const DATA = [
-  {
-    id: 1,
-    name: 'Laja 52',
-    client: 'Jose Luis Alvarado'
-  },
-  {
-    id: 2,
-    name: 'Laja 53',
-    client: 'Jose Luis Alvarado'
-  },
-  {
-    id: 3,
-    name: 'Laja 54',
-    client: 'Jose Luis Alvarado'
-  },
-];
-
-
-export default function Proyectos({style}) {
+export default function Proyectos({style, navigation}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
+  const [data, setData] = React.useState([]);
+
+  const url = "http://localhost:3000/project";
+
+  // TODO: check if useEffect is necessary
+  fetch(url)
+    .then((response) => response.json())
+    .then((json) => setData(json))
+    .catch((error) => console.error(error))
 
   const renderItem = ({ item }) => {
     // when no input, show all
-    if (searchPhrase === "") {
+    if ( searchPhrase === "" ||
+        item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())
+        || item.client.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())
+        ) {
       return(
         <View style={styles.item}>
-          <ListItem text={item.name} secondaryText={item.client} />
-        </View>
-      );
-    }
-    // filter of the name
-    if (item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())) {
-      return(
-        <View style={styles.item}>
-          <ListItem text={item.name} secondaryText={item.client} />
-        </View>
-      );
-    }
-
-    // filter of client
-    if (item.client.toUpperCase().includes(searchPhrase.toUpperCase().trim())) {
-      return(
-        <View style={styles.item}>
-          <ListItem text={item.name} secondaryText={item.client} />
+          <ListItem
+            text={item.name}
+            secondaryText={item.client.name}
+            onPress={() => navigation.navigate('AgregarProyecto', {itemId: item.id})} />
         </View>
       );
     }
@@ -66,9 +45,9 @@ export default function Proyectos({style}) {
         }
         body={
           <FlatList
-            data={DATA}
+            data={data}
             renderItem={renderItem}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.id_project}
           />
         }
       />
