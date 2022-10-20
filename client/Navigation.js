@@ -7,7 +7,9 @@ import AgregarProducto from './components/pages/AgregarProducto/AgregarProducto'
 import Proyectos from './components/pages/Proyectos/Proyectos';
 import AgregarDetallesProducto from './components/pages/AgregarDetallesProducto/AgregarDetallesProducto'
 import AgregarProyecto from './components/pages/AgregarProyecto/AgregarProyecto';
-
+import Versiones from './components/pages/Versiones/Versiones';
+import {HamstecTheme} from './Theme'
+import { neutral } from './components/config/colors';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -20,7 +22,7 @@ function ProjectStack() {
       }} >
       <ProjectStackNavigator.Screen name="Proyectos" component={Proyectos} />
       <ProjectStackNavigator.Screen name="AgregarProyecto" component={AgregarProyecto} options={{presentation: 'modal'}} />
-      {/* <ProjectStackNavigator.Screen name="Versiones" component={AgregarProducto} /> TODO */}
+      <ProjectStackNavigator.Screen name="Versiones" component={Versiones} />
       {/* <ProjectStackNavigator.Screen name="Presupuesto" component={AgregarProducto} /> TODO */}
       <ProjectStackNavigator.Screen name="AgregarProducto" component={AgregarProducto} />
       <ProjectStackNavigator.Screen name="AgregarDetalles" component={AgregarDetallesProducto} />
@@ -46,7 +48,7 @@ export function TabNavigation() {
 
 export default function Navigation() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={HamstecTheme}>
       <TabNavigation />
     </NavigationContainer>
   );

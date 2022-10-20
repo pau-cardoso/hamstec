@@ -28,7 +28,7 @@ export default function Proyectos({style, navigation}) {
           <ListItem
             text={item.name}
             secondaryText={item.client.name}
-            onPress={() => navigation.navigate('AgregarProyecto', {itemId: item.id})} />
+            onPress={() => navigation.navigate('Versiones', {id_project: item.id_project})} />
         </View>
       );
     }
