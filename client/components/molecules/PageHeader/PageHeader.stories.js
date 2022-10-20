@@ -10,9 +10,9 @@ storiesOf('PageHeader', module)
 	  <PageHeader title='Laja 52' />
 	))
 	.add('With back button', () => (
-		<PageHeader title='Agregar producto' hasBackButton={true} />
+		<PageHeader title='Agregar producto' onPressBackButton={() => {}} />
 	))
 	.add('With right button', () => (
-		<PageHeader title='Tareas' hasBackButton={true} hasRightButton={true} />
+		<PageHeader title='Tareas' onPressBackButton={() => {}} onRightButtonClick={() => {}} rightButtonIcon='add-circle' />
 	))
 ;

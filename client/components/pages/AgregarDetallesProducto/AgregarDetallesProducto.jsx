@@ -21,7 +21,7 @@ export default function AgregarDetallesProducto({style}) {
         header={
           <PageHeader
             title='Apagador Touch Classic 1 Gang' // TODO: Add clicked product info
-            hasBackButton />
+            onPressBackButton={() => {}} />
         }
         body={
           // TODO: Add onSave method

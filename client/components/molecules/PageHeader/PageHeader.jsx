@@ -5,13 +5,14 @@ import TextPairing from '../../atoms/TextPairing/TextPairing';
 import IconButton from '../../atoms/IconButton/IconButton'
 import { neutral, primary } from '../../config/colors';
 
-export default function PageHeader({ title, hasBackButton, hasRightButton, onRightButtonClick, style }) {
+export default function PageHeader({ title, onPressBackButton, onRightButtonClick, rightButtonIcon, style }) {
   return(
     <View style={[styles.container, style]}>
       <View style={styles.leftContainer}>
-        { hasBackButton &&
+        { onPressBackButton &&
         <View style={styles.backButtonContainer}>
           <IconButton
+            onPress={onPressBackButton}
             iconName='arrow-back'
             size={40}
             color={neutral.s900}
@@ -26,9 +27,9 @@ export default function PageHeader({ title, hasBackButton, hasRightButton, onRig
             size={32} />
         </View>
       </View>
-      { hasRightButton &&
+      { onRightButtonClick &&
           <IconButton
-            iconName='add-circle'
+            iconName={rightButtonIcon}
             size={40}
             color={primary.brand}
             onPress={onRightButtonClick} />
@@ -56,15 +57,10 @@ const styles = StyleSheet.create({
   },
 });
 
-PageHeader.defaultProps = {
-    hasBackButton: false,
-    hasRightButton: false,
-	onRightButtonClick: () => {},
-}
 
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  hasBackButton: PropTypes.bool,
-  hasRightButton: PropTypes.bool,
+  onPressBackButton: PropTypes.func,
   onRightButtonClick: PropTypes.func,
+  rightButtonIcon: PropTypes.string,
 };

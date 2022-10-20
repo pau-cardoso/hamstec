@@ -8,7 +8,7 @@ import Chip from '../../atoms/Chip/Chip'
 export default function ProductSearch({searchPhrase, setSearchPhrase, tabs, activeTab, setActiveTab, style}) {
   return(
     <View style={[styles.container, style]}>
-      <PageHeader style={styles.gap} title='Agregar producto' hasBackButton={true} />
+      <PageHeader style={styles.gap} title='Agregar producto' onPressBackButton={() => {}} />
       <SearchBar
         style={styles.gap}
         searchPhrase={searchPhrase}
