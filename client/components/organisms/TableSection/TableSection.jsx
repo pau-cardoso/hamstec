@@ -9,7 +9,7 @@ import Cell from '../../molecules/Table/Cell';
 import IconButton from '../../atoms/IconButton/IconButton';
 import { primary } from '../../config/colors';
 
-export default function TableSection({section, headers, data, onPressAdd, style}) {
+export default function TableSection({section, headers, data, onPressAdd, flexArray, style}) {
 
   return(
     <Card>
@@ -22,44 +22,20 @@ export default function TableSection({section, headers, data, onPressAdd, style}
 
           <Table>
             <Row>
-              <Cell value='Área' header />
-              <Cell value='Zona' header />
-              <Cell value='Observaciones' header flex={2} />
-              <Cell value='Cantidad' header />
-              <Cell value='Dispositivo' header flex={3} />
-              <Cell value='Costo U.' header />
-              <Cell value='Importe' header />
+              { headers.map((header, key) => (
+                <Cell key={key} value={header} header flex={flexArray[key]} />
+              ))}
             </Row>
-            <Row>
-              <Cell value='Entrada' />
-              <Cell value='Pasillo' />
-              <Cell value='Cerradura C1' flex={2} />
-              <Cell value='2' />
-              <Cell value='CERRADURA C1 WIFI' flex={3} />
-              <Cell value='$380.00' />
-              <Cell value='$760.00' />
-            </Row>
-            <Row>
-              <Cell value='Entrada' />
-              <Cell value='Pasillo' />
-              <Cell value='Cerradura C1' flex={2} />
-              <Cell value='2' />
-              <Cell value='CERRADURA C1 WIFI' flex={3} />
-              <Cell value='$380.00' />
-              <Cell value='$760.00' />
-            </Row>
-            <Row>
-              <Cell value='Entrada' />
-              <Cell value='Pasillo' />
-              <Cell value='Cerradura C1' flex={2} />
-              <Cell value='2' />
-              <Cell value='CERRADURA C1 WIFI' flex={3} />
-              <Cell value='$380.00' />
-              <Cell value='$760.00' />
-            </Row>
+            { data.map((row, key) => (
+              <Row key={key}>
+                {row.map((cell, key) => (
+                  <Cell key={key} value={cell} flex={flexArray[key]} />
+                ))}
+              </Row>
+            ))}
           </Table>
         </ScrollView>
-        <IconButton onPress={() => {}} iconName='add' type='full' color={primary.brand} size={24} />
+        <IconButton onPress={() => onPressAdd} iconName='add' type='full' color={primary.brand} size={24} />
       </View>
     </Card>
   );
