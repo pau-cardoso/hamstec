@@ -20,3 +20,9 @@ export async function getProject(request, response) {
   })
   return response.send(results)
 }
+
+export async function addProject(request, response) {
+  const project = await AppDataSource.getRepository(Project).create(request.body)
+  const results = await AppDataSource.getRepository(Project).save(project)
+  return response.send(results)
+}
