@@ -6,6 +6,8 @@ import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Table from '../../molecules/Table/Table';
 import Row from '../../molecules/Table/Row';
 import Cell from '../../molecules/Table/Cell';
+import IconButton from '../../atoms/IconButton/IconButton';
+import { primary } from '../../config/colors';
 
 export default function TableSection({section, headers, data, onPressAdd, style}) {
 
@@ -57,6 +59,7 @@ export default function TableSection({section, headers, data, onPressAdd, style}
             </Row>
           </Table>
         </ScrollView>
+        <IconButton onPress={() => {}} iconName='add' type='full' color={primary.brand} size={24} />
       </View>
     </Card>
   );

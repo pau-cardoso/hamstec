@@ -12,18 +12,20 @@ export default function IconButton({ onPress, iconName, size, color, type, style
       buttonStyle.push(styles.containedButton);
       break;
     case 'full':
-      console.log('here')
       buttonStyle.push(styles.fullButton);
     default:
       break;
   }
 
   return(
-    <View style={buttonStyle}>
-      <TouchableOpacity onPress={onPress}>
-        <Ionicons name={iconName} size={size} color={color} />
-      </TouchableOpacity>
-    </View>);
+    <TouchableOpacity onPress={onPress}>
+      <View style={buttonStyle}>
+        <View style={styles.icon}>
+          <Ionicons style={{textAlign: 'center'}} name={iconName} size={size} color={color} />
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -31,19 +33,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    aspectRatio: 1,
     flexDirection: 'row',
   },
   containedButton: {
     borderRadius: 50,
-    padding: 6,
+    padding: 8,
     backgroundColor: primary.s100,
   },
   fullButton: {
-    aspectRatio: 'auto',
     width: '100%',
-    borderRadius: 10,
+    borderRadius: 8,
+    paddingVertical: 4,
     backgroundColor: primary.s100,
+  },
+  icon: {
+    justifyContent: 'center',
+    aspectRatio: "1 / 1",
   }
 });
 
