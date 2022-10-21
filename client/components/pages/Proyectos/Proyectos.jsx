@@ -41,7 +41,9 @@ export default function Proyectos({style, navigation}) {
           <HeaderSearch
             title='Proyectos'
             searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase} />
+            setSearchPhrase={setSearchPhrase}
+            rightButtonIcon='add-circle'
+            onRightButtonClick={() => navigation.navigate('AgregarProyecto')} />
         }
         body={
           <FlatList

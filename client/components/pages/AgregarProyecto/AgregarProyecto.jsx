@@ -5,7 +5,7 @@ import PageHeader from '../../molecules/PageHeader/PageHeader';
 import FormGroup from '../../molecules/FormGroup/FormGroup';
 import TextField from '../../atoms/TextField/TextField';
 
-export default function AgregarProyecto({style}) {
+export default function AgregarProyecto({style, navigation}) {
   const [name, setName] = React.useState("");
   const [client, setClient] = React.useState(""); // TODO: How to add client
   const [address, setAddress] = React.useState("");
@@ -15,6 +15,8 @@ export default function AgregarProyecto({style}) {
         header={
           <PageHeader
             title='Agregar proyecto'
+            rightButtonIcon='ios-close'
+            onRightButtonClick={() => navigation.goBack()}
           />
         }
         body={
