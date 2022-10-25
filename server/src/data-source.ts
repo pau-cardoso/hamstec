@@ -1,3 +1,4 @@
+import { env } from "process"
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 import { Brand } from "./entity/Brand"
@@ -9,13 +10,15 @@ import { QuoteProduct } from "./entity/QuoteProduct"
 import { Section } from "./entity/Section"
 import { User } from "./entity/User"
 
+require('dotenv').config()
+
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "pau1feb",
-    database: "hamstec",
+    host: env.HOST,
+    port: +env.PORT,
+    username: env.USERNAME,
+    password: env.PASSWORD,
+    database: env.DB,
     synchronize: true,
     logging: false,
     entities: [User, Product, Client, Project, Brand, Section, Quote, QuoteProduct],
