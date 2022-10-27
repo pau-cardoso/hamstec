@@ -12,11 +12,12 @@ export default function Versiones({style, navigation, route}) {
 
   const url = "http://localhost:3000/quote/project/" + route.params.id_project;
 
-  // TODO: check if useEffect is necessary
-  fetch(url)
-    .then((response) => response.json())
-    .then((json) => setData(json))
-    .catch((error) => console.error(error))
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error))
+  }, []);
 
   const renderItem = ({ item }) => {
     // when no input, show all
