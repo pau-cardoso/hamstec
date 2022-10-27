@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
@@ -27,7 +27,7 @@ export default function Versiones({style, navigation, route}) {
         <View style={styles.item}>
           <ListItem
             text={item.version}
-            // onPress={() => navigation.navigate('Versiones', {itemId: item.id})}
+            onPress={() => navigation.navigate('Cotizacion', {itemId: item.id_quote})}
           />
         </View>
       );

@@ -8,8 +8,9 @@ import Proyectos from './components/pages/Proyectos/Proyectos';
 import AgregarDetallesProducto from './components/pages/AgregarDetallesProducto/AgregarDetallesProducto'
 import AgregarProyecto from './components/pages/AgregarProyecto/AgregarProyecto';
 import Versiones from './components/pages/Versiones/Versiones';
+import Cotizacion from './components/pages/Cotizacion/Cotizacion';
 import {HamstecTheme} from './Theme'
-import { neutral } from './components/config/colors';
+
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -23,7 +24,7 @@ function ProjectStack() {
       <ProjectStackNavigator.Screen name="Proyectos" component={Proyectos} />
       <ProjectStackNavigator.Screen name="AgregarProyecto" component={AgregarProyecto} options={{presentation: 'modal'}} />
       <ProjectStackNavigator.Screen name="Versiones" component={Versiones} />
-      {/* <ProjectStackNavigator.Screen name="Presupuesto" component={AgregarProducto} /> TODO */}
+      <ProjectStackNavigator.Screen name="Cotizacion" component={Cotizacion} />
       <ProjectStackNavigator.Screen name="AgregarProducto" component={AgregarProducto} />
       <ProjectStackNavigator.Screen name="AgregarDetalles" component={AgregarDetallesProducto} />
     </ProjectStackNavigator.Navigator>

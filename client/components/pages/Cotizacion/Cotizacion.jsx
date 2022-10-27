@@ -11,7 +11,7 @@ const FLEX = [1, 1, 2, 1, 3, 1, 1];
 export default function Cotizacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
 
-  const url = "http://localhost:3000/quote-product/quote/1";
+  const url = "http://localhost:3000/quote-product/quote/" + route.params.itemId;
 
   useEffect(() => {
     fetch(url)
