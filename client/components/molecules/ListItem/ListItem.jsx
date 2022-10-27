@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 });
 
 ListItem.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   secondaryText: PropTypes.string,
   image: PropTypes.string,
   onPress: PropTypes.func,

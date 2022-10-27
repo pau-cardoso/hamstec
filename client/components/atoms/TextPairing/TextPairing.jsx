@@ -106,7 +106,7 @@ export default function TextPairing({text, secondaryText, type, size, color, sty
 }
 
 TextPairing.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   secondaryText: PropTypes.string,
 	type: PropTypes.oneOf(['light', 'regular', 'medium', 'semibold']),
 	size: PropTypes.oneOf([13, 14, 16, 19, 24, 32, 38]),
