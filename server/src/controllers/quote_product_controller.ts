@@ -22,6 +22,7 @@ export async function getProductsByQuote(request, response) {
     ],
     where: {
       id_quote: request.params.id_quote,
+      phase: "COTIZACION",
     },
     order: {
       id_section: {
@@ -32,7 +33,7 @@ export async function getProductsByQuote(request, response) {
 
   const productResult = {};
   let currentSection = -1;
-  products.forEach((product, i) => {
+  products.forEach(product => {
     if (product.id_section.id_section !== currentSection) {
       currentSection = product.id_section.id_section;
       productResult[currentSection] = []
@@ -40,5 +41,5 @@ export async function getProductsByQuote(request, response) {
     productResult[currentSection].push(product);
   });
 
-  return response.send(productResult)
+  return response.send(productResult);
 }

@@ -15,10 +15,12 @@ function loadStories() {
   require("../components/molecules/ListItem/ListItem.stories");
   require("../components/molecules/PageHeader/PageHeader.stories");
   require("../components/molecules/SearchBar/SearchBar.stories");
+  require("../components/organisms/HeaderSearch/HeaderSearch.stories");
   require("../components/organisms/ProductSearch/ProductSearch.stories");
   require("../components/organisms/TableSection/TableSection.stories");
   require("../components/pages/AgregarDetallesProducto/AgregarDetallesProducto.stories");
   require("../components/pages/AgregarProducto/AgregarProducto.stories");
+  require("../components/pages/Cotizacion/Cotizacion.stories");
 }
 
 const stories = [
@@ -33,10 +35,12 @@ const stories = [
   "../components/molecules/ListItem/ListItem.stories",
   "../components/molecules/PageHeader/PageHeader.stories",
   "../components/molecules/SearchBar/SearchBar.stories",
+  "../components/organisms/HeaderSearch/HeaderSearch.stories",
   "../components/organisms/ProductSearch/ProductSearch.stories",
   "../components/organisms/TableSection/TableSection.stories",
   "../components/pages/AgregarDetallesProducto/AgregarDetallesProducto.stories",
   "../components/pages/AgregarProducto/AgregarProducto.stories",
+  "../components/pages/Cotizacion/Cotizacion.stories",
 ];
 
 module.exports = {
