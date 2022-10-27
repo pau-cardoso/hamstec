@@ -37,10 +37,14 @@ export default function Cotizacion({style, navigation, route}) {
       tableData.push(row);
     });
 
-
     return(
       <View style={styles.item}>
-        <TableSection section={item[0].id_section.name} headers={HEADERS} flexArray={FLEX} data={tableData} />
+        <TableSection
+          section={item[0].id_section.name}
+          headers={HEADERS}
+          flexArray={FLEX}
+          data={tableData}
+          onPressAdd={() =>{ navigation.navigate('AgregarProducto')}} />
       </View>
     );
   };
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   item: {
-    marginBottom: 12,
+    marginBottom: 24,
   }
 });
 

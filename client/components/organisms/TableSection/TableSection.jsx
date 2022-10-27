@@ -9,7 +9,7 @@ import Cell from '../../molecules/Table/Cell';
 import IconButton from '../../atoms/IconButton/IconButton';
 import { primary } from '../../config/colors';
 
-export default function TableSection({section, headers, data, onPressAdd, flexArray, style}) {
+export default function TableSection({section, headers, data, onPressAdd, flexArray, style, navigation}) {
 
   return(
     <Card>
@@ -35,7 +35,7 @@ export default function TableSection({section, headers, data, onPressAdd, flexAr
             ))}
           </Table>
         </ScrollView>
-        <IconButton onPress={() => onPressAdd} iconName='add' type='full' color={primary.brand} size={24} />
+        <IconButton onPress={onPressAdd} iconName='add' type='full' color={primary.brand} size={24} />
       </View>
     </Card>
   );
