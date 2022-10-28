@@ -36,7 +36,7 @@ export default function AgregarProducto({route, navigation, style}) {
             secondaryText={item.code}
             image={item.image}
             onPress={() => navigation.navigate("AgregarDetalles",
-            { idProduct: item.id_product,
+            { idProduct: item.id,
               idQuote: idQuote,
               idSection: idSection }
             )} />
@@ -60,7 +60,7 @@ export default function AgregarProducto({route, navigation, style}) {
           <FlatList
             data={data}
             renderItem={renderItem}
-            keyExtractor={item => item.id_product}
+            keyExtractor={item => item.id}
           />
         }
       />

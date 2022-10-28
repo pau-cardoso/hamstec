@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import { Brand } from "./Brand"
 
 @Entity()
 export class Product {
 
     @PrimaryGeneratedColumn()
-    id_product: number
+    id: number
 
     @Column()
     name: string
@@ -29,5 +30,8 @@ export class Product {
 
     @Column("money")
     public_price: number
+
+    @ManyToOne(() => Brand)
+    brand: Brand
 
 }

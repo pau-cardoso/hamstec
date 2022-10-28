@@ -8,7 +8,7 @@ export async function getAllProducts(request, response) {
 
 export async function getProduct(request, response) {
   const results = await AppDataSource.getRepository(Product).findOneBy({
-    id_product: request.params.id,
+    id: request.params.id,
   })
   return response.send(results)
 }

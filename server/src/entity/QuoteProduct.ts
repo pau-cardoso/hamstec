@@ -14,7 +14,7 @@ export class QuoteProduct {
   @PrimaryGeneratedColumn()
   id_quote_product: number
 
-  @ManyToOne(() => Product, (product) => product.id_product)
+  @ManyToOne(() => Product, (product) => product.id)
   id_product: Product
 
   @ManyToOne(() => Quote, (quote) => quote.id_quote)
