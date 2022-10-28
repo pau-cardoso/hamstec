@@ -8,7 +8,7 @@ import FormGroup from '../../molecules/FormGroup/FormGroup';
 import TextField from '../../atoms/TextField/TextField';
 import Card from '../../atoms/Card/Card';
 
-export default function AgregarDetallesProducto({style}) {
+export default function AgregarDetallesProducto({style, navigation, route}) {
   const [zone, setZone] = React.useState("");
   const [area, setArea] = React.useState("");
   const [observations, setObservations] = React.useState("");
@@ -21,7 +21,7 @@ export default function AgregarDetallesProducto({style}) {
         header={
           <PageHeader
             title='Apagador Touch Classic 1 Gang' // TODO: Add clicked product info
-            onPressBackButton={() => {}} />
+            onPressBackButton={() => {navigation.goBack()}} />
         }
         body={
           // TODO: Add onSave method
