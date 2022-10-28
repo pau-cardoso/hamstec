@@ -41,7 +41,6 @@ export function TabNavigation() {
         tabBarStyle: [styles.tabBarStyle],
         headerShown: false,
       }} >
-      <Tab.Screen name="Home" component={AgregarProducto} />
       <Tab.Screen name="Proyectos" component={ProjectStack} />
     </Tab.Navigator>
   );

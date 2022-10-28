@@ -11,7 +11,8 @@ const FLEX = [1, 1, 2, 1, 3, 1, 1];
 export default function Cotizacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
 
-  const url = "http://localhost:3000/quote-product/quote/" + route.params.itemId;
+  const idQuote = route.params.itemId;
+  const url = "http://localhost:3000/quote-product/quote/" + idQuote;
 
   useEffect(() => {
     fetch(url)
@@ -44,7 +45,8 @@ export default function Cotizacion({style, navigation, route}) {
           headers={HEADERS}
           flexArray={FLEX}
           data={tableData}
-          onPressAdd={() =>{ navigation.navigate('AgregarProducto')}} />
+          onPressAdd={() =>
+            navigation.navigate('AgregarProducto', { idSection: item[0].id_section.id_section, idQuote: idQuote, })} />
       </View>
     );
   };

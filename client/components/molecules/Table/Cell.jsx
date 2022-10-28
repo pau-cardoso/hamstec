@@ -25,7 +25,7 @@ Cell.defaultProps = {
 };
 
 Cell.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   header: PropTypes.bool,
   flex: PropTypes.number,
 };
