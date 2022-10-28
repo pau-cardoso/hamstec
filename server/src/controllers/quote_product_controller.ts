@@ -43,3 +43,9 @@ export async function getProductsByQuote(request, response) {
 
   return response.send(productResult);
 }
+
+export async function addQuoteProduct(request, response) {
+  const quoteProduct = await AppDataSource.getRepository(QuoteProduct).create(request.body)
+  const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct)
+  return response.send(results)
+}
