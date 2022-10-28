@@ -10,6 +10,12 @@ export class Product {
     name: string
 
     @Column({nullable: true})
+    code: string
+
+    @Column({nullable: true})
+    image: string
+
+    @Column({nullable: true, default: "https://reactnative.dev/img/tiny_logo.png"})
     description: string
 
     @Column("money")

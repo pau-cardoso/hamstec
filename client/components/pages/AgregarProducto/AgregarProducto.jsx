@@ -1,39 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
 import ProductSearch from '../../organisms/ProductSearch/ProductSearch';
 import ListItem from '../../molecules/ListItem/ListItem';
 
-const DATA = [
-  {
-    id: 1,
-    name: 'Switch On/Off 1 R Serie Classic Glass',
-    code: 'T30W1Z',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    brand: 'ORVIBO'
-  },
-  {
-    id: 2,
-    name: 'Controlador Multifunción',
-    code: 'CM10ZW',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    brand: 'ORVIBO'
-  },
-  {
-    id: 3,
-    name: 'Controlador 2 regresos hasta 100 equipos',
-    code: 'V30X',
-    image: 'https://reactnative.dev/img/tiny_logo.png',
-    brand: 'Amazon'
-  },
-];
-
-
-export default function AgregarProducto({navigation, style}) {
+export default function AgregarProducto({route, navigation, style}) {
   const TABS = ['Todos', 'Broadlink', 'ORVIBO', 'Amazon']
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("Todos");
+  const [data, setData] = React.useState([]);
+
+  const url = "http://localhost:3000/product/";
+  const {idQuote, idSection} = route.params;
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        setData(json)
+      })
+      .catch((error) => console.error(error))
+  }, []);
 
   const renderItem = ({ item }) => {
     const isBrandActive = item.brand === activeTab || activeTab === 'Todos';
@@ -47,7 +35,11 @@ export default function AgregarProducto({navigation, style}) {
             text={item.name}
             secondaryText={item.code}
             image={item.image}
-            onPress={() => navigation.navigate("AgregarDetalles", {id_product: item.id_product})} />
+            onPress={() => navigation.navigate("AgregarDetalles",
+            { idProduct: item.id_product,
+              idQuote: idQuote,
+              idSection: idSection }
+            )} />
         </View>
       );
     }
@@ -66,9 +58,9 @@ export default function AgregarProducto({navigation, style}) {
         }
         body={
           <FlatList
-            data={DATA}
+            data={data}
             renderItem={renderItem}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.id_product}
           />
         }
       />
