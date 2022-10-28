@@ -15,6 +15,33 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
   const [note, setNotes] = React.useState("");
   const [quantity, setQuantity] = React.useState("1");
 
+  const {idQuote, idSection, idProduct} = route.params;
+
+  function addProductQuote() {
+    fetch('http://localhost:3000/quote-product', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id_product: idProduct,
+        id_quote: idQuote,
+        id_section: idSection,
+        quantity: quantity,
+        zone: zone,
+        observations: observations,
+        phase: "COTIZACION",
+      })
+    }).then(
+      // console.log('Success!!')
+    ).catch((error) => {
+      console.error(error);
+    }).finally(
+      navigation.pop(2)
+    )
+  }
+
   return(
     <View style={[styles.container, style]}>
       <PageTemplate
@@ -24,9 +51,8 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
             onPressBackButton={() => {navigation.goBack()}} />
         }
         body={
-          // TODO: Add onSave method
           <Card>
-            <FormGroup onPressSave={() => {}}>
+            <FormGroup onPressSave={() => {addProductQuote()}}>
               <TextField value={zone} onChangeText={setZone} title='Zona' placeholder='Zona' />
               <TextField value={area} onChangeText={setArea} title='Area' placeholder='Area' />
               <TextField value={observations} onChangeText={setObservations} title='Observaciones' placeholder='Observaciones' />
