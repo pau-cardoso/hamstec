@@ -30,37 +30,24 @@ const DATA = [
 ];
 
 
-export default function AgregarProducto({style}) {
+export default function AgregarProducto({navigation, style}) {
   const TABS = ['Todos', 'Broadlink', 'ORVIBO', 'Amazon']
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("Todos");
 
   const renderItem = ({ item }) => {
-    // when no input, show all
-    if (searchPhrase === "" && activeTab === 'Todos') {
-      return(
-        <View style={styles.item}>
-          <ListItem text={item.name} secondaryText={item.code} image={item.image} />
-        </View>
-      );
-    }
-
     const isBrandActive = item.brand === activeTab || activeTab === 'Todos';
 
-    // filter of the name
-    if (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())) {
+    if ((searchPhrase === "" && activeTab === 'Todos') ||
+        (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())) ||
+        (isBrandActive && item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim())) ) {
       return(
         <View style={styles.item}>
-          <ListItem text={item.name} secondaryText={item.code} image={item.image} />
-        </View>
-      );
-    }
-
-    // filter of the description
-    if (isBrandActive && item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim())) {
-      return(
-        <View style={styles.item}>
-          <ListItem text={item.name} secondaryText={item.code} image={item.image} />
+          <ListItem
+            text={item.name}
+            secondaryText={item.code}
+            image={item.image}
+            onPress={() => navigation.navigate("AgregarDetalles", {id_product: item.id_product})} />
         </View>
       );
     }
