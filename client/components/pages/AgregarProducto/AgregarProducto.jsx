@@ -24,7 +24,7 @@ export default function AgregarProducto({route, navigation, style}) {
   }, []);
 
   const renderItem = ({ item }) => {
-    const isBrandActive = item.brand === activeTab || activeTab === 'Todos';
+    const isBrandActive = item.brand.name === activeTab || activeTab === 'Todos';
 
     if ((searchPhrase === "" && activeTab === 'Todos') ||
         (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())) ||

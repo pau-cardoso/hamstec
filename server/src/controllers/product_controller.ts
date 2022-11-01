@@ -2,7 +2,11 @@ import { AppDataSource } from "../data-source"
 import { Product } from "../entity/Product"
 
 export async function getAllProducts(request, response) {
-  const users = await AppDataSource.getRepository(Product).find()
+  const users = await AppDataSource.getRepository(Product).find({
+    relations: {
+      brand: true,
+    }
+  })
   response.json(users)
 };
 
