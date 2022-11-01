@@ -14,14 +14,19 @@ export async function getQuote(request, response) {
 }
 
 export async function getQuoteByProject(request, response) {
-  const results = await AppDataSource.getRepository(Quote)
-    .createQueryBuilder("quote")
-    .innerJoinAndSelect(
-      "quote.project",
-      "project",
-      "project.id = :project_id",
-      {project_id: request.params.project_id})
-    .select("quote")
-    .getMany()
+  const results = await AppDataSource.getRepository(Quote).find({
+    relations: {
+      project: true,
+    },
+    where: {
+      project: {
+        id: request.params.project_id,
+      },
+    },
+    order: {
+      version: "DESC"
+    }
+  });
+
   return response.send(results)
 }
