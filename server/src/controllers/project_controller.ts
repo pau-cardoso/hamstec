@@ -6,9 +6,9 @@ export async function getAllProjects(request, response) {
   const projects = await AppDataSource.getRepository(Project)
     .createQueryBuilder("project")
     .innerJoinAndSelect("project.client", "client")
-    .select("project.id_project")
+    .select("project.id")
     .addSelect("project.name")
-    .addSelect("client.id_client")
+    .addSelect("client.id")
     .addSelect("client.name")
     .getMany()
   response.json(projects)
@@ -16,7 +16,7 @@ export async function getAllProjects(request, response) {
 
 export async function getProject(request, response) {
   const results = await AppDataSource.getRepository(Project).findOneBy({
-    id_project: request.params.id,
+    id: request.params.id,
   })
   return response.send(results)
 }

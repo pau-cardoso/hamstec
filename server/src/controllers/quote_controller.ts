@@ -8,7 +8,7 @@ export async function getAllQuotes(request, response) {
 
 export async function getQuote(request, response) {
   const results = await AppDataSource.getRepository(Quote).findOneBy({
-    id_quote: request.params.id,
+    id: request.params.id,
   })
   return response.send(results)
 }
@@ -19,7 +19,7 @@ export async function getQuoteByProject(request, response) {
     .innerJoinAndSelect(
       "quote.project",
       "project",
-      "project.id_project = :project_id",
+      "project.id = :project_id",
       {project_id: request.params.project_id})
     .select("quote")
     .getMany()

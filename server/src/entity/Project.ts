@@ -5,7 +5,7 @@ import { Client } from "./Client"
 export class Project {
 
     @PrimaryGeneratedColumn()
-    id_project: number
+    id: number
 
     @Column()
     name: string

@@ -32,21 +32,21 @@ export default function Cotizacion({style, navigation, route}) {
       row.push(element.zone);
       row.push(element.observations);
       row.push(element.quantity);
-      row.push(element.id_product.name);
-      row.push(element.id_product.public_price);
-      row.push(Number(element.id_product.public_price.replace(/[^0-9.-]+/g,"")) * element.quantity);
+      row.push(element.product.name);
+      row.push(element.product.public_price);
+      row.push(Number(element.product.public_price.replace(/[^0-9.-]+/g,"")) * element.quantity);
       tableData.push(row);
     });
 
     return(
       <View style={styles.item}>
         <TableSection
-          section={item[0].id_section.name}
+          section={item[0].section.name}
           headers={HEADERS}
           flexArray={FLEX}
           data={tableData}
           onPressAdd={() =>
-            navigation.navigate('AgregarProducto', { idSection: item[0].id_section.id_section, idQuote: idQuote, })} />
+            navigation.navigate('AgregarProducto', { idSection: item[0].section.id, idQuote: idQuote, })} />
       </View>
     );
   };

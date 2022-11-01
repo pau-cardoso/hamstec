@@ -29,7 +29,7 @@ export default function Proyectos({style, navigation}) {
           <ListItem
             text={item.name}
             secondaryText={item.client.name}
-            onPress={() => navigation.navigate('Versiones', {id_project: item.id_project})} />
+            onPress={() => navigation.navigate('Versiones', {id_project: item.id})} />
         </View>
       );
     }
@@ -50,7 +50,7 @@ export default function Proyectos({style, navigation}) {
           <FlatList
             data={data}
             renderItem={renderItem}
-            keyExtractor={item => item.id_project}
+            keyExtractor={item => item.id}
           />
         }
       />

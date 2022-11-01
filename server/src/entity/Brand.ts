@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 export class Brand {
 
     @PrimaryGeneratedColumn()
-    id_brand: number
+    id: number
 
     @Column()
     name: string

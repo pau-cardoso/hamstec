@@ -8,7 +8,7 @@ export async function getAllQuoteProducts(request, response) {
 
 export async function getQuoteProduct(request, response) {
   const results = await AppDataSource.getRepository(QuoteProduct).findOneBy({
-    id_quote_product: request.params.id,
+    id: request.params.id,
   })
   return response.send(results)
 }
@@ -22,13 +22,13 @@ export async function getProductsByQuote(request, response) {
     },
     where: {
       quote: {
-        id_quote: request.params.id_quote,
+        id: request.params.id_quote,
       },
       phase: "COTIZACION",
     },
     order: {
       section: {
-        id_section: "ASC"
+        id: "ASC"
       }
     }
   })
@@ -36,9 +36,8 @@ export async function getProductsByQuote(request, response) {
   const productResult = {};
   let currentSection = -1;
   products.forEach(product => {
-    console.log(product)
-    if (product.section.id_section !== currentSection) {
-      currentSection = product.section.id_section;
+    if (product.section.id !== currentSection) {
+      currentSection = product.section.id;
       productResult[currentSection] = []
     }
     productResult[currentSection].push(product);

@@ -27,7 +27,7 @@ export default function Versiones({style, navigation, route}) {
         <View style={styles.item}>
           <ListItem
             text={item.version}
-            onPress={() => navigation.navigate('Cotizacion', {itemId: item.id_quote})}
+            onPress={() => navigation.navigate('Cotizacion', {itemId: item.id})}
           />
         </View>
       );
@@ -48,7 +48,7 @@ export default function Versiones({style, navigation, route}) {
           <FlatList
             data={data}
             renderItem={renderItem}
-            keyExtractor={item => item.id_quote}
+            keyExtractor={item => item.id}
           />
         }
       />

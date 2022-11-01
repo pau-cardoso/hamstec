@@ -12,15 +12,15 @@ import { Section } from "./Section"
 export class QuoteProduct {
 
   @PrimaryGeneratedColumn()
-  id_quote_product: number
+  id: number
 
   @ManyToOne(() => Product, (product) => product.id)
   product: Product
 
-  @ManyToOne(() => Quote, (quote) => quote.id_quote)
+  @ManyToOne(() => Quote, (quote) => quote.id)
   quote: Quote
 
-  @ManyToOne(() => Section, (section) => section.id_section)
+  @ManyToOne(() => Section, (section) => section.id)
   section: Section
 
   @Column({default: 1})

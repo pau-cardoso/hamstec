@@ -9,7 +9,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 export class Section {
 
     @PrimaryGeneratedColumn()
-    id_section: number
+    id: number
 
     @Column()
     name: string

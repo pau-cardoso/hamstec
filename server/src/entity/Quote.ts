@@ -9,7 +9,7 @@ import { Project } from "./Project"
 export class Quote {
 
     @PrimaryGeneratedColumn()
-    id_quote: number
+    id: number
 
     @Column()
     version: number
