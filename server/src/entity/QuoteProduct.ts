@@ -15,13 +15,13 @@ export class QuoteProduct {
   id_quote_product: number
 
   @ManyToOne(() => Product, (product) => product.id)
-  id_product: Product
+  product: Product
 
   @ManyToOne(() => Quote, (quote) => quote.id_quote)
-  id_quote: Quote
+  quote: Quote
 
   @ManyToOne(() => Section, (section) => section.id_section)
-  id_section: Section
+  section: Section
 
   @Column({default: 1})
   quantity: number

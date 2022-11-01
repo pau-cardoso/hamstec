@@ -15,17 +15,19 @@ export async function getQuoteProduct(request, response) {
 
 export async function getProductsByQuote(request, response) {
   const products = await AppDataSource.getRepository(QuoteProduct).find({
-    relations: [
-      "id_quote",
-      "id_section",
-      "id_product",
-    ],
+    relations: {
+      quote: true,
+      section: true,
+      product: true,
+    },
     where: {
-      id_quote: request.params.id_quote,
+      quote: {
+        id_quote: request.params.id_quote,
+      },
       phase: "COTIZACION",
     },
     order: {
-      id_section: {
+      section: {
         id_section: "ASC"
       }
     }
@@ -34,8 +36,9 @@ export async function getProductsByQuote(request, response) {
   const productResult = {};
   let currentSection = -1;
   products.forEach(product => {
-    if (product.id_section.id_section !== currentSection) {
-      currentSection = product.id_section.id_section;
+    console.log(product)
+    if (product.section.id_section !== currentSection) {
+      currentSection = product.section.id_section;
       productResult[currentSection] = []
     }
     productResult[currentSection].push(product);
