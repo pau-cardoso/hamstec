@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: neutral.s050,
     paddingHorizontal: 12,
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
   }
 });
 

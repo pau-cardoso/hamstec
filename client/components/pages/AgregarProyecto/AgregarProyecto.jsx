@@ -8,7 +8,7 @@ import SearchableSelect from '../../molecules/SearchableSelect/SearchableSelect'
 
 export default function AgregarProyecto({style, navigation}) {
   const [name, setName] = React.useState("");
-  const [client, setClient] = React.useState({id:0, name: ""}); // TODO: How to add client
+  const [client, setClient] = React.useState({id:0, name: ""});
   const [address, setAddress] = React.useState("");
   const [clientData, setClientData] = React.useState();
 
