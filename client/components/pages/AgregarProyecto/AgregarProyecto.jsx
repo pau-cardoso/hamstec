@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ModalTemplate from '../../templates/ModalTemplate';
 import PageHeader from '../../molecules/PageHeader/PageHeader';
 import FormGroup from '../../molecules/FormGroup/FormGroup';
 import TextField from '../../atoms/TextField/TextField';
+import SearchableSelect from '../../molecules/SearchableSelect/SearchableSelect';
 
 export default function AgregarProyecto({style, navigation}) {
   const [name, setName] = React.useState("");
-  const [client, setClient] = React.useState(""); // TODO: How to add client
+  const [client, setClient] = React.useState({id:0, name: ""}); // TODO: How to add client
   const [address, setAddress] = React.useState("");
+  const [clientData, setClientData] = React.useState();
 
-  // TODO: Change client selection and error and success messages
+  useEffect(() => {
+    fetch('http://localhost:3000/client')
+      .then((response) => response.json())
+      .then((json) => setClientData(json))
+      .catch((error) => console.error(error))
+  }, []);
+
+  // TODO: Add error and success messages
   function addProject() {
     fetch('http://localhost:3000/project', {
       method: 'POST',
@@ -21,7 +30,7 @@ export default function AgregarProyecto({style, navigation}) {
       body: JSON.stringify({
         name: name,
         address: address,
-        client: client,
+        client: client.id,
       })
     }).then(
       // console.log('Success!!')
@@ -44,10 +53,15 @@ export default function AgregarProyecto({style, navigation}) {
           />
         }
         body={
-          // TODO: Add onSave method
           <FormGroup onPressSave={() => addProject()} style={{padding: 0}} >
             <TextField value={name} onChangeText={setName} title='Nombre' placeholder='Nombre' />
-            <TextField value={client} onChangeText={setClient} title='Cliente' placeholder='Cliente' />
+            <SearchableSelect
+              title='Cliente'
+              placeholder='Cliente'
+              options={clientData}
+              text={client.name}
+              setText={setClient}
+            />
             <TextField value={address} onChangeText={setAddress} title='Dirección' placeholder='Dirección' multiline />
           </FormGroup>
         }
