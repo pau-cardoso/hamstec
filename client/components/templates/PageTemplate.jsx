@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     width: '100%',
-    height: '100%',
     backgroundColor: neutral.s050,
+    height: '100%',
   },
   header: {
     backgroundColor: neutral.white,
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   body: {
+    flex: 1,
     paddingHorizontal: 32,
     paddingTop: 22,
   }
