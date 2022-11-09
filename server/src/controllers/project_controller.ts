@@ -15,8 +15,13 @@ export async function getAllProjects(request, response) {
 };
 
 export async function getProject(request, response) {
-  const results = await AppDataSource.getRepository(Project).findOneBy({
-    id: request.params.id,
+  const results = await AppDataSource.getRepository(Project).findOne({
+    relations: {
+      client: true,
+    },
+    where: {
+      id: request.params.id,
+    },
   })
   return response.send(results)
 }
