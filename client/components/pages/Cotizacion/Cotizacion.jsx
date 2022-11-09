@@ -4,18 +4,23 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
 import PageHeader from '../../molecules/PageHeader/PageHeader';
 import TableSection from '../../organisms/TableSection/TableSection';
+import Button from '../../atoms/Button/Button';
 import Card from '../../atoms/Card/Card';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
+import getQuotePDF from '../../../assets/Cotizacion/CotizacionHtml';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const FLEX = [1, 1, 2, 1, 3, 1, 1];
 
 export default function Cotizacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
+  const [projectData, setProjectData] = React.useState();
   const [quoteSummary, setQuoteSummary] = React.useState({total: "", anticipo: "", instalacion: "", cost: "", installation: "", utility: ""});
 
-  const idQuote = route.params.itemId;
-  const url = "http://localhost:3000/quote-product/quote/" + idQuote;
+  const {quoteId, projectId} = route.params;
+  const url = "http://localhost:3000/quote-product/quote/" + quoteId;
 
   useEffect(() => {
     fetch(url)
@@ -25,7 +30,22 @@ export default function Cotizacion({style, navigation, route}) {
         setQuoteSummary(json[1]);
       })
       .catch((error) => console.error(error))
+    fetch("http://localhost:3000/project/" + projectId)
+      .then((response) => response.json())
+      .then((json) => {
+        setProjectData(json);
+      })
+      .catch((error) => console.error(error))
     }, []);
+
+  let generatePDF = async () => {
+    const html = getQuotePDF(data, quoteSummary, projectData);
+    const file = await Print.printToFileAsync({
+      html: html,
+    });
+
+    await shareAsync(file.uri);
+  }
 
   const renderItem = ({ item }) => {
     const tableData = [];
@@ -50,7 +70,7 @@ export default function Cotizacion({style, navigation, route}) {
           flexArray={FLEX}
           data={tableData}
           onPressAdd={() =>
-            navigation.navigate('AgregarProducto', { idSection: item[0].section.id, idQuote: idQuote, })} />
+            navigation.navigate('AgregarProducto', { idSection: item[0].section.id, idQuote: quoteId, })} />
       </View>
     );
   };
@@ -70,39 +90,46 @@ export default function Cotizacion({style, navigation, route}) {
             data={data}
             renderItem={renderItem}
             ListFooterComponent={
-              <View style={styles.cards}>
-                <Card style={styles.card}>
-                  <TextPairing text='Resumen de inversión' type='medium' size={24} />
-                  <View style={styles.textRow}>
-                    <TextPairing text='Total' type='medium' size={16} />
-                    <TextPairing text={quoteSummary.total} size={16} />
-                  </View>
-                  <View style={styles.textRow}>
-                    <TextPairing text='Anticipo' type='medium' size={16} />
-                    <TextPairing text={quoteSummary.anticipo} size={16} />
-                  </View>
-                  <View style={styles.textRow}>
-                    <TextPairing text='Antes de instalacion' type='medium' size={16} />
-                    <TextPairing text={quoteSummary.instalacion} size={16} />
-                  </View>
-                </Card>
+              <>
+                <View style={styles.cards}>
+                  <Card style={styles.card}>
+                    <TextPairing text='Resumen de inversión' type='medium' size={24} />
+                    <View style={styles.textRow}>
+                      <TextPairing text='Total' type='medium' size={16} />
+                      <TextPairing text={quoteSummary.total} size={16} />
+                    </View>
+                    <View style={styles.textRow}>
+                      <TextPairing text='Anticipo' type='medium' size={16} />
+                      <TextPairing text={quoteSummary.anticipo} size={16} />
+                    </View>
+                    <View style={styles.textRow}>
+                      <TextPairing text='Antes de instalacion' type='medium' size={16} />
+                      <TextPairing text={quoteSummary.instalacion} size={16} />
+                    </View>
+                  </Card>
 
-                <Card style={styles.card}>
-                  <TextPairing text='Información de utilidad' type='medium' size={24} />
-                  <View style={styles.textRow}>
-                    <TextPairing text='Costo' type='medium' size={16} />
-                    <TextPairing text={quoteSummary.cost} size={16} />
-                  </View>
-                  <View style={styles.textRow}>
-                    <TextPairing text='Instalacion' type='medium' size={16} />
-                    <TextPairing text={quoteSummary.installation} size={16} />
-                  </View>
-                  <View style={styles.textRow}>
-                    <TextPairing text='Utilidad' type='medium' size={16} />
-                    <TextPairing text={quoteSummary.utility} size={16} />
-                  </View>
-                </Card>
-              </View>
+                  <Card style={styles.card}>
+                    <TextPairing text='Información de utilidad' type='medium' size={24} />
+                    <View style={styles.textRow}>
+                      <TextPairing text='Costo' type='medium' size={16} />
+                      <TextPairing text={quoteSummary.cost} size={16} />
+                    </View>
+                    <View style={styles.textRow}>
+                      <TextPairing text='Instalacion' type='medium' size={16} />
+                      <TextPairing text={quoteSummary.installation} size={16} />
+                    </View>
+                    <View style={styles.textRow}>
+                      <TextPairing text='Utilidad' type='medium' size={16} />
+                      <TextPairing text={quoteSummary.utility} size={16} />
+                    </View>
+                  </Card>
+                </View>
+                <View>
+                <Button onPress={() => {generatePDF()}}>
+                  Generar PDF
+                </Button>
+                </View>
+              </>
             }
           />
         }
