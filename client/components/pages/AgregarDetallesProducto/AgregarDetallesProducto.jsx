@@ -25,9 +25,9 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id_product: idProduct,
-        id_quote: idQuote,
-        id_section: idSection,
+        product: idProduct,
+        quote: idQuote,
+        section: idSection,
         quantity: quantity,
         zone: zone,
         observations: observations,
