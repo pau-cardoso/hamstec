@@ -85,7 +85,7 @@ export default function Cotizacion({style, navigation, route}) {
             title='Proyecto'
             rightButtonIcon='add-circle'
             onPressBackButton={() => navigation.goBack()}
-            onRightButtonClick={() => {}} />
+            onRightButtonClick={() => navigation.navigate('AgregarSeccion')} />
         }
         body={
           <FlatList

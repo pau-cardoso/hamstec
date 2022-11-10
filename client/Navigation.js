@@ -7,6 +7,7 @@ import AgregarProducto from './components/pages/AgregarProducto/AgregarProducto'
 import Proyectos from './components/pages/Proyectos/Proyectos';
 import AgregarDetallesProducto from './components/pages/AgregarDetallesProducto/AgregarDetallesProducto'
 import AgregarProyecto from './components/pages/AgregarProyecto/AgregarProyecto';
+import AgregarSeccion from './components/pages/AgregarSeccion';
 import Versiones from './components/pages/Versiones/Versiones';
 import Cotizacion from './components/pages/Cotizacion/Cotizacion';
 import {HamstecTheme} from './Theme'
@@ -25,6 +26,7 @@ function ProjectStack() {
       <ProjectStackNavigator.Screen name="AgregarProyecto" component={AgregarProyecto} options={{presentation: 'modal'}} />
       <ProjectStackNavigator.Screen name="Versiones" component={Versiones} />
       <ProjectStackNavigator.Screen name="Cotizacion" component={Cotizacion} />
+      <ProjectStackNavigator.Screen name="AgregarSeccion" component={AgregarSeccion} options={{presentation: 'modal'}} />
       <ProjectStackNavigator.Screen name="AgregarProducto" component={AgregarProducto} />
       <ProjectStackNavigator.Screen name="AgregarDetalles" component={AgregarDetallesProducto} />
     </ProjectStackNavigator.Navigator>
