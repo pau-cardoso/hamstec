@@ -52,17 +52,19 @@ export default function Cotizacion({style, navigation, route}) {
   const renderItem = ({ item }) => {
     const tableData = [];
 
-    item.forEach(element => {
-      const row = [];
-      row.push(element.zone);
-      row.push(element.zone);
-      row.push(element.observations);
-      row.push(element.quantity);
-      row.push(element.product.name);
-      row.push(element.product.public_price);
-      row.push(Number(element.product.public_price.replace(/[^0-9.-]+/g,"")) * element.quantity);
-      tableData.push(row);
-    });
+    if (item[0].product !== null) {
+      item.forEach(element => {
+        const row = [];
+        row.push(element.zone);
+        row.push(element.zone);
+        row.push(element.observations);
+        row.push(element.quantity);
+        row.push(element.product.name);
+        row.push(element.product.public_price);
+        row.push(Number(element.product.public_price.replace(/[^0-9.-]+/g,"")) * element.quantity);
+        tableData.push(row);
+      });
+    }
 
     return(
       <View style={styles.item}>
@@ -85,7 +87,7 @@ export default function Cotizacion({style, navigation, route}) {
             title='Proyecto'
             rightButtonIcon='add-circle'
             onPressBackButton={() => navigation.goBack()}
-            onRightButtonClick={() => navigation.navigate('AgregarSeccion')} />
+            onRightButtonClick={() => navigation.navigate('AgregarSeccion', { idQuote: quoteId, setRefreshing: setRefreshing })} />
         }
         body={
           <FlatList

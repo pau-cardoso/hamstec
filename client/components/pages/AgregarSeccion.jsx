@@ -5,7 +5,7 @@ import PageHeader from '../molecules/PageHeader/PageHeader';
 import FormGroup from '../molecules/FormGroup/FormGroup';
 import SearchableSelect from '../molecules/SearchableSelect/SearchableSelect';
 
-export default function AgregarProyecto({style, navigation}) {
+export default function AgregarProyecto({style, navigation, route}) {
   const [name, setName] = React.useState("");
   const [section, setSection] = React.useState({id:0, name: ""});
   const [address, setAddress] = React.useState("");
@@ -18,27 +18,25 @@ export default function AgregarProyecto({style, navigation}) {
       .catch((error) => console.error(error))
   }, []);
 
-  // TODO: Add new section
-  function addProject() {
-  //   fetch('http://localhost:3000/project', {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: name,
-  //       address: address,
-  //       client: client.id,
-  //     })
-  //   }).then(
-  //     // console.log('Success!!')
-  //   ).catch((error) => {
-  //     console.error(error);
-  //     // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
-  //   }).finally(
-  //     navigation.goBack()
-  //   )
+  function addSection() {
+    fetch('http://localhost:3000/quote-product', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        quote: route.params.idQuote,
+        section: section.id,
+        phase: "COTIZACION",
+      })
+    }).then(
+      // console.log('Success!!')
+    ).catch((error) => {
+      console.error(error);
+    }).finally(
+      navigation.goBack(), route.params.setRefreshing(true)
+    )
   }
 
   return(
@@ -52,7 +50,7 @@ export default function AgregarProyecto({style, navigation}) {
           />
         }
         body={
-          <FormGroup onPressSave={() => addProject()} style={{padding: 0}} >
+          <FormGroup onPressSave={() => addSection()} style={{padding: 0}} >
             <SearchableSelect
               title='Sección'
               placeholder='Sección'
