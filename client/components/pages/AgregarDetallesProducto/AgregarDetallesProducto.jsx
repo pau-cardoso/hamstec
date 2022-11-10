@@ -38,7 +38,7 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
     ).catch((error) => {
       console.error(error);
     }).finally(
-      navigation.pop(2)
+      navigation.pop(2), route.params.setRefreshing(true)
     )
   }
 

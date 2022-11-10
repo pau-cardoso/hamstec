@@ -38,7 +38,8 @@ export default function AgregarProducto({route, navigation, style}) {
             onPress={() => navigation.navigate("AgregarDetalles",
             { idProduct: item.id,
               idQuote: idQuote,
-              idSection: idSection }
+              idSection: idSection,
+              setRefreshing: route.params.setRefreshing }
             )} />
         </View>
       );

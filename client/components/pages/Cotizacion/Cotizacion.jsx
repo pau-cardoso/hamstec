@@ -18,6 +18,7 @@ export default function Cotizacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [projectData, setProjectData] = React.useState();
   const [quoteSummary, setQuoteSummary] = React.useState({total: "", anticipo: "", instalacion: "", cost: "", installation: "", utility: ""});
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const {quoteId, projectId} = route.params;
   const url = "http://localhost:3000/quote-product/quote/" + quoteId;
@@ -34,9 +35,10 @@ export default function Cotizacion({style, navigation, route}) {
       .then((response) => response.json())
       .then((json) => {
         setProjectData(json);
+        setRefreshing(false);
       })
       .catch((error) => console.error(error))
-    }, []);
+    }, [refreshing]);
 
   let generatePDF = async () => {
     const html = getQuotePDF(data, quoteSummary, projectData);
@@ -70,7 +72,7 @@ export default function Cotizacion({style, navigation, route}) {
           flexArray={FLEX}
           data={tableData}
           onPressAdd={() =>
-            navigation.navigate('AgregarProducto', { idSection: item[0].section.id, idQuote: quoteId, })} />
+            navigation.navigate('AgregarProducto', { idSection: item[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })} />
       </View>
     );
   };
@@ -89,6 +91,8 @@ export default function Cotizacion({style, navigation, route}) {
           <FlatList
             data={data}
             renderItem={renderItem}
+            refreshing={refreshing}
+            onRefresh={() => {setRefreshing(true)}}
             ListFooterComponent={
               <>
                 <View style={styles.cards}>
