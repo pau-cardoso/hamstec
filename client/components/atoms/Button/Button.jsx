@@ -4,11 +4,11 @@ import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import colors from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
 
-export default function Button({ onPress, children }) {
+export default function Button({ onPress, children, style }) {
   return(
     <View>
       <TouchableOpacity onPress={onPress}>
-        <View style={[styles.container, styles.text, styles.shadow]}>
+        <View style={[styles.container, styles.text, styles.shadow, style]}>
           <TextPairing
             text={children}
             type='medium'

@@ -93,7 +93,7 @@ export default function Cotizacion({style, navigation, route}) {
               <>
                 <View style={styles.cards}>
                   <Card style={styles.card}>
-                    <TextPairing text='Resumen de inversión' type='medium' size={24} />
+                    <TextPairing text='Resumen de inversión' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
                     <View style={styles.textRow}>
                       <TextPairing text='Total' type='medium' size={16} />
                       <TextPairing text={quoteSummary.total} size={16} />
@@ -109,7 +109,7 @@ export default function Cotizacion({style, navigation, route}) {
                   </Card>
 
                   <Card style={styles.card}>
-                    <TextPairing text='Información de utilidad' type='medium' size={24} />
+                    <TextPairing text='Información de utilidad' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
                     <View style={styles.textRow}>
                       <TextPairing text='Costo' type='medium' size={16} />
                       <TextPairing text={quoteSummary.cost} size={16} />
@@ -125,7 +125,7 @@ export default function Cotizacion({style, navigation, route}) {
                   </Card>
                 </View>
                 <View>
-                <Button onPress={() => {generatePDF()}}>
+                <Button style={styles.button} onPress={() => {generatePDF()}}>
                   Generar PDF
                 </Button>
                 </View>
@@ -148,11 +148,12 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   cards: {
-    width: '80%',
+    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     alignContent: 'center',
+    alignSelf: 'center',
   },
   card: {
     width: '70%',
@@ -161,6 +162,9 @@ const styles = StyleSheet.create({
   textRow: {
     justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  button: {
+    marginVertical: 16,
   },
 });
 
