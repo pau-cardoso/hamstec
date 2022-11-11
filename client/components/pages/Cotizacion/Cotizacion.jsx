@@ -52,18 +52,20 @@ export default function Cotizacion({style, navigation, route}) {
   const renderItem = ({ item }) => {
     const tableData = [];
 
-    if (item[0].product !== null) {
-      item.forEach(element => {
-        const row = [];
-        row.push(element.zone);
-        row.push(element.zone);
-        row.push(element.observations);
-        row.push(element.quantity);
-        row.push(element.product.name);
-        row.push(element.product.public_price);
-        row.push(Number(element.product.public_price.replace(/[^0-9.-]+/g,"")) * element.quantity);
-        tableData.push(row);
-      });
+    for (let i = 0; i < item.length; i++) {
+      const element = item[i];
+      if (element.product === null) {
+        continue;
+      }
+      const row = [];
+      row.push(element.zone);
+      row.push(element.zone);
+      row.push(element.observations);
+      row.push(element.quantity);
+      row.push(element.product.name);
+      row.push(element.product.public_price);
+      row.push(Number(element.product.public_price.replace(/[^0-9.-]+/g,"")) * element.quantity);
+      tableData.push(row);
     }
 
     return(
