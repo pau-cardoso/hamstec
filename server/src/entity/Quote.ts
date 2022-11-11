@@ -11,7 +11,7 @@ export class Quote {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column("decimal", { scale: 1, nullable: true, default: 1 })
     version: number
 
     @ManyToOne(() => Project)
