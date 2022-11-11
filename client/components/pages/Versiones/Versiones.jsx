@@ -9,6 +9,7 @@ import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 export default function Versiones({style, navigation, route}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [data, setData] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const url = "http://localhost:3000/quote/project/" + route.params.id_project;
 
@@ -16,8 +17,16 @@ export default function Versiones({style, navigation, route}) {
     fetch(url)
       .then((response) => response.json())
       .then((json) => setData(json))
+      .catch((error) => console.error(error));
+    setRefreshing(false);
+  }, [refreshing]);
+
+  const addVersion = () => {
+    fetch("http://localhost:3000/quote/add/" + route.params.id_project)
+      .then((response) => response.json())
       .catch((error) => console.error(error))
-  }, []);
+      .finally(setRefreshing(true));
+  }
 
   const renderItem = ({ item }) => {
     // when no input, show all
@@ -42,7 +51,9 @@ export default function Versiones({style, navigation, route}) {
             title='Versiones'
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
-            onPressBackButton={() => navigation.goBack()} />
+            onPressBackButton={() => navigation.goBack()}
+            onRightButtonClick={() => {addVersion()}}
+            rightButtonIcon='add-circle' />
         }
         body={
           <FlatList
