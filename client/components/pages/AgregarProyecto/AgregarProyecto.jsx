@@ -6,7 +6,7 @@ import FormGroup from '../../molecules/FormGroup/FormGroup';
 import TextField from '../../atoms/TextField/TextField';
 import SearchableSelect from '../../molecules/SearchableSelect/SearchableSelect';
 
-export default function AgregarProyecto({style, navigation}) {
+export default function AgregarProyecto({style, navigation, route}) {
   const [name, setName] = React.useState("");
   const [client, setClient] = React.useState({id:0, name: ""});
   const [address, setAddress] = React.useState("");
@@ -38,7 +38,8 @@ export default function AgregarProyecto({style, navigation}) {
       console.error(error);
       // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
     }).finally(
-      navigation.goBack()
+      navigation.goBack(),
+      route.params.setRefreshing(true)
     )
   }
 

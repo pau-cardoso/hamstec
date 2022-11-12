@@ -8,6 +8,7 @@ import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 export default function Proyectos({style, navigation}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [data, setData] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const url = "http://localhost:3000/project";
 
@@ -16,7 +17,8 @@ export default function Proyectos({style, navigation}) {
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
-  }, []);
+      .finally(setRefreshing(false));
+  }, [refreshing]);
 
   const renderItem = ({ item }) => {
     // when no input, show all
@@ -44,13 +46,15 @@ export default function Proyectos({style, navigation}) {
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
             rightButtonIcon='add-circle'
-            onRightButtonClick={() => navigation.navigate('AgregarProyecto')} />
+            onRightButtonClick={() => navigation.navigate('AgregarProyecto', {setRefreshing: setRefreshing})} />
         }
         body={
           <FlatList
             data={data}
             renderItem={renderItem}
             keyExtractor={item => item.id}
+            refreshing={refreshing}
+            onRefresh={() => {setRefreshing(true)}}
           />
         }
       />
