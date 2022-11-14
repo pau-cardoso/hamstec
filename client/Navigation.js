@@ -14,6 +14,7 @@ import Cotizacion from './components/pages/Cotizacion/Cotizacion';
 import Main from './components/pages/Cotizacion/Main';
 import {HamstecTheme} from './Theme'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Instalacion from './components/pages/Cotizacion/Instalacion';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -43,8 +44,7 @@ export function TopTabNavigation({route}) {
       tabBarPosition='top'
       tabBar={props => <TopTabNav {...props} />} >
       <TopTabs.Screen name="Cotizacion" component={Cotizacion} initialParams={route.params} options={{tabBarLabel: 'Cotización'}} />
-      <TopTabs.Screen name="Instalacion" component={Cotizacion} initialParams={route.params} options={{tabBarLabel: 'Instalación'}} />
-      { /* TODO: Agregar componente de instalacion */}
+      <TopTabs.Screen name="Instalacion" component={Instalacion} initialParams={route.params} options={{tabBarLabel: 'Instalación'}} />
     </TopTabs.Navigator>
   );
 }
