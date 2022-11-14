@@ -13,8 +13,8 @@ export default function Tab({title, isActive = false}) {
 	return (
 		<View style={containerStyles}>
 			{isActive ?
-			  <TextPairing text={title} type='regular' size={16} color='brand' />
-        : <TextPairing text={title} type='regular' size={16} color='s300' />
+			  <TextPairing text={title} type='regular' size={19} color='brand' />
+        : <TextPairing text={title} type='regular' size={19} color='s300' />
 			}
 		</View>
 	);

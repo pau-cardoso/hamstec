@@ -1,5 +1,6 @@
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Tab from '../../atoms/Tab/Tab';
+import { neutral } from '../../config/colors';
 
 export default function TopTabNav({ state, descriptors, navigation, position }) {
   return (
@@ -50,8 +51,9 @@ export default function TopTabNav({ state, descriptors, navigation, position }) 
             onPress={onPress}
             onLongPress={onLongPress}
             style={styles.tab}
+            key={index}
           >
-            <Tab title={label} isActive={isFocused} />
+            <Tab key={index} title={label} isActive={isFocused} />
           </TouchableOpacity>
         );
       })}
@@ -63,6 +65,9 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
+    paddingBottom: 20,
+    paddingHorizontal: 32,
+    backgroundColor: neutral.white,
   },
   tab: {
     marginRight: 37,
