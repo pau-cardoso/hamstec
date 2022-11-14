@@ -36,7 +36,7 @@ export default function Versiones({style, navigation, route}) {
         <View style={styles.item}>
           <ListItem
             text={item.version}
-            onPress={() => navigation.navigate('Cotizacion', {quoteId: item.id, projectId: route.params.id_project})}
+            onPress={() => navigation.navigate('Cotizacion', { quoteId: item.id, projectId: route.params.id_project })}
           />
         </View>
       );

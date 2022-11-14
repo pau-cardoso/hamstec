@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, FlatList } from 'react-native';
-import PageTemplate from '../../templates/PageTemplate';
-import PageHeader from '../../molecules/PageHeader/PageHeader';
 import TableSection from '../../organisms/TableSection/TableSection';
 import Button from '../../atoms/Button/Button';
 import Card from '../../atoms/Card/Card';
@@ -83,63 +81,53 @@ export default function Cotizacion({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
-      <PageTemplate style={{backgroundColor: ''}}
-        header={
-          <PageHeader
-            title='Proyecto'
-            rightButtonIcon='add-circle'
-            onPressBackButton={() => navigation.goBack()}
-            onRightButtonClick={() => navigation.navigate('AgregarSeccion', { idQuote: quoteId, setRefreshing: setRefreshing })} />
-        }
-        body={
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            refreshing={refreshing}
-            onRefresh={() => {setRefreshing(true)}}
-            ListFooterComponent={
-              <>
-                <View style={styles.cards}>
-                  <Card style={styles.card}>
-                    <TextPairing text='Resumen de inversión' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
-                    <View style={styles.textRow}>
-                      <TextPairing text='Total' type='medium' size={16} />
-                      <TextPairing text={quoteSummary.total} size={16} />
-                    </View>
-                    <View style={styles.textRow}>
-                      <TextPairing text='Anticipo' type='medium' size={16} />
-                      <TextPairing text={quoteSummary.anticipo} size={16} />
-                    </View>
-                    <View style={styles.textRow}>
-                      <TextPairing text='Antes de instalacion' type='medium' size={16} />
-                      <TextPairing text={quoteSummary.instalacion} size={16} />
-                    </View>
-                  </Card>
+      <FlatList
+        data={data}
+        contentContainerStyle={{paddingHorizontal: 32, paddingTop: 22}}
+        renderItem={renderItem}
+        refreshing={refreshing}
+        onRefresh={() => {setRefreshing(true)}}
+        ListFooterComponent={
+          <>
+            <View style={styles.cards}>
+              <Card style={styles.card}>
+                <TextPairing text='Resumen de inversión' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
+                <View style={styles.textRow}>
+                  <TextPairing text='Total' type='medium' size={16} />
+                  <TextPairing text={quoteSummary.total} size={16} />
+                </View>
+                <View style={styles.textRow}>
+                  <TextPairing text='Anticipo' type='medium' size={16} />
+                  <TextPairing text={quoteSummary.anticipo} size={16} />
+                </View>
+                <View style={styles.textRow}>
+                  <TextPairing text='Antes de instalacion' type='medium' size={16} />
+                  <TextPairing text={quoteSummary.instalacion} size={16} />
+                </View>
+              </Card>
 
-                  <Card style={styles.card}>
-                    <TextPairing text='Información de utilidad' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
-                    <View style={styles.textRow}>
-                      <TextPairing text='Costo' type='medium' size={16} />
-                      <TextPairing text={quoteSummary.cost} size={16} />
-                    </View>
-                    <View style={styles.textRow}>
-                      <TextPairing text='Instalacion' type='medium' size={16} />
-                      <TextPairing text={quoteSummary.installation} size={16} />
-                    </View>
-                    <View style={styles.textRow}>
-                      <TextPairing text='Utilidad' type='medium' size={16} />
-                      <TextPairing text={quoteSummary.utility} size={16} />
-                    </View>
-                  </Card>
+              <Card style={styles.card}>
+                <TextPairing text='Información de utilidad' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
+                <View style={styles.textRow}>
+                  <TextPairing text='Costo' type='medium' size={16} />
+                  <TextPairing text={quoteSummary.cost} size={16} />
                 </View>
-                <View>
-                <Button style={styles.button} onPress={() => {generatePDF()}}>
-                  Generar PDF
-                </Button>
+                <View style={styles.textRow}>
+                  <TextPairing text='Instalacion' type='medium' size={16} />
+                  <TextPairing text={quoteSummary.installation} size={16} />
                 </View>
-              </>
-            }
-          />
+                <View style={styles.textRow}>
+                  <TextPairing text='Utilidad' type='medium' size={16} />
+                  <TextPairing text={quoteSummary.utility} size={16} />
+                </View>
+              </Card>
+            </View>
+            <View>
+            <Button style={styles.button} onPress={() => {generatePDF()}}>
+              Generar PDF
+            </Button>
+            </View>
+          </>
         }
       />
     </View>
