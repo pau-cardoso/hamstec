@@ -30,6 +30,9 @@ export class QuoteProduct {
   zone: string
 
   @Column({nullable: true})
+  area: string
+
+  @Column({nullable: true})
   observations: string
 
   @Column()
