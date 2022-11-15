@@ -28,7 +28,7 @@ export default function ListaProductos({style, navigation, route}) {
         (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())) ||
         (isBrandActive && item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim())) ) {
       return(
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('DetalleProducto', {product: item})}}>
           <Row>
             <Cell value={item.brand.name} />
             <Cell value={item.code} />

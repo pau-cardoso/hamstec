@@ -16,6 +16,7 @@ import {HamstecTheme} from './Theme'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Instalacion from './components/pages/Cotizacion/Instalacion';
 import ListaProductos from './components/pages/ListaProductos';
+import DetalleProducto from './components/pages/DetalleProducto';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -48,6 +49,22 @@ export function TopTabNavigation({route}) {
       <TopTabs.Screen name="Instalacion" component={Instalacion} initialParams={route.params} options={{tabBarLabel: 'Instalación'}} />
     </TopTabs.Navigator>
   );
+};
+
+const ListProductsStack = createNativeStackNavigator();
+
+function ListProductsStackNav() {
+  return (
+    <ListProductsStack.Navigator
+      initialRouteName='Proyectos'
+      screenOptions={{
+        headerShown: false,
+      }} >
+      <ListProductsStack.Screen name="ListaProductos" component={ListaProductos} />
+      <ListProductsStack.Screen name="DetalleProducto" component={DetalleProducto} />
+      {/* <ListProductsStack.Screen name="AgregarProducto" component={AgregarProyecto} options={{presentation: 'modal'}} /> TODO */}
+    </ListProductsStack.Navigator>
+  );
 }
 
 const Tab = createBottomTabNavigator();
@@ -61,7 +78,7 @@ export function TabNavigation() {
         headerShown: false,
       }} >
       <Tab.Screen name="Proyectos" component={ProjectStack} />
-      <Tab.Screen name="ListaProductos" component={ListaProductos} />
+      <Tab.Screen name="ListaProductos" component={ListProductsStackNav} />
     </Tab.Navigator>
   );
 }
