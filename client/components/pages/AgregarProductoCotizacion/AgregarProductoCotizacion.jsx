@@ -5,7 +5,7 @@ import PageTemplate from '../../templates/PageTemplate';
 import ProductSearch from '../../organisms/ProductSearch/ProductSearch';
 import ListItem from '../../molecules/ListItem/ListItem';
 
-export default function AgregarProducto({route, navigation, style}) {
+export default function AgregarProductoCotizacion({route, navigation, style}) {
   const TABS = ['Todos', 'Broadlink', 'ORVIBO', 'Amazon'];
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("Todos");
@@ -54,7 +54,7 @@ export default function AgregarProducto({route, navigation, style}) {
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
             tabs={TABS}
-            title={'AgregarProducto'}
+            title={'Agregar Producto'}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             onPressBackButton={() => navigation.goBack()} />
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   }
 });
 
-AgregarProducto.propTypes = {
+AgregarProductoCotizacion.propTypes = {
   header: PropTypes.element,
   body: PropTypes.element,
   bottomNavigation: PropTypes.element,

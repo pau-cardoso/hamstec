@@ -19,7 +19,7 @@ function loadStories() {
   require("../components/organisms/ProductSearch/ProductSearch.stories");
   require("../components/organisms/TableSection/TableSection.stories");
   require("../components/pages/AgregarDetallesProducto/AgregarDetallesProducto.stories");
-  require("../components/pages/AgregarProducto/AgregarProducto.stories");
+  require("../components/pages/AgregarProductoCotizacion/AgregarProductoCotizacion.stories");
   require("../components/pages/Cotizacion/Cotizacion.stories");
 }
 
@@ -39,7 +39,7 @@ const stories = [
   "../components/organisms/ProductSearch/ProductSearch.stories",
   "../components/organisms/TableSection/TableSection.stories",
   "../components/pages/AgregarDetallesProducto/AgregarDetallesProducto.stories",
-  "../components/pages/AgregarProducto/AgregarProducto.stories",
+  "../components/pages/AgregarProductoCotizacion/AgregarProductoCotizacion.stories",
   "../components/pages/Cotizacion/Cotizacion.stories",
 ];
 

@@ -48,7 +48,7 @@ export default function Instalacion({style, navigation, route}) {
           flexArray={FLEX}
           data={tableData}
           onPressAdd={() =>
-            navigation.navigate('AgregarProducto', { idSection: item[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })} />
+            navigation.navigate('AgregarProductoCotizacion', { idSection: item[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })} />
       </View>
     );
   };

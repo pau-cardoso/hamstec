@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet } from 'react-native';
 import BottomNavigation from './components/molecules/Navigation/BottomNav';
 import TopTabNav from './components/molecules/Navigation/TopTabNav';
-import AgregarProducto from './components/pages/AgregarProducto/AgregarProducto';
+import AgregarProductoCotizacion from './components/pages/AgregarProductoCotizacion/AgregarProductoCotizacion';
 import Proyectos from './components/pages/Proyectos/Proyectos';
 import AgregarDetallesProducto from './components/pages/AgregarDetallesProducto/AgregarDetallesProducto'
 import AgregarProyecto from './components/pages/AgregarProyecto/AgregarProyecto';
@@ -32,7 +32,7 @@ function ProjectStack() {
       <ProjectStackNavigator.Screen name="Versiones" component={Versiones} />
       <ProjectStackNavigator.Screen name="Cotizacion" component={Main} />
       <ProjectStackNavigator.Screen name="AgregarSeccion" component={AgregarSeccion} options={{presentation: 'modal'}} />
-      <ProjectStackNavigator.Screen name="AgregarProducto" component={AgregarProducto} />
+      <ProjectStackNavigator.Screen name="AgregarProductoCotizacion" component={AgregarProductoCotizacion} />
       <ProjectStackNavigator.Screen name="AgregarDetalles" component={AgregarDetallesProducto} />
     </ProjectStackNavigator.Navigator>
   );
