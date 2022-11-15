@@ -15,6 +15,7 @@ import Main from './components/pages/Cotizacion/Main';
 import {HamstecTheme} from './Theme'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Instalacion from './components/pages/Cotizacion/Instalacion';
+import ListaProductos from './components/pages/ListaProductos';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -60,6 +61,7 @@ export function TabNavigation() {
         headerShown: false,
       }} >
       <Tab.Screen name="Proyectos" component={ProjectStack} />
+      <Tab.Screen name="ListaProductos" component={ListaProductos} />
     </Tab.Navigator>
   );
 }

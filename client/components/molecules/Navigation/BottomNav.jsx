@@ -23,6 +23,10 @@ export default function BottomNavigation({ state, descriptors, navigation }) {
               break;
 
             case 'Proyectos':
+              iconName = 'document-text-outline';
+              break;
+
+              case 'ListaProductos':
               iconName = 'list';
               break;
 

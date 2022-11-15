@@ -6,7 +6,7 @@ import ProductSearch from '../../organisms/ProductSearch/ProductSearch';
 import ListItem from '../../molecules/ListItem/ListItem';
 
 export default function AgregarProducto({route, navigation, style}) {
-  const TABS = ['Todos', 'Broadlink', 'ORVIBO', 'Amazon']
+  const TABS = ['Todos', 'Broadlink', 'ORVIBO', 'Amazon'];
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("Todos");
   const [data, setData] = React.useState([]);
@@ -54,8 +54,10 @@ export default function AgregarProducto({route, navigation, style}) {
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
             tabs={TABS}
+            title={'AgregarProducto'}
             activeTab={activeTab}
-            setActiveTab={setActiveTab} />
+            setActiveTab={setActiveTab}
+            onPressBackButton={() => navigation.goBack()} />
         }
         body={
           <FlatList
