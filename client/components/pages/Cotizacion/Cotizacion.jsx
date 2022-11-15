@@ -18,6 +18,7 @@ export default function Cotizacion({style, navigation, route}) {
   const [quoteSummary, setQuoteSummary] = React.useState({total: "", anticipo: "", instalacion: "", cost: "", installation: "", utility: ""});
   const [refreshing, setRefreshing] = React.useState(false);
 
+  const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
   const url = "http://localhost:3000/quote-product/quote/" + quoteId;
 

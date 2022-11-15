@@ -11,6 +11,7 @@ export default function Instalacion({style, navigation, route}) {
 
   const {quoteId} = route.params;
   const url = "http://localhost:3000/quote-product/quote-installed/" + quoteId;
+  const tabActive = navigation.isFocused()? 'INSTALACION' : 'COTIZACION';
 
   useEffect(() => {
     fetch(url)
