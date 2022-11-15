@@ -16,3 +16,9 @@ export async function getProduct(request, response) {
   })
   return response.send(results)
 }
+
+export async function addProduct(request, response) {
+  const product = await AppDataSource.getRepository(Product).create(request.body)
+  const results = await AppDataSource.getRepository(Product).save(product)
+  return response.send(results)
+}
