@@ -4,6 +4,7 @@ const cors = require('cors')
 const express = require('express')
 const bodyParser = require('body-parser');
 
+const brandRouter = require('./routes/brand.js')
 const quoteRouter = require('./routes/quote.js')
 const clientRouter = require('./routes/client.js')
 const sectionRouter = require('./routes/section.js')
@@ -18,6 +19,7 @@ AppDataSource.initialize()
 app.use(bodyParser.json())
 app.use(cors())
 
+app.use('/brand', brandRouter);
 app.use('/quote', quoteRouter);
 app.use('/client', clientRouter);
 app.use('/section', sectionRouter);
