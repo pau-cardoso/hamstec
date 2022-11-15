@@ -6,6 +6,7 @@ import { neutral } from '../../config/colors';
 
 export default function Main({style, navigation, route}) {
   const [data, setData] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const {quoteId, projectId} = route.params;
   const url = "http://localhost:3000/quote-product/quote/" + quoteId;
