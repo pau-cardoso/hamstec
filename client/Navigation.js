@@ -17,6 +17,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Instalacion from './components/pages/Cotizacion/Instalacion';
 import ListaProductos from './components/pages/ListaProductos';
 import DetalleProducto from './components/pages/DetalleProducto';
+import AgregarProducto from './components/pages/AgregarProducto';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -62,7 +63,7 @@ function ListProductsStackNav() {
       }} >
       <ListProductsStack.Screen name="ListaProductos" component={ListaProductos} />
       <ListProductsStack.Screen name="DetalleProducto" component={DetalleProducto} />
-      {/* <ListProductsStack.Screen name="AgregarProducto" component={AgregarProyecto} options={{presentation: 'modal'}} /> TODO */}
+      <ListProductsStack.Screen name="AgregarProducto" component={AgregarProducto} options={{presentation: 'modal'}} />
     </ListProductsStack.Navigator>
   );
 }

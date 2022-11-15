@@ -54,7 +54,9 @@ export default function ListaProductos({style, navigation, route}) {
             tabs={TABS}
             title='Lista de productos'
             activeTab={activeTab}
-            setActiveTab={setActiveTab} />
+            setActiveTab={setActiveTab}
+            onRightButtonClick={() => navigation.navigate('AgregarProducto', {setRefreshing: setRefreshing})}
+            rightButtonIcon='add-circle' />
         }
         body={
           <Card>

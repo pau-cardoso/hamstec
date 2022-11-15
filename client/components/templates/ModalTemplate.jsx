@@ -24,11 +24,14 @@ const styles = StyleSheet.create({
     backgroundColor: neutral.white,
     paddingHorizontal: 32,
     paddingVertical: 20,
+    flex: 1,
   },
   header: {
     marginBottom: 12,
   },
-  body: {}
+  body: {
+    flex: 1,
+  }
 });
 
 ModalTemplate.propTypes = {

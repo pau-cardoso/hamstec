@@ -4,12 +4,26 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import PageHeader from '../../molecules/PageHeader/PageHeader'
 import SearchBar from '../../molecules/SearchBar/SearchBar'
 import Chip from '../../atoms/Chip/Chip'
-import { useNavigation } from '@react-navigation/native';
 
-export default function ProductSearch({title, onPressBackButton, searchPhrase, setSearchPhrase, tabs, activeTab, setActiveTab, style}) {
+export default function ProductSearch({
+  title,
+  onPressBackButton,
+  searchPhrase,
+  setSearchPhrase,
+  tabs,
+  activeTab,
+  setActiveTab,
+  onRightButtonClick,
+  rightButtonIcon,
+  style}) {
   return(
     <View style={[styles.container, style]}>
-      <PageHeader style={styles.gap} title={title} onPressBackButton={onPressBackButton} />
+      <PageHeader
+        style={styles.gap}
+        title={title}
+        onRightButtonClick={onRightButtonClick}
+        rightButtonIcon={rightButtonIcon}
+        onPressBackButton={onPressBackButton} />
       <SearchBar
         style={styles.gap}
         searchPhrase={searchPhrase}
