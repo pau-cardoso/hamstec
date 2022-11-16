@@ -4,10 +4,16 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import TextField from '../../atoms/TextField/TextField';
 import ListItem from '../ListItem/ListItem';
 import { removeAccents } from '../../config/utils';
+import { useEffect } from 'react';
 
 export default function SearchableSelect({title, placeholder, options, text, setText}) {
   const [showOptions, setShowOptions] = useState(false);
-  const [searchPhrase, setSearchPhrase] = useState("");
+  const [searchPhrase, setSearchPhrase] = useState(text);
+
+  useEffect(() => {
+    setSearchPhrase(text);
+  }, [text]);
+
 
   const renderItem = ({ item }) => {
     const itemName = removeAccents(item.name);

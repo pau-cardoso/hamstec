@@ -19,7 +19,23 @@ export default function AgregarProducto({route, navigation, style}) {
   const [utility, setUtility] = React.useState("");
   const [publicPrice, setPublicPrice] = React.useState("");
 
+  function setProduct() {
+    const product = route.params.product;
+    setBrand(product.brand);
+    setName(product.name);
+    setCode(product.code);
+    setImage(product.image);
+    setDescription(product.description);
+    setPrice(product.price);
+    setInstallation(product.installation);
+    setUtility(product.utility);
+    setPublicPrice(product.public_price);
+  }
+
   useEffect(() => {
+    if (route.params.product != undefined) {
+      setProduct();
+    }
     fetch('http://localhost:3000/brand')
       .then((response) => response.json())
       .then((json) => setBrandData(json))
@@ -28,32 +44,61 @@ export default function AgregarProducto({route, navigation, style}) {
 
   // TODO: Add error and success messages
   function addProduct() {
-    fetch('http://localhost:3000/product', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        code: code,
-        image: image,
-        description: description,
-        price: price,
-        installation: installation,
-        utility: utility,
-        public_price: publicPrice,
-        brand: brand.id,
-      })
-    }).then(
-      // console.log('Success!!')
-    ).catch((error) => {
-      console.error(error);
-      // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
-    }).finally(
-      navigation.goBack(),
-      route.params.setRefreshing(true)
-    )
+    if (route.params.product != undefined) {
+      fetch('http://localhost:3000/product/' + route.params.product.id, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          code: code,
+          image: image,
+          description: description,
+          price: price,
+          installation: installation,
+          utility: utility,
+          public_price: publicPrice,
+          brand: brand.id,
+        })
+      }).then(
+        // console.log('Success!!')
+      ).catch((error) => {
+        console.error(error);
+        // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+      }).finally(
+        navigation.goBack(),
+        route.params.setRefreshing(true)
+      )
+    } else {
+      fetch('http://localhost:3000/product', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          code: code,
+          image: image,
+          description: description,
+          price: price,
+          installation: installation,
+          utility: utility,
+          public_price: publicPrice,
+          brand: brand.id,
+        })
+      }).then(
+        // console.log('Success!!')
+      ).catch((error) => {
+        console.error(error);
+        // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+      }).finally(
+        navigation.goBack(),
+        route.params.setRefreshing(true)
+      )
+    }
   };
 
   return(

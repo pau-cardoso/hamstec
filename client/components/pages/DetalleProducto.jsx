@@ -7,6 +7,7 @@ import TextPairing from '../atoms/TextPairing/TextPairing';
 import Card from '../atoms/Card/Card';
 
 export default function DetalleProducto({route, navigation, style}) {
+  const [refreshing, setRefreshing] = React.useState(false);
   const {product} = route.params;
 
   return(
@@ -51,7 +52,7 @@ export default function DetalleProducto({route, navigation, style}) {
               </View>
               <IconButton
                 iconName='md-pencil-sharp'
-                onPress={() => {}}
+                onPress={() => navigation.navigate('AgregarProducto', {setRefreshing: setRefreshing, product: product})}
                 size={20} />
             </View>
           </Card>
