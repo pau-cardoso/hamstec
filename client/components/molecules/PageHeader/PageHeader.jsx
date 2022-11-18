@@ -5,7 +5,7 @@ import TextPairing from '../../atoms/TextPairing/TextPairing';
 import IconButton from '../../atoms/IconButton/IconButton'
 import { neutral, primary } from '../../config/colors';
 
-export default function PageHeader({ title, onPressBackButton, onRightButtonClick, rightButtonIcon, style }) {
+export default function PageHeader({ title, secondaryTitle, onPressBackButton, onRightButtonClick, rightButtonIcon, style }) {
   return(
     <View style={[styles.container, style]}>
       <View style={styles.leftContainer}>
@@ -24,6 +24,12 @@ export default function PageHeader({ title, onPressBackButton, onRightButtonClic
             text={title}
             type='semibold'
             color='s900'
+            size={32} />
+          <TextPairing
+            style={{marginLeft: 12}}
+            text={secondaryTitle}
+            type='medium'
+            color='s400'
             size={32} />
         </View>
       </View>
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
 	  marginRight: 12,
   },
   textContainer: {
+    flexDirection: 'row',
   },
 });
 
