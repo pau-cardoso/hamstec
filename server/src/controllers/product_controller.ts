@@ -11,8 +11,13 @@ export async function getAllProducts(request, response) {
 };
 
 export async function getProduct(request, response) {
-  const results = await AppDataSource.getRepository(Product).findOneBy({
-    id: request.params.id,
+  const results = await AppDataSource.getRepository(Product).findOne({
+    relations: {
+      brand: true,
+    },
+    where: {
+      id: request.params.id,
+    }
   })
   return response.send(results)
 }
