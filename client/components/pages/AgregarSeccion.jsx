@@ -6,9 +6,7 @@ import FormGroup from '../molecules/FormGroup/FormGroup';
 import SearchableSelect from '../molecules/SearchableSelect/SearchableSelect';
 
 export default function AgregarProyecto({style, navigation, route}) {
-  const [name, setName] = React.useState("");
   const [section, setSection] = React.useState({id:0, name: ""});
-  const [address, setAddress] = React.useState("");
   const [sectionData, setSectionData] = React.useState();
 
   useEffect(() => {
@@ -28,7 +26,7 @@ export default function AgregarProyecto({style, navigation, route}) {
       body: JSON.stringify({
         quote: route.params.idQuote,
         section: section.id,
-        phase: "COTIZACION",
+        phase: route.params.phase,
       })
     }).then(
       // console.log('Success!!')

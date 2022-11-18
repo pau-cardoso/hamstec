@@ -8,6 +8,9 @@ import TextPairing from '../../atoms/TextPairing/TextPairing';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import getQuotePDF from '../../../assets/Cotizacion/CotizacionHtml';
+import { neutral } from '../../config/colors';
+import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const FLEX = [1, 1, 2, 1, 3, 1, 1];
@@ -90,8 +93,14 @@ export default function Cotizacion({style, navigation, route}) {
         onRefresh={() => {setRefreshing(true)}}
         ListFooterComponent={
           <>
+            <TouchableOpacity style={{marginBottom: 24}} onPress={() => navigation.navigate('AgregarSeccion', { idQuote: quoteId, phase: tabActive, setRefreshing: setRefreshing })}>
+              <Card style={styles.addSection}>
+                <Ionicons style={{textAlign: 'center', marginRight: 10}} name='add' size={24} color={neutral.s500} />
+                <TextPairing text="Agregar sección" color='s500' />
+              </Card>
+            </TouchableOpacity>
             <View style={styles.cards}>
-              <Card style={styles.card}>
+              <Card>
                 <TextPairing text='Resumen de inversión' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
                 <View style={styles.textRow}>
                   <TextPairing text='Total' type='medium' size={16} />
@@ -107,7 +116,7 @@ export default function Cotizacion({style, navigation, route}) {
                 </View>
               </Card>
 
-              <Card style={styles.card}>
+              <Card>
                 <TextPairing text='Información de utilidad' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
                 <View style={styles.textRow}>
                   <TextPairing text='Costo' type='medium' size={16} />
@@ -124,9 +133,7 @@ export default function Cotizacion({style, navigation, route}) {
               </Card>
             </View>
             <View>
-            <Button style={styles.button} onPress={() => {generatePDF()}}>
-              Generar PDF
-            </Button>
+            <Button style={styles.button} onPress={() => {generatePDF()}} title="Generar PDF" />
             </View>
           </>
         }
@@ -152,10 +159,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignSelf: 'center',
   },
-  card: {
-    width: '70%',
-    alignItems: 'center',
-  },
   textRow: {
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -163,6 +166,15 @@ const styles = StyleSheet.create({
   button: {
     marginVertical: 16,
   },
+  icon: {
+    justifyContent: 'center',
+    aspectRatio: "1 / 1",
+  },
+  addSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 Cotizacion.propTypes = {

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import { neutral } from '../../config/colors';
 
-export default function Card({ children }) {
+export default function Card({ children, style }) {
   return(
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       { children }
     </View>);
 }
