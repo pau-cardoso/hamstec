@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import PageTemplate from '../templates/PageTemplate';
 import PageHeader from '../molecules/PageHeader/PageHeader';
@@ -8,13 +8,37 @@ import Card from '../atoms/Card/Card';
 
 export default function DetalleProducto({route, navigation, style}) {
   const [refreshing, setRefreshing] = React.useState(false);
-  const {product} = route.params;
+  const [product, setProduct] = React.useState({
+    id: 0,
+    name: "",
+    code: "",
+    image: "",
+    description: "",
+    price: "",
+    installation: "",
+    utility: "",
+    public_price: "",
+    brand: {
+      id: 0,
+      name: ""
+    }
+  });
+
+  const {productId} = route.params;
+
+  useEffect(() => {
+    fetch("http://localhost:3000/product/" + productId)
+      .then((response) => response.json())
+      .then((json) => setProduct(json))
+      .catch((error) => console.error(error))
+      .finally(setRefreshing(false));
+  }, [refreshing]);
 
   return(
     <View style={[styles.container, style]}>
       <PageTemplate
         header={
-          <PageHeader title={product.name} onPressBackButton={() => navigation.goBack()} />
+          <PageHeader title={product.name} onPressBackButton={() => {navigation.goBack(); route.params.setRefreshing(true);}} />
         }
         body={
           <Card>

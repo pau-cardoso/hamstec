@@ -19,6 +19,7 @@ export default function ListaProductos({style, navigation, route}) {
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
+    setRefreshing(false);
   }, [refreshing]);
 
   const renderItem = ({ item }) => {
@@ -28,7 +29,7 @@ export default function ListaProductos({style, navigation, route}) {
         (isBrandActive && item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())) ||
         (isBrandActive && item.code.toUpperCase().includes(searchPhrase.toUpperCase().trim())) ) {
       return(
-        <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('DetalleProducto', {product: item})}}>
+        <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('DetalleProducto', {productId: item.id, setRefreshing: setRefreshing})}}>
           <Row>
             <Cell value={item.brand.name} />
             <Cell value={item.code} />
