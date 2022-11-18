@@ -4,13 +4,14 @@ import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import colors from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
 
-export default function Button({ onPress, children, style }) {
+export default function Button({ onPress, title, children, style }) {
   return(
     <View>
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.container, styles.text, styles.shadow, style]}>
+          {children}
           <TextPairing
-            text={children}
+            text={title}
             type='medium'
             size={16}
             color='white' />
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.brand,
+    flexDirection: 'row',
   },
   shadow: {
     shadowColor: 'rgba(0, 0, 0, 0.2)',
@@ -40,11 +42,13 @@ const styles = StyleSheet.create({
 });
 
 Button.defaultProps = {
+  title: "Guardar",
   children: null,
   onPress: () => {},
 };
 
 Button.propTypes = {
+  title: PropTypes.string,
   children: PropTypes.node,
   onPress: PropTypes.func,
 };

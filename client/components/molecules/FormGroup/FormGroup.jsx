@@ -17,7 +17,7 @@ export default function FormGroup({ children, onPressSave, style }) {
         }) }
       </View>
       <View style={styles.btn}>
-        <Button children='Guardar' onPress={onPressSave} />
+        <Button title='Guardar' onPress={onPressSave} />
       </View>
     </View>
   );
