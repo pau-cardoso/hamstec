@@ -1,27 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
-import colors from '../../config/colors';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import colors, { neutral } from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
 
-export default function Button({ onPress, title, children, style }) {
+export default function Button({ onPress, title, type, textColor, style }) {
+  const typeStyle = [style, styles.shadow];
+  switch (type) {
+    case 'primary':
+      typeStyle.push(styles.primaryStyle);
+      break;
+
+    case 'textInput':
+      typeStyle.push(styles.textInputSytle);
+      break;
+
+    default:
+      typeStyle.push(styles.primaryStyle);
+      break;
+  }
   return(
     <View>
       <TouchableOpacity onPress={onPress}>
-        <View style={[styles.container, styles.text, styles.shadow, style]}>
-          {children}
+        <View style={typeStyle}>
           <TextPairing
             text={title}
             type='medium'
             size={16}
-            color='white' />
+            color={textColor} />
         </View>
       </TouchableOpacity>
     </View>);
 }
 
 const styles = StyleSheet.create({
-  container: {
+  primaryStyle: {
     alignSelf: 'center',
     borderRadius: 55,
     paddingHorizontal: 24,
@@ -29,7 +42,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.brand,
-    flexDirection: 'row',
+  },
+  textInputSytle: {
+    backgroundColor: neutral.s050,
+    padding: 12,
+		borderRadius: 8,
+		flex: 1,
   },
   shadow: {
     shadowColor: 'rgba(0, 0, 0, 0.2)',
@@ -44,11 +62,14 @@ const styles = StyleSheet.create({
 Button.defaultProps = {
   title: "Guardar",
   children: null,
+  type: 'primary',
+  textColor: 'white',
   onPress: () => {},
 };
 
 Button.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
+  type: PropTypes.oneOf(['primary', 'textInput']),
   onPress: PropTypes.func,
 };
