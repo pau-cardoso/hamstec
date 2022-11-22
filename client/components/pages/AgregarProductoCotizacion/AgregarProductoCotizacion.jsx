@@ -12,7 +12,7 @@ export default function AgregarProductoCotizacion({route, navigation, style}) {
   const [data, setData] = React.useState([]);
 
   const url = "http://localhost:3000/product/";
-  const {idQuote, idSection} = route.params;
+  const {setProduct} = route.params;
 
   useEffect(() => {
     fetch(url)
@@ -35,12 +35,10 @@ export default function AgregarProductoCotizacion({route, navigation, style}) {
             text={item.name}
             secondaryText={item.code}
             image={item.image}
-            onPress={() => navigation.navigate("AgregarDetalles",
-            { idProduct: item.id,
-              idQuote: idQuote,
-              idSection: idSection,
-              setRefreshing: route.params.setRefreshing }
-            )} />
+            onPress={() => {
+              setProduct({id: item.id, name: item.name});
+              navigation.goBack();
+            }} />
         </View>
       );
     }
