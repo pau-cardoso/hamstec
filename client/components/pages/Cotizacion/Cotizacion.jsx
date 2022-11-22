@@ -83,7 +83,7 @@ export default function Cotizacion({style, navigation, route}) {
           flexArray={FLEX}
           data={tableData}
           onPressAdd={() =>
-            navigation.navigate('AgregarProductoCotizacion', { idSection: item[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })} />
+            navigation.navigate('AgregarDetalles', { idSection: item[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })} />
       </View>
     );
   };
