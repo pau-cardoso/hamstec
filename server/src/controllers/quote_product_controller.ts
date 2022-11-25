@@ -102,3 +102,36 @@ export async function addQuoteProduct(request, response) {
   const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct)
   return response.send(results)
 }
+
+export async function getProductCount(request, response) {
+  const countProducts = await AppDataSource.getRepository(QuoteProduct)
+    .createQueryBuilder("quoteProduct")
+    .leftJoin('quoteProduct.product', 'product')
+    .leftJoin('product.brand', 'brand')
+    .where('quoteProduct.quote = :id_quote', { id_quote: request.params.id_quote })
+    .andWhere('product.id IS NOT NULL')
+    .groupBy("product.id")
+    .addGroupBy("quoteProduct.phase")
+    .addGroupBy("brand.name")
+    .orderBy("product.id")
+    .select('COUNT(product.id)', 'product_count')
+    .addSelect('product.id')
+    .addSelect('product.name')
+    .addSelect('product.code')
+    .addSelect('product.brand')
+    .addSelect('brand.name')
+    .addSelect('quoteProduct.phase')
+    .getRawMany();
+
+  const productResult = {};
+  let currentProduct = -1;
+  countProducts.forEach(product => {
+    if (product.product_id !== currentProduct) {
+      currentProduct = product.product_id;
+      productResult[currentProduct] = []
+    }
+    productResult[currentProduct].push(product);
+  });
+
+  return response.send(productResult);
+}
