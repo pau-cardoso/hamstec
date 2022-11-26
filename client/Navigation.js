@@ -19,6 +19,7 @@ import ListaProductos from './components/pages/ListaProductos';
 import DetalleProducto from './components/pages/DetalleProducto';
 import AgregarProducto from './components/pages/AgregarProducto';
 import AgregarProductoInstalacion from './components/pages/AgregarProductoInstalación';
+import ResumenDispositivos from './components/pages/Cotizacion/ResumenDispositivos';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -50,6 +51,7 @@ export function TopTabNavigation({route}) {
       tabBar={props => <TopTabNav {...props} />} >
       <TopTabs.Screen name="Cotizacion" component={Cotizacion} initialParams={route.params} options={{tabBarLabel: 'Cotización'}} />
       <TopTabs.Screen name="Instalacion" component={Instalacion} initialParams={route.params} options={{tabBarLabel: 'Instalación'}} />
+      <TopTabs.Screen name="ResumenDispositivos" component={ResumenDispositivos} initialParams={route.params} options={{tabBarLabel: 'Resumen de dispositivos'}} />
     </TopTabs.Navigator>
   );
 };
