@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { neutral } from '../config/colors';
 import PageTemplate from '../templates/PageTemplate';
@@ -14,32 +14,79 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
   const [voice, setVoice] = React.useState("");
   const [product, setProduct] = React.useState({id: 0, name: ""});
   const [observations, setObservations] = React.useState("");
+  const [isEditing, setIsEditing] = React.useState(false);
 
-  const {idQuote, idSection, idProduct} = route.params;
+  const {idQuote, idSection, idQuoteProduct} = route.params;
+
+  useEffect(() => {
+    if (idQuoteProduct !== undefined) {
+      setDetails();
+      setIsEditing(true);
+    }
+  }, [])
+
+  function setDetails() {
+    fetch('http://localhost:3000/quote-product/' + idQuoteProduct)
+      .then((response) => response.json())
+      .then((json) => {
+        setArea(json.area);
+        setVoice(json.voice);
+        setProduct({
+          id: json.product.id,
+          name: json.product.name
+        });
+        setObservations(json.observations);
+      })
+      .catch((error) => console.error(error))
+  }
 
   function addProductQuote() {
-    fetch('http://localhost:3000/quote-product', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        product: product.id,
-        quote: idQuote,
-        section: idSection,
-        area: area,
-        voice: voice,
-        observations: observations,
-        phase: "INSTALACION",
-      })
-    }).then(
-      // console.log('Success!!')
-    ).catch((error) => {
-      console.error(error);
-    }).finally(
-      navigation.goBack(), route.params.setRefreshing(true)
-    )
+    if (isEditing) {
+      fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          product: product.id,
+          area: area,
+          voice: voice,
+          observations: observations,
+        })
+      }).then(
+        // console.log('Success!!')
+      ).catch((error) => {
+        console.error(error);
+        // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+      }).finally(
+        navigation.goBack(),
+        route.params.setRefreshing(true)
+      );
+    } else {
+      fetch('http://localhost:3000/quote-product', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          product: product.id,
+          quote: idQuote,
+          section: idSection,
+          area: area,
+          voice: voice,
+          observations: observations,
+          phase: "INSTALACION",
+        })
+      }).then(
+        // console.log('Success!!')
+      ).catch((error) => {
+        console.error(error);
+      }).finally(
+        navigation.goBack(), route.params.setRefreshing(true)
+      );
+    }
   }
 
   return(
@@ -47,7 +94,7 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
       <PageTemplate
         header={
           <PageHeader
-            title='Agregar producto' // TODO: Add clicked product info
+            title='Agregar producto'
             onPressBackButton={() => {navigation.goBack()}} />
         }
         body={

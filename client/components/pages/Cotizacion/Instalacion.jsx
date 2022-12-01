@@ -46,7 +46,10 @@ export default function Instalacion({style, navigation, route}) {
             iconName='pencil-sharp'
             size={20}
             style={{alignSelf: 'center'}}
-            onPress={ () => {} } // TODO: edit quoteProduct
+            onPress={ () => navigation.navigate('AgregarProductoInstalacion',
+              { idQuoteProduct: item.id,
+                setRefreshing: setRefreshing
+              }) }
           />
         </Row>
       );
