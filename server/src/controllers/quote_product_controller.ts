@@ -65,9 +65,16 @@ export async function getProductsByQuote(request, response) {
     productResult[currentSection].push(product);
   });
 
-  const result = [productResult, quoteSummary];
+  const newResults = [];
+  for (let key in productResult) {
+    const section = {
+      name: productResult[key][0].section.name,
+      data: productResult[key]
+    }
+    newResults.push(section);
+  }
 
-  return response.send(result);
+  return response.send([newResults, quoteSummary]);
 }
 
 export async function getProductsInstalledByQuote(request, response) {
@@ -157,5 +164,5 @@ export async function updateProduct(request, response) {
   });
   AppDataSource.getRepository(QuoteProduct).merge(quoteProduct, request.body);
   const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct);
-  return response.send(results)
+  return response.send(results);
 }
