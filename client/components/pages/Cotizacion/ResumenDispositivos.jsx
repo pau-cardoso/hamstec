@@ -38,22 +38,21 @@ export default function ResumenDispositivos({style, navigation, route}) {
 
     element.forEach(phase => {
       if (phase.quoteProduct_phase === 'COTIZACION') {
-        hired += parseInt(phase.productCount)
-        totalHired += parseInt(phase.productCount)
+        hired += parseInt(phase.product_count)
+        totalHired += parseInt(phase.product_count)
       } else if (phase.quoteProduct_phase === 'INSTALACION') {
-        installed += parseInt(phase.productCount)
-        totalInstalled += parseInt(phase.productCount)
+        installed += parseInt(phase.product_count)
+        totalInstalled += parseInt(phase.product_count)
       }
     });
-
     const row = [];
     row.push(element[0].brand_name);
     row.push(element[0].product_code);
     row.push(element[0].product_name);
     row.push(installed);
     row.push(hired);
-    row.push(installed-hired);
-    row.push('');
+    row.push(hired-installed);
+    row.push((hired-installed) > 0? 'Sobrante' : (hired-installed) < 0? 'Faltante' : '');
     tableData.push(row);
   }
 
@@ -93,7 +92,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
             </View>
             <View style={styles.textRow}>
               <TextPairing text='Estado' type='medium' size={16} />
-              <TextPairing text='' size={16} />
+              <TextPairing text={(totalHired-totalInstalled) > 0? 'Sobrante' : (totalHired-totalInstalled) < 0? 'Faltante' : ''} size={16} />
             </View>
             <View style={styles.textRow}>
               <TextPairing text='Diferencia MXN' type='medium' size={16} />
