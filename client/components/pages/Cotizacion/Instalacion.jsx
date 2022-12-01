@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Card from '../../atoms/Card/Card';
 import { Ionicons } from '@expo/vector-icons';
-import TableSection from '../../organisms/TableSection/TableSection';
-import { neutral } from '../../config/colors';
+import { neutral, primary } from '../../config/colors';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
+import Row from '../../molecules/Table/Row';
+import Cell from '../../molecules/Table/Cell';
+import IconButton from '../../atoms/IconButton/IconButton';
+import Table from '../../molecules/Table/Table';
 
 const HEADERS = ['Área', 'No. App', 'Clave', 'Dispositivo', 'Voz', 'Observaciones'];
 const FLEX = [1, 1, 1, 2, 1, 2];
+const WIDTH = [36, 36, 36, 36, 36, 42]
 
 export default function Instalacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
@@ -22,39 +26,64 @@ export default function Instalacion({style, navigation, route}) {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
-        setData(Object.values(json));
+        setData(json);
       })
       .catch((error) => console.error(error))
       .finally(setRefreshing(false))
     }, [refreshing]);
 
-  const renderItem = ({ item }) => {
-    const tableData = [];
-
-    for (let i = 0; i < item.length; i++) {
-      const element = item[i];
-      if (element.product === null) {
-        continue;
-      }
-      const row = [];
-      row.push(element.area);
-      row.push(element.product.code);
-      row.push(element.product.code);
-      row.push(element.product.name);
-      row.push(element.voice);
-      row.push(element.observations);
-      tableData.push(row);
+  const Item = ({ item }) => {
+    if (item.product !== null) {
+      return(
+        <Row>
+          <Cell value={item.area} flex={1} />
+          <Cell value={item.product.code} flex={1} />
+          <Cell value={item.product.code} flex={1} />
+          <Cell value={item.product.name} flex={2} />
+          <Cell value={item.voice} flex={1} />
+          <Cell value={item.observations} flex={2} />
+          <IconButton
+            iconName='pencil-sharp'
+            size={20}
+            style={{alignSelf: 'center'}}
+            onPress={ () => {} } // TODO: edit quoteProduct
+          />
+        </Row>
+      );
     }
+  };
 
+  const renderItem = ({ item }) => {
     return(
       <View style={styles.item}>
-        <TableSection
-          section={item[0].section.name}
-          headers={HEADERS}
-          flexArray={FLEX}
-          data={tableData}
-          onPressAdd={() =>
-            navigation.navigate('AgregarProductoInstalacion', { idSection: item[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })} />
+        <Card style={{width: '100%'}}>
+          <TextPairing text={item.name} type='semibold' size={32} style={{marginBottom: 8}} />
+          <ScrollView
+            horizontal
+            contentContainerStyle={{width: '100%'}}
+            showsHorizontalScrollIndicator={false} >
+
+            <Table>
+              <Row>
+                { HEADERS.map((header, key) => (
+                  <Cell key={key} value={header} header flex={FLEX[key]} />
+                ))}
+                <View style={{width: 20}} />
+              </Row>
+              { item.data.map((product, key) => (
+                <Item key={key} item={product} />
+              ))}
+            </Table>
+
+          </ScrollView>
+          <IconButton
+            onPress={() => navigation.navigate('AgregarProductoInstalacion', { idSection: item.data[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })}
+            iconName='add'
+            type='full'
+            color={primary.brand}
+            size={24}
+          />
+        </Card>
       </View>
     );
   };

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 
-export default function Cell({ value, header, flex, style }) {
+export default function Cell({ value, header, flex, width, children, style }) {
   return(
-    <View style={[styles.container, style, {flex: flex}]}>
+    <View style={[styles.container, style, {flex: flex, width: width}]}>
+      { children }
       <TextPairing text={value} type={header? 'medium' : 'regular'} />
     </View>
   );
