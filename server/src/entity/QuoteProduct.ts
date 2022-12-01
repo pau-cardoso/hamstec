@@ -26,19 +26,19 @@ export class QuoteProduct {
   @Column({default: 1})
   quantity: number
 
-  @Column({nullable: true})
+  @Column({nullable: true, default: ""})
   zone: string
 
-  @Column({nullable: true})
+  @Column({nullable: true, default: ""})
   area: string
 
-  @Column({nullable: true})
+  @Column({nullable: true, default: ""})
   observations: string
 
   @Column()
   phase: string
 
-  @Column({nullable: true})
+  @Column({nullable: true, default: ""})
   voice: string
 
 }
