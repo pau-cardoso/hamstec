@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, FlatList } from 'react-native';
-import TableSection from '../../organisms/TableSection/TableSection';
+import { StyleSheet, View, FlatList, ScrollView } from 'react-native';
 import Button from '../../atoms/Button/Button';
 import Card from '../../atoms/Card/Card';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import getQuotePDF from '../../../assets/Cotizacion/CotizacionHtml';
-import { neutral } from '../../config/colors';
+import { neutral, primary } from '../../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import IconButton from '../../atoms/IconButton/IconButton';
+import Table from '../../molecules/Table/Table';
+import Row from '../../molecules/Table/Row';
+import Cell from '../../molecules/Table/Cell';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const FLEX = [1, 1, 2, 1, 3, 1, 1];
@@ -29,7 +32,7 @@ export default function Cotizacion({style, navigation, route}) {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
-        setData(Object.values(json[0]));
+        setData(json[0]);
         setQuoteSummary(json[1]);
       })
       .catch((error) => console.error(error))
@@ -51,41 +54,68 @@ export default function Cotizacion({style, navigation, route}) {
     await shareAsync(file.uri);
   }
 
-  const renderItem = ({ item }) => {
-    const tableData = [];
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'MXN',
-      currencyDisplay: 'narrowSymbol',
-    });
-
-    for (let i = 0; i < item.length; i++) {
-      const element = item[i];
-      if (element.product === null) {
-        continue;
-      }
-      const row = [];
-      row.push(element.area);
-      row.push(element.zone);
-      row.push(element.observations);
-      row.push(element.quantity);
-      row.push(element.product.name);
-      row.push(element.product.public_price);
-      row.push(formatter.format(Number(element.product.public_price.replace(/[^0-9.-]+/g,"")) * element.quantity));
-      tableData.push(row);
+  const Item = ({ item }) => {
+    if (item.product !== null) {
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'MXN',
+        currencyDisplay: 'narrowSymbol',
+      });
+      return(
+        <Row>
+          <Cell value={item.area} flex={1} />
+          <Cell value={item.zone} flex={1} />
+          <Cell value={item.observations} flex={2} />
+          <Cell value={item.quantity} flex={1} />
+          <Cell value={item.product.name} flex={3} />
+          <Cell value={item.product.public_price} flex={1} />
+          <Cell value={formatter.format(Number(item.product.public_price.replace(/[^0-9.-]+/g,"")) * item.quantity)} flex={1} />
+          <IconButton
+            iconName='pencil-sharp'
+            size={20}
+            style={{alignSelf: 'center'}}
+            onPress={ () => navigation.navigate('AgregarDetalles',
+              { idQuoteProduct: item.id,
+                setRefreshing: setRefreshing
+              })}
+          />
+        </Row>
+      );
     }
+  };
 
-    return(
-      <View style={styles.item}>
-        <TableSection
-          section={item[0].section.name}
-          headers={HEADERS}
-          flexArray={FLEX}
-          data={tableData}
+  const renderItem = ({ item }) => {
+    return (<View style={styles.item}>
+      <Card style={{width: '100%'}}>
+        <TextPairing text={item.name} type='semibold' size={32} style={{marginBottom: 8}} />
+        <ScrollView
+          horizontal
+          contentContainerStyle={{width: '100%'}}
+          showsHorizontalScrollIndicator={false} >
+
+          <Table>
+            <Row>
+              { HEADERS.map((header, key) => (
+                <Cell key={key} value={header} header flex={FLEX[key]} />
+              ))}
+              <View style={{width: 20}} />
+            </Row>
+            { item.data.map((product, key) => (
+              <Item key={key} item={product} />
+            ))}
+          </Table>
+
+        </ScrollView>
+        <IconButton
           onPressAdd={() =>
-            navigation.navigate('AgregarDetalles', { idSection: item[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })} />
-      </View>
-    );
+            navigation.navigate('AgregarDetalles', { idSection: item.data[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })}
+          iconName='add'
+          type='full'
+          color={primary.brand}
+          size={24}
+        />
+      </Card>
+    </View>);
   };
 
   return(
