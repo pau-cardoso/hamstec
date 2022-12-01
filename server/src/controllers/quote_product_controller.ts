@@ -7,8 +7,14 @@ export async function getAllQuoteProducts(request, response) {
 };
 
 export async function getQuoteProduct(request, response) {
-  const results = await AppDataSource.getRepository(QuoteProduct).findOneBy({
-    id: request.params.id,
+  const results = await AppDataSource.getRepository(QuoteProduct).findOne({
+    where: {
+      id: request.params.id,
+    },
+    relations: {
+      product: true,
+      section: true,
+    }
   })
   return response.send(results)
 }
@@ -102,7 +108,6 @@ export async function getProductsInstalledByQuote(request, response) {
     }
     newResults.push(section);
   }
-  console.log(newResults)
 
   return response.send(newResults)
 }
@@ -144,4 +149,13 @@ export async function getProductCount(request, response) {
   });
 
   return response.send(productResult);
+}
+
+export async function updateProduct(request, response) {
+  const quoteProduct = await AppDataSource.getRepository(QuoteProduct).findOneBy({
+    id: request.params.id,
+  });
+  AppDataSource.getRepository(QuoteProduct).merge(quoteProduct, request.body);
+  const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct);
+  return response.send(results)
 }
