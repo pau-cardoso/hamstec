@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import { neutral } from '../../config/colors';
@@ -17,33 +17,82 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
   const [quantity, setQuantity] = React.useState("1");
   const [observations, setObservations] = React.useState("");
   const [product, setProduct] = React.useState({id: 0, name: ""});
+  const [isEditing, setIsEditing] = React.useState(false);
 
-  const {idQuote, idSection} = route.params;
+  const {idQuote, idSection, idQuoteProduct} = route.params;
+
+  useEffect(() => {
+    if (idQuoteProduct !== undefined) {
+      setDetails();
+      setIsEditing(true);
+    }
+  }, []);
+
+  function setDetails() {
+    fetch('http://localhost:3000/quote-product/' + idQuoteProduct)
+      .then((response) => response.json())
+      .then((json) => {
+        setArea(json.area);
+        setZone(json.zone);
+        setQuantity(json.quantity);
+        setObservations(json.observations);
+        setProduct({
+          id: json.product.id,
+          name: json.product.name
+        });
+      })
+      .catch((error) => console.error(error))
+  };
 
   function addProductQuote() {
-    fetch('http://localhost:3000/quote-product', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        area: area,
-        product: product.id,
-        quote: idQuote,
-        section: idSection,
-        quantity: quantity,
-        zone: zone,
-        observations: observations,
-        phase: "COTIZACION",
-      })
-    }).then(
-      // console.log('Success!!')
-    ).catch((error) => {
-      console.error(error);
-    }).finally(
-      navigation.goBack(), route.params.setRefreshing(true)
-    )
+    if (isEditing) {
+      fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          area: area,
+          product: product.id,
+          quantity: quantity,
+          zone: zone,
+          observations: observations,
+        })
+      }).then(
+        // console.log('Success!!')
+      ).catch((error) => {
+        console.error(error);
+        // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+      }).finally(
+        navigation.goBack(),
+        route.params.setRefreshing(true)
+      );
+    } else {
+      fetch('http://localhost:3000/quote-product', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          area: area,
+          product: product.id,
+          quote: idQuote,
+          section: idSection,
+          quantity: quantity,
+          zone: zone,
+          observations: observations,
+          phase: "COTIZACION",
+        })
+      }).then(
+        // console.log('Success!!')
+      ).catch((error) => {
+        console.error(error);
+      }).finally(
+        navigation.goBack(), route.params.setRefreshing(true)
+      );
+    }
   }
 
   return(
