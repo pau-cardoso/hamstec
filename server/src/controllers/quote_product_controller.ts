@@ -46,7 +46,7 @@ export async function getProductsByQuote(request, response) {
       section: {
         id: "ASC"
       }
-    }
+    },
   });
 
   const productResult = {};
@@ -65,7 +65,7 @@ export async function getProductsByQuote(request, response) {
 }
 
 export async function getProductsInstalledByQuote(request, response) {
-  const results = await AppDataSource.getRepository(QuoteProduct).find({
+  const quoteProducts = await AppDataSource.getRepository(QuoteProduct).find({
     relations: {
       quote: true,
       section: true,
@@ -81,20 +81,30 @@ export async function getProductsInstalledByQuote(request, response) {
       section: {
         id: "ASC"
       }
-    }
+    },
   });
 
   const productResult = {};
   let currentSection = -1;
-  results.forEach(product => {
+  quoteProducts.forEach(product => {
     if (product.section.id !== currentSection) {
       currentSection = product.section.id;
-      productResult[currentSection] = []
+      productResult[currentSection] = [];
     }
     productResult[currentSection].push(product);
   });
 
-  return response.send(productResult)
+  const newResults = [];
+  for (let key in productResult) {
+    const section = {
+      name: productResult[key][0].section.name,
+      data: productResult[key]
+    }
+    newResults.push(section);
+  }
+  console.log(newResults)
+
+  return response.send(newResults)
 }
 
 export async function addQuoteProduct(request, response) {
