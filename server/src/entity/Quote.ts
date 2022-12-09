@@ -17,4 +17,7 @@ export class Quote {
     @ManyToOne(() => Project)
     project: Project
 
+    @Column("money", {default: 0, nullable: true })
+    expenses: number
+
 }
