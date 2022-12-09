@@ -3,7 +3,11 @@ import { Quote } from "../entity/Quote"
 import { QuoteProduct } from "../entity/QuoteProduct"
 
 export async function getAllQuotes(request, response) {
-  const quotes = await AppDataSource.getRepository(Quote).find()
+  const quotes = await AppDataSource.getRepository(Quote).find({
+    relations: {
+      project: true,
+    }
+  })
   response.json(quotes)
 };
 
