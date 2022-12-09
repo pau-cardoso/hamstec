@@ -58,6 +58,8 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
           quantity: quantity,
           zone: zone,
           observations: observations,
+          quote: idQuote,
+          phase: 'COTIZACION',
         })
       }).then(
         // console.log('Success!!')

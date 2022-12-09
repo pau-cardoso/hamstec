@@ -1,5 +1,18 @@
 import { AppDataSource } from "../data-source"
+import { Quote } from "../entity/Quote"
 import { QuoteProduct } from "../entity/QuoteProduct"
+
+async function getExpenses(idQuote) {
+  const quoteSummary = await AppDataSource.getRepository(QuoteProduct)
+    .createQueryBuilder("quoteProduct")
+    .leftJoin('quoteProduct.quote', 'quote')
+    .leftJoin('quoteProduct.product', 'product')
+    .where('quoteProduct.quote = :id_quote', { id_quote: idQuote })
+    .andWhere('quoteProduct.phase = :phase', { phase: 'COTIZACION' })
+    .select('CAST(AVG(CAST(product.public_price AS decimal) * quoteProduct.quantity) * 6 AS MONEY)', 'viaticos')
+    .getRawOne();
+  return quoteSummary.viaticos;
+}
 
 export async function getAllQuoteProducts(request, response) {
   const quoteProducts = await AppDataSource.getRepository(QuoteProduct).find()
@@ -30,7 +43,6 @@ export async function getProductsByQuote(request, response) {
     .select('SUM(product.price)', 'cost')
     .addSelect('SUM(product.installation)', 'installation')
     .addSelect('SUM(product.utility)', 'utility')
-    .addSelect('CAST(AVG(CAST(product.public_price AS decimal) * quoteProduct.quantity) * 6 AS MONEY)', 'viaticos')
     .addSelect('SUM(product.public_price * quoteProduct.quantity)', 'total')
     .addSelect('SUM(product.public_price * quoteProduct.quantity) * 0.8', 'anticipo')
     .addSelect('SUM(product.public_price * quoteProduct.quantity) * 0.2', 'instalacion')
@@ -120,8 +132,17 @@ export async function getProductsInstalledByQuote(request, response) {
 }
 
 export async function addQuoteProduct(request, response) {
-  const quoteProduct = await AppDataSource.getRepository(QuoteProduct).create(request.body)
-  const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct)
+  const quoteProduct = await AppDataSource.getRepository(QuoteProduct).create(request.body);
+
+  if (request.body.phase === 'COTIZACION') {
+    const quoteRepository = await AppDataSource.getRepository(Quote);
+    const quote = await quoteRepository.findOneBy({id: request.body.quote});
+    const expenses = await getExpenses(quote.id);
+    quote.expenses = expenses;
+    await quoteRepository.save(quote);
+  }
+
+  const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct);
   return response.send(results)
 }
 
