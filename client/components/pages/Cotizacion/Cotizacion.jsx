@@ -21,6 +21,7 @@ const FLEX = [1, 1, 2, 1, 3, 1, 1];
 export default function Cotizacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [projectData, setProjectData] = React.useState();
+  const [quoteData, setQuoteData] = React.useState({expenses: 0});
   const [quoteSummary, setQuoteSummary] = React.useState({total: "", anticipo: "", instalacion: "", cost: "", installation: "", utility: ""});
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -40,6 +41,12 @@ export default function Cotizacion({style, navigation, route}) {
       .then((response) => response.json())
       .then((json) => {
         setProjectData(json);
+      })
+      .catch((error) => console.error(error))
+    fetch("http://localhost:3000/quote/" + quoteId)
+      .then((response) => response.json())
+      .then((json) => {
+        setQuoteData(json);
         setRefreshing(false);
       })
       .catch((error) => console.error(error))
@@ -107,8 +114,8 @@ export default function Cotizacion({style, navigation, route}) {
 
         </ScrollView>
         <IconButton
-          onPressAdd={() =>
-            navigation.navigate('AgregarDetalles', { idSection: item.data[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })}
+          onPress={() => {
+            navigation.navigate('AgregarDetalles', { idSection: item.data[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })}}
           iconName='add'
           type='full'
           color={primary.brand}
@@ -164,6 +171,10 @@ export default function Cotizacion({style, navigation, route}) {
                 <View style={styles.textRow}>
                   <TextPairing text='Utilidad' type='medium' size={16} />
                   <TextPairing text={quoteSummary.utility} size={16} />
+                </View>
+                <View style={styles.textRow}>
+                  <TextPairing text='Viaticos' type='medium' size={16} />
+                  <TextPairing text={quoteData.expenses} size={16} />
                 </View>
               </Card>
             </View>
