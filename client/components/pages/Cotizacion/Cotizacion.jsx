@@ -24,6 +24,8 @@ export default function Cotizacion({style, navigation, route}) {
   const [quoteData, setQuoteData] = React.useState({expenses: 0});
   const [quoteSummary, setQuoteSummary] = React.useState({total: "", anticipo: "", instalacion: "", cost: "", installation: "", utility: ""});
   const [refreshing, setRefreshing] = React.useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [expenses, setExpenses] = React.useState();
 
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
@@ -160,21 +162,29 @@ export default function Cotizacion({style, navigation, route}) {
 
               <Card>
                 <TextPairing text='Información de utilidad' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
-                <View style={styles.textRow}>
+                <View style={[styles.textRow, {marginRight: 30}]}>
                   <TextPairing text='Costo' type='medium' size={16} />
                   <TextPairing text={quoteSummary.cost} size={16} />
                 </View>
-                <View style={styles.textRow}>
-                  <TextPairing text='Instalacion' type='medium' size={16} />
+                <View style={[styles.textRow, {marginRight: 30}]}>
+                  <TextPairing text='Instalación' type='medium' size={16} />
                   <TextPairing text={quoteSummary.installation} size={16} />
                 </View>
-                <View style={styles.textRow}>
+                <View style={[styles.textRow, {marginRight: 30}]}>
                   <TextPairing text='Utilidad' type='medium' size={16} />
                   <TextPairing text={quoteSummary.utility} size={16} />
                 </View>
-                <View style={styles.textRow}>
-                  <TextPairing text='Viaticos' type='medium' size={16} />
-                  <TextPairing text={quoteData.expenses} size={16} />
+                <View style={{flexDirection: 'row'}}>
+                  <View style={[styles.textRow, {flex: 1, marginRight: 10}]}>
+                    <TextPairing text='Viáticos' type='medium' size={16} />
+                    <TextPairing text={quoteData.expenses} size={16} />
+                  </View>
+                  <IconButton
+                    iconName='pencil-sharp'
+                    size={20}
+                    style={{alignSelf: 'center'}}
+                    onPress={() => navigation.navigate('ModificarViaticos', {quoteId: quoteId, setRefreshing: setRefreshing})}
+                  />
                 </View>
               </Card>
             </View>
