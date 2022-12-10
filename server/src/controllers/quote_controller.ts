@@ -93,3 +93,12 @@ export async function addQuote(request, response) {
 
   return response.send(addedQuote)
 }
+
+export async function updateQuote(request, response) {
+  const quote = await AppDataSource.getRepository(Quote).findOneBy({
+    id: request.params.id,
+  });
+  AppDataSource.getRepository(Quote).merge(quote, request.body);
+  const results = await AppDataSource.getRepository(Quote).save(quote);
+  return response.send(results);
+}
