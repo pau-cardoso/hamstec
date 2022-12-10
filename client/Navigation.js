@@ -20,6 +20,7 @@ import DetalleProducto from './components/pages/DetalleProducto';
 import AgregarProducto from './components/pages/AgregarProducto';
 import AgregarProductoInstalacion from './components/pages/AgregarProductoInstalación';
 import ResumenDispositivos from './components/pages/Cotizacion/ResumenDispositivos';
+import ModificarViaticos from './components/pages/ModificarViaticos';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ function ProjectStack() {
       <ProjectStackNavigator.Screen name="Versiones" component={Versiones} />
       <ProjectStackNavigator.Screen name="Cotizacion" component={Main} />
       <ProjectStackNavigator.Screen name="AgregarSeccion" component={AgregarSeccion} options={{presentation: 'modal'}} />
+      <ProjectStackNavigator.Screen name="ModificarViaticos" component={ModificarViaticos} options={{presentation: 'modal'}} />
       <ProjectStackNavigator.Screen name="AgregarProductoCotizacion" component={AgregarProductoCotizacion} />
       <ProjectStackNavigator.Screen name="AgregarDetalles" component={AgregarDetallesProducto} />
       <ProjectStackNavigator.Screen name="AgregarProductoInstalacion" component={AgregarProductoInstalacion} />
