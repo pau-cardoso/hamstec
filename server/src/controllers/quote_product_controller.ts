@@ -188,3 +188,8 @@ export async function updateProduct(request, response) {
   const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct);
   return response.send(results);
 }
+
+export async function deleteProduct(request, response) {
+  const results = await AppDataSource.getRepository(QuoteProduct).delete(request.params.id)
+  return response.send(results)
+}
