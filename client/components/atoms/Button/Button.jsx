@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
-import colors, { neutral } from '../../config/colors';
+import colors, { neutral, others } from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
 
 export default function Button({ onPress, title, type, textColor, style }) {
@@ -13,6 +13,10 @@ export default function Button({ onPress, title, type, textColor, style }) {
 
     case 'textInput':
       typeStyle.push(styles.textInputSytle);
+      break;
+
+    case 'contained':
+      typeStyle.push(styles.containedStyle);
       break;
 
     default:
@@ -49,6 +53,15 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		flex: 1,
   },
+  containedStyle: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: others.danger_bg,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+		borderRadius: 8,
+  },
   shadow: {
     shadowColor: 'rgba(0, 0, 0, 0.2)',
     shadowOffset: {
@@ -70,6 +83,6 @@ Button.defaultProps = {
 Button.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
-  type: PropTypes.oneOf(['primary', 'textInput']),
+  type: PropTypes.oneOf(['primary', 'textInput', 'contained']),
   onPress: PropTypes.func,
 };

@@ -44,6 +44,24 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
       .catch((error) => console.error(error))
   };
 
+  function deleteProductQuote() {
+    fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }).then(
+      // console.log('Success!!')
+    ).catch((error) => {
+      console.error(error);
+      // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+    }).finally(
+      navigation.goBack(),
+      route.params.setRefreshing(true)
+    );
+  }
+
   function addProductQuote() {
     if (isEditing) {
       fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
@@ -122,6 +140,9 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
               <TextField value={note} onChangeText={setNotes} title='Notas' placeholder='Notas' />
               <TextField value={quantity} onChangeText={setQuantity} title='Cantidad' placeholder='Cantidad' type='quantity' keyboardType="numeric" />
             </FormGroup>
+            { isEditing &&
+              <Button onPress={() => deleteProductQuote()} title='Eliminar' type='contained' textColor='danger' />
+            }
           </Card>
         }
       />
@@ -138,6 +159,16 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 12,
+  },
+  deleteButton: {
+    backgroundColor: '#FFEAEA',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 12,
+    marginVertical: 12,
+    borderRadius: 12,
   }
 });
 
