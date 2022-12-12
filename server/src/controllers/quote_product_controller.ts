@@ -32,7 +32,6 @@ export async function getQuoteProduct(request, response) {
   return response.send(results)
 }
 
-// TODO: add vehicle cost and update total and utility with it
 export async function getProductsByQuote(request, response) {
   const quoteSummary = await AppDataSource.getRepository(QuoteProduct)
     .createQueryBuilder("quoteProduct")
@@ -40,12 +39,14 @@ export async function getProductsByQuote(request, response) {
     .leftJoin('quoteProduct.product', 'product')
     .where('quoteProduct.quote = :id_quote', { id_quote: request.params.id_quote })
     .andWhere('quoteProduct.phase = :phase', { phase: 'COTIZACION' })
+    .groupBy('quote.expenses')
     .select('SUM(product.price)', 'cost')
     .addSelect('SUM(product.installation)', 'installation')
     .addSelect('SUM(product.utility)', 'utility')
-    .addSelect('SUM(product.public_price * quoteProduct.quantity)', 'total')
-    .addSelect('SUM(product.public_price * quoteProduct.quantity) * 0.8', 'anticipo')
-    .addSelect('SUM(product.public_price * quoteProduct.quantity) * 0.2', 'instalacion')
+    .addSelect('quote.expenses', 'expenses')
+    .addSelect('SUM(product.public_price * quoteProduct.quantity) + quote.expenses', 'total')
+    .addSelect('(SUM(product.public_price * quoteProduct.quantity) + quote.expenses) * 0.8', 'anticipo')
+    .addSelect('(SUM(product.public_price * quoteProduct.quantity) + quote.expenses) * 0.2', 'instalacion')
     .getRawOne();
 
   const products = await AppDataSource.getRepository(QuoteProduct).find({
