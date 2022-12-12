@@ -141,7 +141,13 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
               <TextField value={quantity} onChangeText={setQuantity} title='Cantidad' placeholder='Cantidad' type='quantity' keyboardType="numeric" />
             </FormGroup>
             { isEditing &&
-              <Button onPress={() => deleteProductQuote()} title='Eliminar' type='contained' textColor='danger' />
+              <Button
+                style={{marginTop: 12}}
+                title='Eliminar'
+                type='contained'
+                textColor='danger'
+                onPress={() => deleteProductQuote()}
+              />
             }
           </Card>
         }
