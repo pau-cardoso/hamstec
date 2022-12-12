@@ -24,8 +24,6 @@ export default function Cotizacion({style, navigation, route}) {
   const [quoteData, setQuoteData] = React.useState({expenses: 0});
   const [quoteSummary, setQuoteSummary] = React.useState({total: "", anticipo: "", instalacion: "", cost: "", installation: "", utility: ""});
   const [refreshing, setRefreshing] = React.useState(false);
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [expenses, setExpenses] = React.useState();
 
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
