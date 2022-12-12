@@ -37,3 +37,8 @@ export const neutral = {
   s900: "#161617", // On background
   black: "#000000",
 }
+
+export const others = {
+	danger: '#DC2020',
+	danger_bg: '#FFEAEA',
+}

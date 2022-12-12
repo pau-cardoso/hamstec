@@ -92,6 +92,9 @@ export default function TextPairing({text, secondaryText, type, size, color, sty
 		case 's900':
 			textStyles.push(fontColor.s900);
 			break
+		case 'danger':
+			textStyles.push(fontColor.danger);
+			break
 	}
 
 	return (
@@ -110,5 +113,5 @@ TextPairing.propTypes = {
   secondaryText: PropTypes.string,
 	type: PropTypes.oneOf(['light', 'regular', 'medium', 'semibold']),
 	size: PropTypes.oneOf([13, 14, 16, 19, 24, 32, 38]),
-	color: PropTypes.oneOf(['white', 'black', 'brand', 's050', 's100', 's150', 's200', 's250', 's300', 's400', 's500', 's600', 's700', 's800', 's900']),
+	color: PropTypes.oneOf(['white', 'black', 'brand', 's050', 's100', 's150', 's200', 's250', 's300', 's400', 's500', 's600', 's700', 's800', 's900', 'danger']),
 };

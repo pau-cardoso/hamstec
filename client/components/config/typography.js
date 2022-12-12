@@ -1,4 +1,4 @@
-import {neutral, primary} from './colors';
+import {neutral, others, primary} from './colors';
 
 export const fontSize = {
   x10: {
@@ -207,6 +207,9 @@ export const fontColor = {
   },
   s900: {
     color: neutral.s900,
+  },
+  danger: {
+    color: others.danger,
   },
 }
 
