@@ -40,6 +40,24 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
       .catch((error) => console.error(error))
   }
 
+  function deleteProductQuote() {
+    fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }).then(
+      // console.log('Success!!')
+    ).catch((error) => {
+      console.error(error);
+      // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+    }).finally(
+      navigation.goBack(),
+      route.params.setRefreshing(true)
+    );
+  }
+
   function addProductQuote() {
     if (isEditing) {
       fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
@@ -112,6 +130,15 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
               </View>
               <TextField value={observations} onChangeText={setObservations} title='Observaciones' placeholder='Observaciones' />
             </FormGroup>
+            { isEditing &&
+              <Button
+                style={{marginTop: 12}}
+                title='Eliminar'
+                type='contained'
+                textColor='danger'
+                onPress={() => deleteProductQuote()}
+              />
+            }
           </Card>
         }
       />
