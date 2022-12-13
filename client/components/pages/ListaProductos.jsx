@@ -60,7 +60,7 @@ export default function ListaProductos({style, navigation, route}) {
             rightButtonIcon='add-circle' />
         }
         body={
-          <Card>
+          <Card style={{flex: 1, marginBottom: 24}} >
             <Row>
               <Cell value='Marca' header />
               <Cell value='Clave' header />

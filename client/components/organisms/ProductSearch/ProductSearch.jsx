@@ -28,7 +28,7 @@ export default function ProductSearch({
         style={styles.gap}
         searchPhrase={searchPhrase}
         setSearchPhrase={setSearchPhrase} />
-      <View style={[styles.tabGroup, styles.gap]}>
+      <View style={[styles.tabGroup]}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           { tabs.map((tab, i) => (
             <Chip
