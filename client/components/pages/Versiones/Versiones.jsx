@@ -4,6 +4,7 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
+import { showMessage } from "react-native-flash-message";
 
 
 export default function Versiones({style, navigation, route}) {
@@ -23,8 +24,23 @@ export default function Versiones({style, navigation, route}) {
 
   const addVersion = () => {
     fetch("http://localhost:3000/quote/add/" + route.params.id_project)
-      .then((response) => response.json())
-      .catch((error) => console.error(error))
+      .then((response) => {
+        response.json();
+        showMessage({
+          message: 'Nueva versión creada correctamente',
+          type: 'success',
+          icon: 'auto'
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        showMessage({
+          message: 'Ocurrió un error',
+          description: 'Inténtalo más tarde',
+          type: 'danger',
+          icon: 'auto'
+        });
+      })
       .finally(setRefreshing(true));
   }
 

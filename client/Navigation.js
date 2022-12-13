@@ -21,6 +21,7 @@ import AgregarProducto from './components/pages/AgregarProducto';
 import AgregarProductoInstalacion from './components/pages/AgregarProductoInstalación';
 import ResumenDispositivos from './components/pages/Cotizacion/ResumenDispositivos';
 import ModificarViaticos from './components/pages/ModificarViaticos';
+import FlashMessage from 'react-native-flash-message';
 
 const ProjectStackNavigator = createNativeStackNavigator();
 
@@ -94,6 +95,7 @@ export default function Navigation() {
   return (
     <NavigationContainer theme={HamstecTheme}>
       <TabNavigation />
+      <FlashMessage position='top' />
     </NavigationContainer>
   );
 }
