@@ -6,6 +6,8 @@ import FormGroup from '../molecules/FormGroup/FormGroup';
 import TextField from '../atoms/TextField/TextField';
 import SearchableSelect from '../molecules/SearchableSelect/SearchableSelect';
 import { ScrollView } from 'react-native-gesture-handler';
+import { showMessage } from 'react-native-flash-message';
+import { showErrorMessage } from '../config/utils';
 
 export default function AgregarProducto({route, navigation, style}) {
   const [brand, setBrand] = React.useState({id:0, name: ""});
@@ -39,10 +41,9 @@ export default function AgregarProducto({route, navigation, style}) {
     fetch('http://localhost:3000/brand')
       .then((response) => response.json())
       .then((json) => setBrandData(json))
-      .catch((error) => console.error(error))
+      .catch((error) => {console.error(error); showErrorMessage();})
   }, []);
 
-  // TODO: Add error and success messages
   function addProduct() {
     if (route.params.product != undefined) {
       fetch('http://localhost:3000/product/' + route.params.product.id, {
@@ -63,10 +64,14 @@ export default function AgregarProducto({route, navigation, style}) {
           brand: brand.id,
         })
       }).then(
-        // console.log('Success!!')
+        showMessage({
+          message: 'Producto modificado correctamente',
+          type: 'success',
+          icon: 'auto'
+        })
       ).catch((error) => {
         console.error(error);
-        // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+        showErrorMessage();
       }).finally(
         navigation.goBack(),
         route.params.setRefreshing(true)
@@ -90,10 +95,14 @@ export default function AgregarProducto({route, navigation, style}) {
           brand: brand.id,
         })
       }).then(
-        // console.log('Success!!')
+        showMessage({
+          message: 'Producto creado correctamente',
+          type: 'success',
+          icon: 'auto'
+        })
       ).catch((error) => {
         console.error(error);
-        // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+        showErrorMessage();
       }).finally(
         navigation.goBack(),
         route.params.setRefreshing(true)

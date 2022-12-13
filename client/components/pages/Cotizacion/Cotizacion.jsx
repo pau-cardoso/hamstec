@@ -14,6 +14,7 @@ import IconButton from '../../atoms/IconButton/IconButton';
 import Table from '../../molecules/Table/Table';
 import Row from '../../molecules/Table/Row';
 import Cell from '../../molecules/Table/Cell';
+import { showErrorMessage } from '../../config/utils';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const FLEX = [1, 1, 2, 1, 3, 1, 1];
@@ -36,20 +37,29 @@ export default function Cotizacion({style, navigation, route}) {
         setData(json[0]);
         setQuoteSummary(json[1]);
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      })
     fetch("http://localhost:3000/project/" + projectId)
       .then((response) => response.json())
       .then((json) => {
         setProjectData(json);
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      })
     fetch("http://localhost:3000/quote/" + quoteId)
       .then((response) => response.json())
       .then((json) => {
         setQuoteData(json);
         setRefreshing(false);
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      })
     }, [refreshing]);
 
   let generatePDF = async () => {

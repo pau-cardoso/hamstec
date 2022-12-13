@@ -4,6 +4,8 @@ import ModalTemplate from '../templates/ModalTemplate';
 import PageHeader from '../molecules/PageHeader/PageHeader';
 import FormGroup from '../molecules/FormGroup/FormGroup';
 import SearchableSelect from '../molecules/SearchableSelect/SearchableSelect';
+import { showMessage } from 'react-native-flash-message';
+import { showErrorMessage } from '../config/utils';
 
 export default function AgregarProyecto({style, navigation, route}) {
   const [section, setSection] = React.useState({id:0, name: ""});
@@ -13,7 +15,7 @@ export default function AgregarProyecto({style, navigation, route}) {
     fetch('http://localhost:3000/section')
       .then((response) => response.json())
       .then((json) => setSectionData(json))
-      .catch((error) => console.error(error))
+      .catch((error) => {console.error(error); showErrorMessage();})
   }, []);
 
   function addSection() {
@@ -28,10 +30,14 @@ export default function AgregarProyecto({style, navigation, route}) {
         section: section.id,
         phase: route.params.phase,
       })
-    }).then(
-      // console.log('Success!!')
+    }).then(showMessage({
+        message: 'Sección creada correctamente',
+        type: 'success',
+        icon: 'auto'
+      })
     ).catch((error) => {
       console.error(error);
+      showErrorMessage();
     }).finally(
       navigation.goBack(), route.params.setRefreshing(true)
     )

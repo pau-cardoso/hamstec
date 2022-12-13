@@ -8,6 +8,8 @@ import TextField from '../atoms/TextField/TextField';
 import Card from '../atoms/Card/Card';
 import Button from '../atoms/Button/Button';
 import TextPairing from '../atoms/TextPairing/TextPairing';
+import { showMessage } from 'react-native-flash-message';
+import { showErrorMessage } from '../config/utils';
 
 export default function AgregarProductoInstalacion({style, navigation, route}) {
   const [area, setArea] = React.useState("");
@@ -37,7 +39,7 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
         });
         setObservations(json.observations);
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {console.error(error); showErrorMessage();})
   }
 
   function deleteProductQuote() {
@@ -47,11 +49,9 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-    }).then(
-      // console.log('Success!!')
-    ).catch((error) => {
+    }).catch((error) => {
       console.error(error);
-      // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+      showErrorMessage();
     }).finally(
       navigation.goBack(),
       route.params.setRefreshing(true)
@@ -73,10 +73,14 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
           observations: observations,
         })
       }).then(
-        // console.log('Success!!')
+        showMessage({
+          message: 'Producto modificado correctamente',
+          type: 'success',
+          icon: 'auto'
+        })
       ).catch((error) => {
         console.error(error);
-        // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+        showErrorMessage();
       }).finally(
         navigation.goBack(),
         route.params.setRefreshing(true)
@@ -98,9 +102,14 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
           phase: "INSTALACION",
         })
       }).then(
-        // console.log('Success!!')
+        showMessage({
+          message: 'Producto agregado correctamente',
+          type: 'success',
+          icon: 'auto'
+        })
       ).catch((error) => {
         console.error(error);
+        showErrorMessage();
       }).finally(
         navigation.goBack(), route.params.setRefreshing(true)
       );

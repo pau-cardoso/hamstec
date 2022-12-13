@@ -5,6 +5,8 @@ import PageHeader from '../../molecules/PageHeader/PageHeader';
 import FormGroup from '../../molecules/FormGroup/FormGroup';
 import TextField from '../../atoms/TextField/TextField';
 import SearchableSelect from '../../molecules/SearchableSelect/SearchableSelect';
+import { showMessage } from 'react-native-flash-message';
+import { showErrorMessage } from '../../config/utils';
 
 export default function AgregarProyecto({style, navigation, route}) {
   const [name, setName] = React.useState("");
@@ -16,10 +18,12 @@ export default function AgregarProyecto({style, navigation, route}) {
     fetch('http://localhost:3000/client')
       .then((response) => response.json())
       .then((json) => setClientData(json))
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      })
   }, []);
 
-  // TODO: Add error and success messages
   function addProject() {
     fetch('http://localhost:3000/project', {
       method: 'POST',
@@ -33,10 +37,14 @@ export default function AgregarProyecto({style, navigation, route}) {
         client: client.id,
       })
     }).then(
-      // console.log('Success!!')
+      showMessage({
+        message: 'Proyecto creado correctamente',
+        type: 'success',
+        icon: 'auto'
+      })
     ).catch((error) => {
       console.error(error);
-      // console.log("Algo salio mal. Vuelva a interntarlo mas tarde")
+      showErrorMessage();
     }).finally(
       navigation.goBack(),
       route.params.setRefreshing(true)

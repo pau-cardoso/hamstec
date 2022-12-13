@@ -5,6 +5,7 @@ import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showMessage } from "react-native-flash-message";
+import { showErrorMessage } from '../../config/utils';
 
 
 export default function Versiones({style, navigation, route}) {
@@ -18,7 +19,10 @@ export default function Versiones({style, navigation, route}) {
     fetch(url)
       .then((response) => response.json())
       .then((json) => setData(json))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      });
     setRefreshing(false);
   }, [refreshing]);
 
@@ -34,12 +38,7 @@ export default function Versiones({style, navigation, route}) {
       })
       .catch((error) => {
         console.error(error);
-        showMessage({
-          message: 'Ocurrió un error',
-          description: 'Inténtalo más tarde',
-          type: 'danger',
-          icon: 'auto'
-        });
+        showErrorMessage();
       })
       .finally(setRefreshing(true));
   }

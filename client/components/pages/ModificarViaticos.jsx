@@ -3,8 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import ModalTemplate from '../templates/ModalTemplate';
 import PageHeader from '../molecules/PageHeader/PageHeader';
 import FormGroup from '../molecules/FormGroup/FormGroup';
-import SearchableSelect from '../molecules/SearchableSelect/SearchableSelect';
 import TextField from '../atoms/TextField/TextField';
+import { showMessage } from 'react-native-flash-message';
+import { showErrorMessage } from '../config/utils';
 
 export default function ModificarViaticos({style, navigation, route}) {
   const [expenses, setExpenses] = React.useState(0);
@@ -17,7 +18,7 @@ export default function ModificarViaticos({style, navigation, route}) {
       .then((json) => {
         setExpenses(json.expenses);
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {console.error(error); showErrorMessage();})
   }, []);
 
   function editExpenses() {
@@ -30,10 +31,9 @@ export default function ModificarViaticos({style, navigation, route}) {
       body: JSON.stringify({
         expenses: expenses,
       })
-    }).then(
-      // console.log('Success!!')
-    ).catch((error) => {
+    }).catch((error) => {
       console.error(error);
+      showErrorMessage();
     }).finally(
       navigation.goBack(), route.params.setRefreshing(true)
     )
