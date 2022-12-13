@@ -35,7 +35,9 @@ export default function Cotizacion({style, navigation, route}) {
       .then((response) => response.json())
       .then((json) => {
         setData(json[0]);
-        setQuoteSummary(json[1]);
+        if (json[1] !== null) {
+          setQuoteSummary(json[1]);
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -163,7 +165,7 @@ export default function Cotizacion({style, navigation, route}) {
                   <TextPairing text={quoteSummary.anticipo} size={16} />
                 </View>
                 <View style={styles.textRow}>
-                  <TextPairing text='Antes de instalacion' type='medium' size={16} />
+                  <TextPairing text='Antes de instalación' type='medium' size={16} />
                   <TextPairing text={quoteSummary.instalacion} size={16} />
                 </View>
               </Card>
@@ -196,9 +198,7 @@ export default function Cotizacion({style, navigation, route}) {
                 </View>
               </Card>
             </View>
-            <View>
             <Button style={styles.button} onPress={() => {generatePDF()}} title="Generar PDF" />
-            </View>
           </>
         }
       />
