@@ -52,10 +52,10 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
     }).catch((error) => {
       console.error(error);
       showErrorMessage();
-    }).finally(
-      navigation.goBack(),
-      route.params.setRefreshing(true)
-    );
+    }).finally(() => {
+      navigation.goBack();
+      route.params.setRefreshing(true);
+    });
   }
 
   function addProductQuote() {
@@ -81,10 +81,10 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
       ).catch((error) => {
         console.error(error);
         showErrorMessage();
-      }).finally(
-        navigation.goBack(),
-        route.params.setRefreshing(true)
-      );
+      }).finally(() => {
+        navigation.goBack();
+        route.params.setRefreshing(true);
+      });
     } else {
       fetch('http://localhost:3000/quote-product', {
         method: 'POST',
@@ -110,9 +110,10 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
       ).catch((error) => {
         console.error(error);
         showErrorMessage();
-      }).finally(
-        navigation.goBack(), route.params.setRefreshing(true)
-      );
+      }).finally(() => {
+        navigation.goBack();
+        route.params.setRefreshing(true);
+      });
     }
   }
 

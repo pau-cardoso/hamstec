@@ -45,10 +45,10 @@ export default function AgregarProyecto({style, navigation, route}) {
     ).catch((error) => {
       console.error(error);
       showErrorMessage();
-    }).finally(
-      navigation.goBack(),
-      route.params.setRefreshing(true)
-    )
+    }).finally(() => {
+      navigation.goBack();
+      route.params.setRefreshing(true);
+    });
   }
 
   return(

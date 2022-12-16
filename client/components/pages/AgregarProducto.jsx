@@ -72,10 +72,10 @@ export default function AgregarProducto({route, navigation, style}) {
       ).catch((error) => {
         console.error(error);
         showErrorMessage();
-      }).finally(
-        navigation.goBack(),
-        route.params.setRefreshing(true)
-      )
+      }).finally(() => {
+        navigation.goBack();
+        route.params.setRefreshing(true);
+      });
     } else {
       fetch('http://localhost:3000/product', {
         method: 'POST',
@@ -103,10 +103,10 @@ export default function AgregarProducto({route, navigation, style}) {
       ).catch((error) => {
         console.error(error);
         showErrorMessage();
-      }).finally(
-        navigation.goBack(),
-        route.params.setRefreshing(true)
-      )
+      }).finally(() => {
+        navigation.goBack();
+        route.params.setRefreshing(true);
+      });
     }
   };
 
