@@ -76,7 +76,7 @@ export default function DetalleProducto({route, navigation, style}) {
               </View>
               <IconButton
                 iconName='md-pencil-sharp'
-                onPress={() => navigation.navigate('AgregarProducto', {setRefreshing: setRefreshing, product: product})}
+                onPress={() => navigation.navigate('AgregarProducto', {setRefreshing: setRefreshing, refreshList: route.params.setRefreshing, product: product})}
                 size={20} />
             </View>
           </Card>

@@ -8,6 +8,7 @@ import SearchableSelect from '../molecules/SearchableSelect/SearchableSelect';
 import { ScrollView } from 'react-native-gesture-handler';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../config/utils';
+import Button from '../atoms/Button/Button';
 
 export default function AgregarProducto({route, navigation, style}) {
   const [brand, setBrand] = React.useState({id:0, name: ""});
@@ -20,6 +21,8 @@ export default function AgregarProducto({route, navigation, style}) {
   const [installation, setInstallation] = React.useState("");
   const [utility, setUtility] = React.useState("");
   const [publicPrice, setPublicPrice] = React.useState("");
+
+  const isEditing = route.params.product != undefined;
 
   function setProduct() {
     const product = route.params.product;
@@ -43,6 +46,22 @@ export default function AgregarProducto({route, navigation, style}) {
       .then((json) => setBrandData(json))
       .catch((error) => {console.error(error); showErrorMessage();})
   }, []);
+
+  function deleteProduct() {
+    fetch('http://localhost:3000/product/' + route.params.product.id, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }).catch((error) => {
+      console.error(error);
+      showErrorMessage();
+    }).finally(() => {
+      navigation.pop(2);
+      route.params.refreshList(true);
+    });
+  }
 
   function addProduct() {
     if (route.params.product != undefined) {
@@ -139,6 +158,15 @@ export default function AgregarProducto({route, navigation, style}) {
                 setText={setBrand}
               />
             </FormGroup>
+            { isEditing &&
+              <Button
+                style={{marginTop: 12}}
+                title='Eliminar'
+                type='contained'
+                textColor='danger'
+                onPress={() => deleteProduct()}
+              />
+            }
           </ScrollView>
         }
       />
