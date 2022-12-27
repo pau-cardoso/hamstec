@@ -36,3 +36,8 @@ export async function addProduct(request, response) {
   const results = await AppDataSource.getRepository(Product).save(product)
   return response.send(results)
 }
+
+export async function deleteProduct(request, response) {
+  const results = await AppDataSource.getRepository(Product).delete(request.params.id)
+  return response.send(results)
+}
