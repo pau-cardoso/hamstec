@@ -31,3 +31,8 @@ export async function addProject(request, response) {
   const results = await AppDataSource.getRepository(Project).save(project)
   return response.send(results)
 }
+
+export async function deleteProject(request, response) {
+  const results = await AppDataSource.getRepository(Project).delete(request.params.id)
+  return response.send(results)
+}
