@@ -6,12 +6,15 @@ import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showMessage } from "react-native-flash-message";
 import { showErrorMessage } from '../../config/utils';
+import { DeleteModal } from '../../../assets/HelperComponents';
 
 
 export default function Versiones({style, navigation, route}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [quoteDeleting, setQuoteDeleting] = React.useState({id: null, name: ''});
 
   const url = "http://localhost:3000/quote/project/" + route.params.id_project;
 
@@ -52,6 +55,7 @@ export default function Versiones({style, navigation, route}) {
           <ListItem
             text={item.version}
             onPress={() => navigation.navigate('Cotizacion', { quoteId: item.id, projectId: route.params.id_project })}
+            onLongPress={() => {setModalVisible(true); setQuoteDeleting({id: item.id, name: item.version});}}
           />
         </View>
       );
@@ -60,6 +64,13 @@ export default function Versiones({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
+      <DeleteModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        deletedItem={quoteDeleting}
+        url={'http://localhost:3000/quote/' + quoteDeleting.id}
+        setRefreshing={setRefreshing}
+      />
       <PageTemplate
         header={
           <HeaderSearch
