@@ -17,7 +17,7 @@ export class QuoteProduct {
   @ManyToOne(() => Product, (product) => product.id)
   product: Product
 
-  @ManyToOne(() => Quote, (quote) => quote.id)
+  @ManyToOne(() => Quote, (quote) => quote.id, {onDelete: 'CASCADE'})
   quote: Quote
 
   @ManyToOne(() => Section, (section) => section.id)

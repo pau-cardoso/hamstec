@@ -26,6 +26,22 @@ export default function Proyectos({style, navigation}) {
       .finally(setRefreshing(false));
   }, [refreshing]);
 
+  function deleteProject() {
+    fetch('http://localhost:3000/project/' + projectDeleting.id, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }).catch((error) => {
+      console.error(error);
+      showErrorMessage();
+    }).finally(() => {
+      setModalVisible(false);
+      setRefreshing(true);
+    });
+  }
+
   const DeleteModal = () => (
     <Modal
       animationType="fade"
@@ -54,6 +70,7 @@ export default function Proyectos({style, navigation}) {
                 textColor='danger'
                 iconName='trash-outline'
                 iconColor={others.danger}
+                onPress={() => deleteProject()}
               />
             </View>
           </View>

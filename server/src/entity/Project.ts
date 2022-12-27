@@ -13,7 +13,7 @@ export class Project {
     @Column("text", {nullable: true})
     address: string
 
-    @ManyToOne(() => Client)
+    @ManyToOne(() => Client, {onDelete: 'CASCADE'})
     client: Client
 
 }

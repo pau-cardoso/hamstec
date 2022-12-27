@@ -14,7 +14,7 @@ export class Quote {
     @Column("decimal", { scale: 1, nullable: true, default: 1 })
     version: number
 
-    @ManyToOne(() => Project)
+    @ManyToOne(() => Project, {onDelete: 'CASCADE'})
     project: Project
 
     @Column("money", {default: 0, nullable: true })
