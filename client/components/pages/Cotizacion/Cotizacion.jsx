@@ -95,7 +95,8 @@ export default function Cotizacion({style, navigation, route}) {
             style={{alignSelf: 'center'}}
             onPress={ () => navigation.navigate('AgregarDetalles',
               { idQuoteProduct: item.id,
-                setRefreshing: setRefreshing
+                idQuote: quoteId,
+                setRefreshing: setRefreshing,
               })}
           />
         </Row>

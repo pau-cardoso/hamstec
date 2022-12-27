@@ -9,9 +9,18 @@ async function getExpenses(idQuote) {
     .leftJoin('quoteProduct.product', 'product')
     .where('quoteProduct.quote = :id_quote', { id_quote: idQuote })
     .andWhere('quoteProduct.phase = :phase', { phase: 'COTIZACION' })
+    .andWhere('product.id IS NOT NULL')
     .select('CAST(AVG(CAST(product.public_price AS decimal) * quoteProduct.quantity) * 6 AS MONEY)', 'viaticos')
     .getRawOne();
   return quoteSummary.viaticos;
+}
+
+async function updateExpenses(idQuote) {
+  const quoteRepository = await AppDataSource.getRepository(Quote);
+  const quote = await quoteRepository.findOneBy({id: idQuote});
+  const expenses = await getExpenses(quote.id);
+  quote.expenses = expenses === null ? 0 : expenses;
+  await quoteRepository.save(quote);
 }
 
 export async function getAllQuoteProducts(request, response) {
@@ -134,16 +143,10 @@ export async function getProductsInstalledByQuote(request, response) {
 
 export async function addQuoteProduct(request, response) {
   const quoteProduct = await AppDataSource.getRepository(QuoteProduct).create(request.body);
-
-  if (request.body.phase === 'COTIZACION') {
-    const quoteRepository = await AppDataSource.getRepository(Quote);
-    const quote = await quoteRepository.findOneBy({id: request.body.quote});
-    const expenses = await getExpenses(quote.id);
-    quote.expenses = expenses;
-    await quoteRepository.save(quote);
-  }
-
   const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct);
+  if (request.body.phase === 'COTIZACION') {
+    await updateExpenses(request.body.quote);
+  }
   return response.send(results)
 }
 
@@ -186,10 +189,31 @@ export async function updateProduct(request, response) {
   });
   AppDataSource.getRepository(QuoteProduct).merge(quoteProduct, request.body);
   const results = await AppDataSource.getRepository(QuoteProduct).save(quoteProduct);
+  if (request.body.phase === 'COTIZACION') {
+    await updateExpenses(request.body.quote);
+  }
   return response.send(results);
 }
 
 export async function deleteProduct(request, response) {
-  const results = await AppDataSource.getRepository(QuoteProduct).delete(request.params.id)
-  return response.send(results)
+  const quote = await AppDataSource.getRepository(QuoteProduct).findOne({
+    where: {
+      id: request.params.id,
+    },
+    relations: {
+      quote: true,
+    },
+    select: {
+      quote: {
+        id: true,
+      },
+    }
+  });
+  const results = await AppDataSource.getRepository(QuoteProduct).delete(request.params.id);
+
+  if (quote.phase === 'COTIZACION') {
+    await updateExpenses(quote.quote.id);
+  };
+
+  return response.send(results);
 }
