@@ -4,9 +4,9 @@ import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Card from '../../atoms/Card/Card'
 
-export default function ListItem({ text, secondaryText, image, onPress, style }) {
-  return(
-    <TouchableOpacity onPress={onPress}>
+export default function ListItem({ text, secondaryText, image, onPress, onLongPress, style }) {
+return(
+    <TouchableOpacity onPress={onPress} onLongPress={onLongPress}>
       <Card>
         <View style={[styles.container, style]}>
           { image &&

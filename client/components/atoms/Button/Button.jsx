@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import colors, { neutral, others } from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function Button({ onPress, title, type, textColor, style }) {
+export default function Button({ onPress, title, type, textColor, style, iconName, iconColor }) {
   const typeStyle = [style, styles.shadow];
   switch (type) {
     case 'primary':
@@ -26,7 +27,10 @@ export default function Button({ onPress, title, type, textColor, style }) {
   return(
     <View>
       <TouchableOpacity onPress={onPress}>
-        <View style={typeStyle}>
+        <View style={[typeStyle, {flexDirection: 'row'}, style]}>
+          { iconName &&
+            <Ionicons style={{textAlign: 'center', marginEnd: 4}} name={iconName} size={20} color={iconColor} />
+          }
           <TextPairing
             text={title}
             type='medium'
@@ -51,7 +55,6 @@ const styles = StyleSheet.create({
     backgroundColor: neutral.s050,
     padding: 12,
 		borderRadius: 8,
-		flex: 1,
   },
   containedStyle: {
     alignSelf: 'center',
