@@ -102,3 +102,8 @@ export async function updateQuote(request, response) {
   const results = await AppDataSource.getRepository(Quote).save(quote);
   return response.send(results);
 }
+
+export async function deleteQuote(request, response) {
+  const results = await AppDataSource.getRepository(Quote).delete(request.params.id)
+  return response.send(results)
+}
