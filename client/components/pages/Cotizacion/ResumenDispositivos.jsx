@@ -17,6 +17,12 @@ export default function ResumenDispositivos({style, navigation, route}) {
   let tableData = new Array(0);
   const url = "http://localhost:3000/quote-product/count/" + quoteId;
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'MXN',
+    currencyDisplay: 'narrowSymbol',
+  });
+
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
@@ -29,6 +35,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
 
   let totalHired = 0;
   let totalInstalled = 0;
+  let priceDifference = 0;
 
   for (let i = 0; i < data.length; i++) {
     const element = data[i];
@@ -39,9 +46,11 @@ export default function ResumenDispositivos({style, navigation, route}) {
       if (phase.quoteProduct_phase === 'COTIZACION') {
         hired += parseInt(phase.product_count)
         totalHired += parseInt(phase.product_count)
+        priceDifference += parseInt(phase.product_count) * Number(phase.product_public_price.replace(/[^0-9.-]+/g,""))
       } else if (phase.quoteProduct_phase === 'INSTALACION') {
         installed += parseInt(phase.product_count)
         totalInstalled += parseInt(phase.product_count)
+        priceDifference -= parseInt(phase.product_count) * Number(phase.product_public_price.replace(/[^0-9.-]+/g,""))
       }
     });
     const row = new Array(0);
@@ -102,7 +111,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
                 </View>
                 <View style={styles.textRow}>
                   <TextPairing text='Diferencia MXN' type='medium' size={16} />
-                  <TextPairing text='' size={16} />
+                  <TextPairing text={formatter.format(Math.abs(priceDifference))} size={16} />
                 </View>
               </Card>
             </View>

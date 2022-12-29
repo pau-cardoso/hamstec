@@ -166,6 +166,7 @@ export async function getProductCount(request, response) {
     .addSelect('product.name')
     .addSelect('product.code')
     .addSelect('product.brand')
+    .addSelect('product.public_price')
     .addSelect('brand.name')
     .addSelect('quoteProduct.phase')
     .getRawMany();
