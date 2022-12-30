@@ -11,8 +11,8 @@ export default function Marcas({style, navigation, route}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
-  // const [modalVisible, setModalVisible] = React.useState(false);
-  // const [sectionDeleting, setSectionDeleting] = React.useState({id: null, name: ''});
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [brandDeleting, setBrandDeleting] = React.useState({id: null, name: ''});
 
   const url = "http://localhost:3000/brand/";
 
@@ -35,7 +35,7 @@ export default function Marcas({style, navigation, route}) {
         <View style={styles.item}>
           <ListItem
             text={item.name}
-            // onLongPress={() => {setSectionDeleting({id: item.id, name: item.name}); setModalVisible(true);}}
+            onLongPress={() => {setBrandDeleting({id: item.id, name: item.name}); setModalVisible(true);}}
           />
         </View>
       );
@@ -44,13 +44,13 @@ export default function Marcas({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
-      {/* <DeleteModal
+      <DeleteModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        deletedItem={sectionDeleting}
-        url={'http://localhost:3000/section/' + sectionDeleting.id}
+        deletedItem={brandDeleting}
+        url={'http://localhost:3000/brand/' + brandDeleting.id}
         setRefreshing={setRefreshing}
-      /> */}
+      />
       <PageTemplate
         header={
           <HeaderSearch
