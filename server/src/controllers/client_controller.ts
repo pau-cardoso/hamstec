@@ -14,7 +14,6 @@ export async function getClient(request, response) {
   return response.send(results)
 }
 
-// TODO: Test it
 export async function addClient(request, response) {
   const client = await AppDataSource.getRepository(Client).create(request.body)
   const results = await AppDataSource.getRepository(Client).save(client)

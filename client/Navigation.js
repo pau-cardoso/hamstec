@@ -24,6 +24,7 @@ import ModificarViaticos from './components/pages/ModificarViaticos';
 import FlashMessage from 'react-native-flash-message';
 import Perfil from './components/pages/Perfil';
 import Clientes from './components/pages/Clientes/Clientes';
+import AgregarCliente from './components/pages/Clientes/AgregarCliente';
 
 /**
  * Stack navigator for Project tab
@@ -98,6 +99,7 @@ function ProfileStackNav() {
       }} >
       <ProfileStack.Screen name="Perfil" component={Perfil} />
       <ProfileStack.Screen name="Clientes" component={Clientes} />
+      <ProfileStack.Screen name="AgregarCliente" component={AgregarCliente} />
     </ProfileStack.Navigator>
   );
 }

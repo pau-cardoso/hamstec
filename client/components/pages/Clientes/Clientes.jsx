@@ -60,7 +60,7 @@ export default function Clientes({style, navigation, route}) {
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
             onPressBackButton={() => navigation.goBack()}
-            onRightButtonClick={() => {}} // TODO
+            onRightButtonClick={() => {navigation.navigate('AgregarCliente', {setRefreshing: setRefreshing})}}
             rightButtonIcon='add-circle' />
         }
         body={
