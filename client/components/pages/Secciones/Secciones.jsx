@@ -4,15 +4,15 @@ import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showErrorMessage } from '../../config/utils';
-// import { DeleteModal } from '../../../assets/HelperComponents';
+import { DeleteModal } from '../../../assets/HelperComponents';
 
 
 export default function Secciones({style, navigation, route}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
-  // const [modalVisible, setModalVisible] = React.useState(false);
-  // const [sectionDeleting, setSectionDeleting] = React.useState({id: null, name: ''});
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [sectionDeleting, setSectionDeleting] = React.useState({id: null, name: ''});
 
   const url = "http://localhost:3000/section/";
 
@@ -35,8 +35,7 @@ export default function Secciones({style, navigation, route}) {
         <View style={styles.item}>
           <ListItem
             text={item.name}
-            // onLongPress={() => {setSectionDeleting({id: item.id, name: item.name}); setModalVisible(true);}}
-            // secondaryText={item.email} TODO ask if secondary text is wanted
+            onLongPress={() => {setSectionDeleting({id: item.id, name: item.name}); setModalVisible(true);}}
           />
         </View>
       );
@@ -45,13 +44,13 @@ export default function Secciones({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
-      {/* <DeleteModal
+      <DeleteModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         deletedItem={sectionDeleting}
         url={'http://localhost:3000/section/' + sectionDeleting.id}
         setRefreshing={setRefreshing}
-      /> */}
+      />
       <PageTemplate
         header={
           <HeaderSearch
