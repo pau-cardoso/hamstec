@@ -58,7 +58,7 @@ export default function Marcas({style, navigation, route}) {
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
             onPressBackButton={() => navigation.goBack()}
-            // onRightButtonClick={() => {navigation.navigate('AgregarSecciones', {setRefreshing: setRefreshing})}}
+            onRightButtonClick={() => {navigation.navigate('AgregarMarca', {setRefreshing: setRefreshing})}}
             rightButtonIcon='add-circle' />
         }
         body={
