@@ -19,7 +19,7 @@ export default function Perfil({style, navigation}) {
               source={{ uri: 'https://www.fakepersongenerator.com/Face/male/male20171086010783539.jpg' }} />
             <TextPairing text='Paulina' type='semibold' size={32} />
             <View style={styles.listCells}>
-              <ListCell text='Clientes' iconName='people' style={styles.configItem} />
+              <ListCell text='Clientes' iconName='people' style={styles.configItem} onPress={() => navigation.navigate('Clientes')} />
               <ListCell text='Secciones' iconName='folder-open' style={styles.configItem} />
               <ListCell text='Marcas' iconName='pricetag' style={styles.configItem} />
             </View>

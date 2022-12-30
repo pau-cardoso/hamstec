@@ -23,6 +23,7 @@ import ResumenDispositivos from './components/pages/Cotizacion/ResumenDispositiv
 import ModificarViaticos from './components/pages/ModificarViaticos';
 import FlashMessage from 'react-native-flash-message';
 import Perfil from './components/pages/Perfil';
+import Clientes from './components/pages/Clientes/Clientes';
 
 /**
  * Stack navigator for Project tab
@@ -96,6 +97,7 @@ function ProfileStackNav() {
         headerShown: false,
       }} >
       <ProfileStack.Screen name="Perfil" component={Perfil} />
+      <ProfileStack.Screen name="Clientes" component={Clientes} />
     </ProfileStack.Navigator>
   );
 }
