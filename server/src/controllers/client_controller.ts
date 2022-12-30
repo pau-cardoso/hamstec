@@ -19,3 +19,8 @@ export async function addClient(request, response) {
   const results = await AppDataSource.getRepository(Client).save(client)
   return response.send(results)
 }
+
+export async function deleteClient(request, response) {
+  const results = await AppDataSource.getRepository(Client).delete(request.params.id)
+  return response.send(results)
+}
