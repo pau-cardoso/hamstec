@@ -26,6 +26,7 @@ import Perfil from './components/pages/Perfil';
 import Clientes from './components/pages/Clientes/Clientes';
 import AgregarCliente from './components/pages/Clientes/AgregarCliente';
 import Secciones from './components/pages/Secciones/Secciones';
+import AgregarSecciones from './components/pages/Secciones/AgregarSecciones';
 
 /**
  * Stack navigator for Project tab
@@ -102,6 +103,7 @@ function ProfileStackNav() {
       <ProfileStack.Screen name="Clientes" component={Clientes} />
       <ProfileStack.Screen name="AgregarCliente" component={AgregarCliente} />
       <ProfileStack.Screen name="Secciones" component={Secciones} />
+      <ProfileStack.Screen name="AgregarSecciones" component={AgregarSecciones} />
     </ProfileStack.Navigator>
   );
 }

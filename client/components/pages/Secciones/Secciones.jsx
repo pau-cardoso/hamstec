@@ -59,8 +59,8 @@ export default function Secciones({style, navigation, route}) {
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
             onPressBackButton={() => navigation.goBack()}
+            onRightButtonClick={() => {navigation.navigate('AgregarSecciones', {setRefreshing: setRefreshing})}}
             rightButtonIcon='add-circle' />
-            // onRightButtonClick={() => {navigation.navigate('AgregarCliente', {setRefreshing: setRefreshing})}}
         }
         body={
           <FlatList

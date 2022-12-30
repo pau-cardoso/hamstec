@@ -15,7 +15,6 @@ export async function getSection(request, response) {
   return response.send(results)
 }
 
-// TODO: Test it
 export async function addSection(request, response) {
   const section = await AppDataSource.getRepository(Section).create(request.body)
   const results = await AppDataSource.getRepository(Section).save(section)
