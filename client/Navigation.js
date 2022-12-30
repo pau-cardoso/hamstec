@@ -22,9 +22,12 @@ import AgregarProductoInstalacion from './components/pages/AgregarProductoInstal
 import ResumenDispositivos from './components/pages/Cotizacion/ResumenDispositivos';
 import ModificarViaticos from './components/pages/ModificarViaticos';
 import FlashMessage from 'react-native-flash-message';
+import Perfil from './components/pages/Perfil';
 
+/**
+ * Stack navigator for Project tab
+ */
 const ProjectStackNavigator = createNativeStackNavigator();
-
 function ProjectStack() {
   return (
     <ProjectStackNavigator.Navigator
@@ -45,6 +48,9 @@ function ProjectStack() {
   );
 }
 
+/**
+ * Top tab navigation for Quote
+ */
 const TopTabs = createMaterialTopTabNavigator();
 
 export function TopTabNavigation({route}) {
@@ -59,12 +65,15 @@ export function TopTabNavigation({route}) {
   );
 };
 
+/**
+ * Stack navigator for ListProduct tab
+ */
 const ListProductsStack = createNativeStackNavigator();
 
 function ListProductsStackNav() {
   return (
     <ListProductsStack.Navigator
-      initialRouteName='Proyectos'
+      initialRouteName='ListaProductos'
       screenOptions={{
         headerShown: false,
       }} >
@@ -75,8 +84,26 @@ function ListProductsStackNav() {
   );
 }
 
-const Tab = createBottomTabNavigator();
+/**
+ * Stack navigator for Profile tab
+ */
+const ProfileStack = createNativeStackNavigator();
+function ProfileStackNav() {
+  return (
+    <ProfileStack.Navigator
+      initialRouteName='Perfil'
+      screenOptions={{
+        headerShown: false,
+      }} >
+      <ProfileStack.Screen name="Perfil" component={Perfil} />
+    </ProfileStack.Navigator>
+  );
+}
 
+/**
+ * Bottom tab navigator for whole application
+ */
+const Tab = createBottomTabNavigator();
 export function TabNavigation() {
   return (
     <Tab.Navigator
@@ -87,6 +114,7 @@ export function TabNavigation() {
       }} >
       <Tab.Screen name="Proyectos" component={ProjectStack} />
       <Tab.Screen name="ListaProductos" component={ListProductsStackNav} />
+      <Tab.Screen name="Perfil" component={ProfileStackNav} />
     </Tab.Navigator>
   );
 }
