@@ -20,3 +20,8 @@ export async function addSection(request, response) {
   const results = await AppDataSource.getRepository(Section).save(section)
   return response.send(results)
 }
+
+export async function deleteSection(request, response) {
+  const results = await AppDataSource.getRepository(Section).delete(request.params.id)
+  return response.send(results)
+}
