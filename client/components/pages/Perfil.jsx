@@ -21,7 +21,7 @@ export default function Perfil({style, navigation}) {
             <View style={styles.listCells}>
               <ListCell text='Clientes' iconName='people' style={styles.configItem} onPress={() => navigation.navigate('Clientes')} />
               <ListCell text='Secciones' iconName='folder-open' style={styles.configItem} onPress={() => navigation.navigate('Secciones')} />
-              <ListCell text='Marcas' iconName='pricetag' style={styles.configItem} />
+              <ListCell text='Marcas' iconName='pricetag' style={styles.configItem} onPress={() => navigation.navigate('Marcas')} />
             </View>
           </View>
         </View>
