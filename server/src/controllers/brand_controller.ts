@@ -15,9 +15,13 @@ export async function getBrand(request, response) {
   return response.send(results)
 }
 
-// TODO: Test it
 export async function addBrand(request, response) {
   const brand = await AppDataSource.getRepository(Brand).create(request.body)
   const results = await AppDataSource.getRepository(Brand).save(brand)
+  return response.send(results)
+}
+
+export async function deleteBrand(request, response) {
+  const results = await AppDataSource.getRepository(Brand).delete(request.params.id)
   return response.send(results)
 }
