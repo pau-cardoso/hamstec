@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, FlatList, Modal } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
-import Card from '../../atoms/Card/Card';
-import TextPairing from '../../atoms/TextPairing/TextPairing';
-import Button from '../../atoms/Button/Button';
-import { neutral, others } from '../../config/colors';
+import { DeleteModal } from '../../../assets/HelperComponents';
 
 export default function Proyectos({style, navigation}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
@@ -42,43 +39,6 @@ export default function Proyectos({style, navigation}) {
     });
   }
 
-  const DeleteModal = () => (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        setModalVisible(!modalVisible);
-      }}
-    >
-      <View style={styles.modalContainer}>
-        <Card style={styles.modalView}>
-          <View style={styles.modalView}>
-            <TextPairing text='¿Estás seguro que quieres eliminar' />
-            <TextPairing text={projectDeleting.name + '?'} type='medium' />
-            <View style={styles.modalButtons}>
-              <Button
-                type='contained'
-                title='Cancelar'
-                textColor='s400'
-                style={{backgroundColor: neutral.s100}}
-                onPress={() => setModalVisible(false)}
-              />
-              <Button type='contained'
-                title='Eliminar'
-                textColor='danger'
-                iconName='trash-outline'
-                iconColor={others.danger}
-                onPress={() => deleteProject()}
-              />
-            </View>
-          </View>
-        </Card>
-      </View>
-    </Modal>
-  )
-
   const renderItem = ({ item }) => {
     if ( searchPhrase === "" ||
         item.name.toUpperCase().includes(searchPhrase.toUpperCase().trim())
@@ -101,7 +61,13 @@ export default function Proyectos({style, navigation}) {
 
   return(
     <View style={[styles.container, style]}>
-      <DeleteModal />
+      <DeleteModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        deletedItem={projectDeleting}
+        url={'http://localhost:3000/project/' + projectDeleting.id}
+        setRefreshing={setRefreshing}
+      />
       <PageTemplate
         header={
           <HeaderSearch

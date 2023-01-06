@@ -42,7 +42,7 @@ export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, se
                 type='contained'
                 title='Cancelar'
                 textColor='s400'
-                style={{backgroundColor: neutral.s100}}
+                style={{backgroundColor: neutral.s100, marginRight: 12}}
                 onPress={() => setModalVisible(false)}
               />
               <Button type='contained'
@@ -67,8 +67,6 @@ const styles = StyleSheet.create({
   },
   modalButtons: {
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-evenly',
     marginTop: 12,
   },
   modalContainer: {
