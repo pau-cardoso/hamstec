@@ -103,11 +103,11 @@ function ProfileStackNav() {
       }} >
       <ProfileStack.Screen name="Perfil" component={Perfil} />
       <ProfileStack.Screen name="Clientes" component={Clientes} />
-      <ProfileStack.Screen name="AgregarCliente" component={AgregarCliente} />
+      <ProfileStack.Screen name="AgregarCliente" component={AgregarCliente} options={{presentation: 'modal'}} />
       <ProfileStack.Screen name="Secciones" component={Secciones} />
-      <ProfileStack.Screen name="AgregarSecciones" component={AgregarSecciones} />
+      <ProfileStack.Screen name="AgregarSecciones" component={AgregarSecciones} options={{presentation: 'modal'}} />
       <ProfileStack.Screen name="Marcas" component={Marcas} />
-      <ProfileStack.Screen name="AgregarMarca" component={AgregarMarca} />
+      <ProfileStack.Screen name="AgregarMarca" component={AgregarMarca} options={{presentation: 'modal'}} />
     </ProfileStack.Navigator>
   );
 }
