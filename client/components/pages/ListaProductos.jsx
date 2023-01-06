@@ -8,16 +8,22 @@ import Cell from '../molecules/Table/Cell';
 
 export default function ListaProductos({style, navigation, route}) {
   const [data, setData] = React.useState();
+  const [tabs, setTabs] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("Todos");
   const [searchPhrase, setSearchPhrase] = React.useState("");
-
-  const TABS = ['Todos', 'Broadlink', 'ORVIBO', 'Amazon'];
 
   useEffect(() => {
     fetch('http://localhost:3000/product')
       .then((response) => response.json())
       .then((json) => setData(json))
+      .catch((error) => console.error(error))
+    fetch('http://localhost:3000/brand')
+      .then((response) => response.json())
+      .then((json) => {
+        const brands = ["Todos"].concat(json.map(brand => brand.name));
+        setTabs(brands);
+      })
       .catch((error) => console.error(error))
     setRefreshing(false);
   }, [refreshing]);
@@ -52,7 +58,7 @@ export default function ListaProductos({style, navigation, route}) {
           <ProductSearch
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
-            tabs={TABS}
+            tabs={tabs}
             title='Lista de productos'
             activeTab={activeTab}
             setActiveTab={setActiveTab}
