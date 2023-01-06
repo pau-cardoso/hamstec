@@ -9,7 +9,7 @@ return(
     <TouchableOpacity onPress={onPress} onLongPress={onLongPress}>
       <Card>
         <View style={[styles.container, style]}>
-          { image &&
+          { !!image &&
             <Image
               style={styles.image}
               source={{ uri: image }}
@@ -20,7 +20,7 @@ return(
               text={text}
               type='medium'
               size={16} />
-            { secondaryText &&
+            { !!secondaryText &&
               <TextPairing
                 text={secondaryText}
                 type='light'

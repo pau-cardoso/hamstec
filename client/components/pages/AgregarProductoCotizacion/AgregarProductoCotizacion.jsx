@@ -6,10 +6,10 @@ import ProductSearch from '../../organisms/ProductSearch/ProductSearch';
 import ListItem from '../../molecules/ListItem/ListItem';
 
 export default function AgregarProductoCotizacion({route, navigation, style}) {
-  const TABS = ['Todos', 'Broadlink', 'ORVIBO', 'Amazon'];
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [activeTab, setActiveTab] = React.useState("Todos");
   const [data, setData] = React.useState([]);
+  const [tabs, setTabs] = React.useState([]);
 
   const url = "http://localhost:3000/product/";
   const {setProduct} = route.params;
@@ -19,6 +19,13 @@ export default function AgregarProductoCotizacion({route, navigation, style}) {
       .then((response) => response.json())
       .then((json) => {
         setData(json)
+      })
+      .catch((error) => console.error(error))
+    fetch('http://localhost:3000/brand')
+      .then((response) => response.json())
+      .then((json) => {
+        const brands = ["Todos"].concat(json.map(brand => brand.name));
+        setTabs(brands);
       })
       .catch((error) => console.error(error))
   }, []);
@@ -51,7 +58,7 @@ export default function AgregarProductoCotizacion({route, navigation, style}) {
           <ProductSearch
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
-            tabs={TABS}
+            tabs={tabs}
             title={'Agregar Producto'}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
@@ -73,6 +80,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     width: '100%',
+    flex: 1,
   },
   item: {
     marginBottom: 12,
