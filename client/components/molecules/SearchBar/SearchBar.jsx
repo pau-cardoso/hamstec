@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import TextField from '../../atoms/TextField/TextField';
 import IconButton from '../../atoms/IconButton/IconButton'
 import { neutral } from '../../config/colors';
+import { moderateScale } from '../../config/utils';
 
 export default function SearchBar({searchPhrase, setSearchPhrase, onPressFilter, style}) {
   return(
@@ -21,7 +22,7 @@ export default function SearchBar({searchPhrase, setSearchPhrase, onPressFilter,
       </View>
       { onPressFilter &&
         <IconButton
-          style={{ marginLeft: 16 }}
+          style={{ marginLeft: moderateScale(16) }}
           iconName='filter'
           onPress={onPressFilter}
           size={22}

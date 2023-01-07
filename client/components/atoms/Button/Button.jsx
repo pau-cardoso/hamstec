@@ -4,6 +4,7 @@ import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import colors, { neutral, others } from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
 import { Ionicons } from '@expo/vector-icons';
+import { moderateScale } from '../../config/utils';
 
 export default function Button({ onPress, title, type, textColor, style, iconName, iconColor }) {
   const typeStyle = [style, styles.shadow];
@@ -45,15 +46,15 @@ const styles = StyleSheet.create({
   primaryStyle: {
     alignSelf: 'center',
     borderRadius: 55,
-    paddingHorizontal: 24,
-    paddingVertical: 16,
+    paddingHorizontal: moderateScale(24),
+    paddingVertical: moderateScale(16),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.brand,
   },
   textInputSytle: {
     backgroundColor: neutral.s050,
-    padding: 12,
+    padding: moderateScale(12),
 		borderRadius: 8,
   },
   containedStyle: {
@@ -61,8 +62,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: others.danger_bg,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: moderateScale(12),
+    paddingVertical: moderateScale(8),
 		borderRadius: 8,
   },
   shadow: {

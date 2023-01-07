@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import { neutral } from '../../config/colors';
+import { moderateScale, scale } from '../../config/utils';
 
 export default function Card({ children, style }) {
   return(
@@ -12,7 +13,7 @@ export default function Card({ children, style }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding:  moderateScale(16),
     backgroundColor: neutral.white,
     borderRadius: 15,
     shadowColor: 'rgba(0, 0, 0, 0.2)',

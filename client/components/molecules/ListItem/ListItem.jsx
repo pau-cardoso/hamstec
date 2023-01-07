@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Card from '../../atoms/Card/Card'
+import { moderateScale } from '../../config/utils';
 
 export default function ListItem({ text, secondaryText, image, onPress, onLongPress, style }) {
 return(
@@ -45,8 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'start',
   },
   image: {
-    width: 50,
-    height: 50,
+    width: moderateScale(65, 0.75),
+    height: moderateScale(65, 0.75),
     marginRight: 12,
     alignSelf: 'grow',
   },

@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ListCell from '../molecules/ListCell/ListCell';
 import colors, { primary } from '../config/colors';
 import TextPairing from '../atoms/TextPairing/TextPairing';
+import { moderateScale } from '../config/utils';
 
 export default function Perfil({style, navigation}) {
   return(
@@ -14,7 +15,6 @@ export default function Perfil({style, navigation}) {
         <View style={{backgroundColor: primary.s400}}>
           <View style={styles.profile}>
             <Image
-              resizeMode='center'
               style={styles.image}
               source={{ uri: 'https://www.fakepersongenerator.com/Face/male/male20171086010783539.jpg' }} />
             <TextPairing text='Paulina' type='semibold' size={32} />
@@ -52,9 +52,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   image: {
-    width: 150,
-    height: 150,
-    alignSelf: 'grow',
+    width: moderateScale(150),
+    height: moderateScale(150),
     borderRadius: 400/2,
     marginBottom: 8,
     marginTop: -90,

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { neutral, primary } from '../../config/colors';
 import { Ionicons } from '@expo/vector-icons';
+import { moderateScale } from '../../config/utils';
 
 export default function IconButton({ onPress, iconName, size, color, type, style }) {
   const buttonStyle = [styles.container];
@@ -21,7 +22,7 @@ export default function IconButton({ onPress, iconName, size, color, type, style
     <TouchableOpacity onPress={onPress} style={style}>
       <View style={buttonStyle}>
         <View style={styles.icon}>
-          <Ionicons style={{textAlign: 'center'}} name={iconName} size={size} color={color} />
+          <Ionicons style={{textAlign: 'center'}} name={iconName} size={moderateScale(size)} color={color} />
         </View>
       </View>
     </TouchableOpacity>

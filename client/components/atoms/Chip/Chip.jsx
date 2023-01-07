@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { neutral, primary } from '../../config/colors';
 import TextPairing from '../TextPairing/TextPairing';
+import { moderateScale } from '../../config/utils';
 
 export default function Chip({title, onPress, isActive, style}) {
   const containerStyles = [styles.container];
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
-    paddingHorizontal: 16,
+    paddingHorizontal: moderateScale(16),
     paddingVertical: 4,
 	  backgroundColor: neutral.s100,
   },

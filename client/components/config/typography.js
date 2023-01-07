@@ -1,26 +1,27 @@
 import {neutral, others, primary} from './colors';
+import { moderateScale } from './utils';
 
 export const fontSize = {
   x10: {
-    fontSize: 13,
+    fontSize: moderateScale(13, 0.6),
   },
   x20: {
-    fontSize: 14,
+    fontSize: moderateScale(14, 0.6),
   },
   x30: {
-    fontSize: 16,
+    fontSize: moderateScale(16, 0.6),
   },
   x40: {
-    fontSize: 19,
+    fontSize: moderateScale(19, 0.6),
   },
   x50: {
-    fontSize: 24,
+    fontSize: moderateScale(24, 0.6),
   },
   x60: {
-    fontSize: 32,
+    fontSize: moderateScale(32, 0.6),
   },
   x70: {
-    fontSize: 38,
+    fontSize: moderateScale(38, 0.6),
   },
 }
 
@@ -46,25 +47,25 @@ export const letterSpacing = {
 
 export const lineHeight = {
   x10: {
-    lineHeight: 20,
+    lineHeight: moderateScale(20),
   },
   x20: {
-    lineHeight: 22,
+    lineHeight: moderateScale(22),
   },
   x30: {
-    lineHeight: 24,
+    lineHeight: moderateScale(24),
   },
   x40: {
-    lineHeight: 26,
+    lineHeight: moderateScale(26),
   },
   x50: {
-    lineHeight: 32,
+    lineHeight: moderateScale(32),
   },
   x60: {
-    lineHeight: 38,
+    lineHeight: moderateScale(38),
   },
   x70: {
-    lineHeight: 44,
+    lineHeight: moderateScale(44),
   },
 }
 

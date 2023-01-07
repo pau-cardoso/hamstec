@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import IconButton from '../../atoms/IconButton/IconButton';
 import { neutral, primary } from '../../config/colors';
+import { moderateScale } from '../../config/utils';
 
 export default function BottomNavigation({ state, descriptors, navigation }) {
   return (
@@ -67,7 +68,8 @@ export default function BottomNavigation({ state, descriptors, navigation }) {
               onPress={onPress }
               iconName={iconName}
               color={isFocused ? primary.brand : neutral.s300}
-              type={isFocused? 'contained' : 'default'} />
+              type={isFocused? 'contained' : 'default'}
+              size={moderateScale(32, 0.75)} />
           );
         })}
       </View>
@@ -79,8 +81,8 @@ const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 18,
+    paddingHorizontal: moderateScale(16),
+    paddingBottom: moderateScale(18),
     width: '100%',
     backgroundColor: neutral.s050,
   },
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingVertical: moderateScale(16),
     borderRadius: 50,
     width: '100%',
     backgroundColor: neutral.white,

@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    padding: 8,
   },
   child: {
     width: '100%',

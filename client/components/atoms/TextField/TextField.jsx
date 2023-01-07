@@ -1,11 +1,10 @@
-// import { Text, View, StyleSheet } from 'react-native';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { StyleSheet, View, TextInput } from 'react-native';
 import {neutral} from '../../config/colors';
 import {fontSize} from '../../config/typography';
 import TextPairing from '../TextPairing/TextPairing';
 import IconButton from '../IconButton/IconButton';
+import { moderateScale } from '../../config/utils';
 
 export default function TextField(props) {
 	const inputStyle = [styles.input];
@@ -45,9 +44,10 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: neutral.s050,
-		padding: 12,
+		padding: moderateScale(12),
 		borderRadius: 8,
 		flex: 1,
+		...fontSize.x30
 	},
 	quantityContainer: {
 		width: '100%',
