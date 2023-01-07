@@ -14,7 +14,7 @@ import IconButton from '../../atoms/IconButton/IconButton';
 import Table from '../../molecules/Table/Table';
 import Row from '../../molecules/Table/Row';
 import Cell from '../../molecules/Table/Cell';
-import { showErrorMessage } from '../../config/utils';
+import { moderateScale, showErrorMessage } from '../../config/utils';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const FLEX = [1, 1, 2, 1, 3, 1, 1];
@@ -148,15 +148,15 @@ export default function Cotizacion({style, navigation, route}) {
         onRefresh={() => {setRefreshing(true)}}
         ListFooterComponent={
           <>
-            <TouchableOpacity style={{marginBottom: 24}} onPress={() => navigation.navigate('AgregarSeccion', { idQuote: quoteId, phase: tabActive, setRefreshing: setRefreshing })}>
+            <TouchableOpacity onPress={() => navigation.navigate('AgregarSeccion', { idQuote: quoteId, phase: tabActive, setRefreshing: setRefreshing })}>
               <Card style={styles.addSection}>
-                <Ionicons style={{textAlign: 'center', marginRight: 10}} name='add' size={24} color={neutral.s500} />
+                <Ionicons style={{textAlign: 'center', marginRight: moderateScale(10)}} name='add' size={24} color={neutral.s500} />
                 <TextPairing text="Agregar sección" color='s500' />
               </Card>
             </TouchableOpacity>
             <View style={styles.cards}>
-              <Card>
-                <TextPairing text='Resumen de inversión' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
+              <Card style={styles.marginBottom}>
+                <TextPairing text='Resumen de inversión' type='medium' size={24} style={styles.cardTitle} />
                 <View style={styles.textRow}>
                   <TextPairing text='Total' type='medium' size={16} />
                   <TextPairing text={quoteSummary.total} size={16} />
@@ -172,7 +172,7 @@ export default function Cotizacion({style, navigation, route}) {
               </Card>
 
               <Card>
-                <TextPairing text='Información de utilidad' type='medium' size={24} style={{marginHorizontal: 24, marginBottom: 8}} />
+                <TextPairing text='Información de utilidad' type='medium' size={24} style={styles.cardTitle} />
                 <View style={[styles.textRow, {marginRight: 30}]}>
                   <TextPairing text='Costo' type='medium' size={16} />
                   <TextPairing text={quoteSummary.cost} size={16} />
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    marginBottom: 24,
+    marginBottom: moderateScale(24),
   },
   cards: {
     width: '100%',
@@ -223,13 +223,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     alignSelf: 'center',
+    flexWrap: 'wrap',
+    marginTop: moderateScale(24, 0.8),
+  },
+  cardTitle: {
+    marginHorizontal: moderateScale(24),
+    marginBottom: moderateScale(8),
   },
   textRow: {
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
   button: {
-    marginVertical: 16,
+    marginVertical: moderateScale(16),
   },
   icon: {
     justifyContent: 'center',
@@ -239,7 +245,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  marginBottom: {
+    marginBottom: moderateScale(24),
+  },
 });
 
 Cotizacion.propTypes = {
