@@ -7,30 +7,34 @@ export default function getQuotePDF(PRODUCT_DATA, QUOTE_DATA, PROJECT_DATA) {
   let productTable = "", sectionProducts = "", totalProducts = 0;
   const today = moment();
   const dateString = today.date() + " de " + meses[today.month()] + " de " + today.year();
-  console.log(PRODUCT_DATA);
 
   PRODUCT_DATA.forEach(section => {
-    productTable += `<tr class="section-header"><th colspan="4">${section.name}</th></tr>`;
-    sectionProducts += `
-      <tr class="data">
-        <td>${section.name}</td>
-        <td>${section.data.length}</td>
-      </tr>
-    `;
-    section.data.forEach(product => {
-      if (product.product != null) {
-        productTable += `
+    if (section.data.length > 1) {
+      productTable += `<tr class="section-header"><th colspan="4">${section.name}</th></tr>`;
+      let sectionCount = 0;
+      section.data.forEach(product => {
+        if (product.product != null) {
+          productTable += `
           <tr class="data">
-            <!-- for header in headers -->
-            <td></td>
-            <td>${product.zone}</td>
-            <td>${product.product.name}</td>
-            <td>${product.quantity}</td>
+          <!-- for header in headers -->
+          <td></td>
+          <td>${product.zone}</td>
+          <td>${product.product.name}</td>
+          <td>${product.quantity}</td>
           </tr>`
-        ;
-        totalProducts += 1;
-      }
-    });
+          ;
+          totalProducts += product.quantity;
+          sectionCount += product.quantity;
+        }
+      });
+      sectionProducts += `
+        <tr class="data">
+          <td>${section.name}</td>
+          <td>${sectionCount}</td>
+        </tr>
+      `;
+      sectionCount = 0;
+    }
   });
 
   const html = `
