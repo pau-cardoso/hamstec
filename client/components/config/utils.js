@@ -5,14 +5,22 @@ const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-const showErrorMessage = () => {
+const showErrorMessage = (message = 'Ocurrió un error') => {
   showMessage({
-    message: 'Ocurrió un error',
+    message: message,
     description: 'Inténtalo más tarde',
     type: 'danger',
     icon: 'auto'
   });
-}
+};
+
+const showWarningMessage = (message) => {
+  showMessage({
+    message: message,
+    type: 'warning',
+    icon: 'auto'
+  });
+};
 
 /**
  * Scaling unit helper function
@@ -27,4 +35,4 @@ const scale = size => width / guidelineBaseWidth * size;
 const verticalScale = size => height / guidelineBaseHeight * size;
 const moderateScale = (size, factor = 0.5) => size + ( scale(size) - size ) * factor;
 
-export {removeAccents, showErrorMessage, scale, verticalScale, moderateScale};
+export {removeAccents, showErrorMessage, showWarningMessage, scale, verticalScale, moderateScale};

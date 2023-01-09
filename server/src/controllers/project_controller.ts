@@ -33,12 +33,16 @@ export async function getProject(request, response) {
 }
 
 export async function addProject(request, response) {
-  const project = await AppDataSource.getRepository(Project).create(request.body);
-  const results = await AppDataSource.getRepository(Project).save(project).catch((error) => {
+  try {
+    const project = await AppDataSource.getRepository(Project).create(request.body);
+    const results = await AppDataSource.getRepository(Project).save(project);
+    return response.send(results);
+
+  } catch (error) {
     console.log(error);
+    response.status(500).send(error);
     return error;
-  });
-  return response.send(results);
+  }
 }
 
 export async function deleteProject(request, response) {
