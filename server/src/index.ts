@@ -14,7 +14,7 @@ const quoteProductRouter = require('./routes/quote_product.js')
 
 const app = express()
 const port = 3000
-AppDataSource.initialize()
+AppDataSource.initialize().catch((error) => console.log(error));
 
 app.use(bodyParser.json())
 app.use(cors())
