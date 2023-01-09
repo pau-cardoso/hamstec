@@ -22,7 +22,7 @@ export default function IconButton({ onPress, iconName, size, color, type, style
     <TouchableOpacity onPress={onPress} style={style}>
       <View style={buttonStyle}>
         <View style={styles.icon}>
-          <Ionicons style={{textAlign: 'center'}} name={iconName} size={moderateScale(size)} color={color} />
+          <Ionicons style={{textAlign: 'center'}} name={iconName} size={moderateScale(size, 0.25)} color={color} />
         </View>
       </View>
     </TouchableOpacity>

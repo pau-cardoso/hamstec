@@ -69,7 +69,7 @@ export default function BottomNavigation({ state, descriptors, navigation }) {
               iconName={iconName}
               color={isFocused ? primary.brand : neutral.s300}
               type={isFocused? 'contained' : 'default'}
-              size={moderateScale(32, 0.75)} />
+              size={moderateScale(32, 0.25)} />
           );
         })}
       </View>

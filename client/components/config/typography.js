@@ -3,25 +3,25 @@ import { moderateScale } from './utils';
 
 export const fontSize = {
   x10: {
-    fontSize: moderateScale(13, 0.6),
+    fontSize: moderateScale(13, 0.2),
   },
   x20: {
-    fontSize: moderateScale(14, 0.6),
+    fontSize: moderateScale(14, 0.2),
   },
   x30: {
-    fontSize: moderateScale(16, 0.6),
+    fontSize: moderateScale(16, 0.2),
   },
   x40: {
-    fontSize: moderateScale(19, 0.6),
+    fontSize: moderateScale(19, 0.2),
   },
   x50: {
-    fontSize: moderateScale(24, 0.6),
+    fontSize: moderateScale(24, 0.2),
   },
   x60: {
-    fontSize: moderateScale(32, 0.6),
+    fontSize: moderateScale(32, 0.2),
   },
   x70: {
-    fontSize: moderateScale(38, 0.6),
+    fontSize: moderateScale(38, 0.2),
   },
 }
 

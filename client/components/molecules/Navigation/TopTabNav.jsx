@@ -2,7 +2,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Tab from '../../atoms/Tab/Tab';
 import { neutral } from '../../config/colors';
-import { scale } from '../../config/utils';
+import { moderateScale, scale } from '../../config/utils';
 
 export default function TopTabNav({ state, descriptors, navigation, position }) {
   return (
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    paddingBottom: 20,
-    paddingHorizontal: 32,
+    paddingBottom: moderateScale(20),
+    paddingHorizontal: moderateScale(32),
     backgroundColor: neutral.white,
   },
   tab: {
