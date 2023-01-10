@@ -19,21 +19,18 @@ export default function PageHeader({ title, secondaryTitle, onPressBackButton, o
               size={40}
               color={neutral.s900}
             />
-          </View>
-          }
-          <View style={styles.textContainer}>
-            <TextPairing
-              text={title}
-              type='semibold'
-              color='s900'
-              size={32} />
-            <TextPairing
-              style={{marginLeft: moderateScale(12)}}
-              text={secondaryTitle}
-              type='medium'
-              color='s400'
-              size={32} />
-          </View>
+          </View> }
+          <TextPairing
+            style={{marginRight: moderateScale(16)}}
+            text={title}
+            type='semibold'
+            color='s900'
+            size={32} />
+          <TextPairing
+            text={secondaryTitle}
+            type='medium'
+            color='s400'
+            size={32} />
         </View>
         { onRightButtonClick &&
             <IconButton
@@ -58,12 +55,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'start',
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   backButtonContainer: {
 	  marginRight: moderateScale(12),
-  },
-  textContainer: {
-    flexDirection: 'row',
   },
 });
 

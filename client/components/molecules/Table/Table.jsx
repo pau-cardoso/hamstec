@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default function Table({ children, style }) {
   return(
-    <ScrollView horizontal contentContainerStyle={{width: '100%'}}>
+    <ScrollView horizontal>
       <View style={[styles.container, style]}>
         { children }
       </View>

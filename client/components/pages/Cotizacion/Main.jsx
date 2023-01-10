@@ -16,7 +16,7 @@ export default function Main({style, navigation, route}) {
       .then((response) => response.json())
       .then((json) => {
         setTitle(json.name)
-        setClientVersion("· " + json.client.name)
+        setClientVersion(json.client.name)
       })
       .catch((error) => console.error(error))
     }, []);
