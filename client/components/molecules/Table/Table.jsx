@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default function Table({ children, style }) {
   return(
-    <View style={[styles.container, style]}>
-      { children }
-    </View>
+    <ScrollView horizontal contentContainerStyle={{width: '100%'}}>
+      <View style={[styles.container, style]}>
+        { children }
+      </View>
+    </ScrollView>
   );
 }
 

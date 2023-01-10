@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
+import { moderateScale } from '../../config/utils';
 
 export default function Cell({ value, header, flex, width, children, style }) {
   return(
@@ -15,7 +16,7 @@ export default function Cell({ value, header, flex, width, children, style }) {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginRight: 24,
+    marginRight: moderateScale(24),
     width: '100%',
   },
 });

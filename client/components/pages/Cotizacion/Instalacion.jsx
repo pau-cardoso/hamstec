@@ -9,10 +9,17 @@ import Row from '../../molecules/Table/Row';
 import Cell from '../../molecules/Table/Cell';
 import IconButton from '../../atoms/IconButton/IconButton';
 import Table from '../../molecules/Table/Table';
+import { moderateScale } from '../../config/utils';
 
 const HEADERS = ['Área', 'No. App', 'Clave', 'Dispositivo', 'Voz', 'Observaciones'];
-const FLEX = [1, 1, 1, 2, 1, 2];
-const WIDTH = [36, 36, 36, 36, 36, 42]
+const WIDTH = [
+  moderateScale(100, 0.2), // Area
+  moderateScale(100, 0.2), // No. App
+  moderateScale(100, 0.2), // Clave
+  moderateScale(200, 0.2), // Dispositivo
+  moderateScale(100, 0.2), // Voz
+  moderateScale(175, 0.2), // Observaciones
+]
 
 export default function Instalacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
@@ -36,12 +43,12 @@ export default function Instalacion({style, navigation, route}) {
     if (item.product !== null) {
       return(
         <Row>
-          <Cell value={item.area} flex={1} />
-          <Cell value={item.product.code} flex={1} />
-          <Cell value={item.product.code} flex={1} />
-          <Cell value={item.product.name} flex={2} />
-          <Cell value={item.voice} flex={1} />
-          <Cell value={item.observations} flex={2} />
+          <Cell value={item.area} width={WIDTH[0]} />
+          <Cell value={item.product.code} width={WIDTH[1]} />
+          <Cell value={item.product.code} width={WIDTH[2]} />
+          <Cell value={item.product.name} width={WIDTH[3]} />
+          <Cell value={item.voice} width={WIDTH[4]} />
+          <Cell value={item.observations} width={WIDTH[5]} />
           <IconButton
             iconName='pencil-sharp'
             size={20}
@@ -69,7 +76,7 @@ export default function Instalacion({style, navigation, route}) {
             <Table>
               <Row>
                 { HEADERS.map((header, key) => (
-                  <Cell key={key} value={header} header flex={FLEX[key]} />
+                  <Cell key={key} value={header} header width={WIDTH[key]} />
                 ))}
                 <View style={{width: 20}} />
               </Row>

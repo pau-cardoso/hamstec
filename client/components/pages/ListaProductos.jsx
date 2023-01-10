@@ -5,6 +5,11 @@ import PageTemplate from '../templates/PageTemplate';
 import Card from '../atoms/Card/Card';
 import Row from '../molecules/Table/Row';
 import Cell from '../molecules/Table/Cell';
+import Table from '../molecules/Table/Table';
+import { moderateScale } from '../config/utils';
+
+const WIDTH = [moderateScale(70, 0.2), moderateScale(75, 0.2), moderateScale(150, 0.2), moderateScale(200, 0.2), moderateScale(85, 0.2), moderateScale(85, 0.2), moderateScale(100, 0.2), moderateScale(85, 0.2)];
+const HEADERS = ['Marca', 'Clave', 'Dispositivo', 'Descripción', 'Costo', 'Instalación', 'Precio público', 'Utilidad'];
 
 export default function ListaProductos({style, navigation, route}) {
   const [data, setData] = React.useState();
@@ -37,14 +42,14 @@ export default function ListaProductos({style, navigation, route}) {
       return(
         <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('DetalleProducto', {productId: item.id, setRefreshing: setRefreshing})}}>
           <Row>
-            <Cell value={item.brand.name} />
-            <Cell value={item.code} />
-            <Cell value={item.name} flex={2} />
-            <Cell value={item.description} flex={2} />
-            <Cell value={item.price} />
-            <Cell value={item.installation} />
-            <Cell value={item.public_price} />
-            <Cell value={item.utility} />
+            <Cell value={item.brand.name} width={WIDTH[0]} />
+            <Cell value={item.code} width={WIDTH[1]} />
+            <Cell value={item.name} width={WIDTH[2]} />
+            <Cell value={item.description} width={WIDTH[3]} />
+            <Cell value={item.price} width={WIDTH[4]} />
+            <Cell value={item.installation} width={WIDTH[5]} />
+            <Cell value={item.public_price} width={WIDTH[6]} />
+            <Cell value={item.utility} width={WIDTH[7]} />
           </Row>
         </TouchableOpacity>
       );
@@ -66,22 +71,19 @@ export default function ListaProductos({style, navigation, route}) {
             rightButtonIcon='add-circle' />
         }
         body={
-          <Card style={{flex: 1, marginBottom: 24}} >
-            <Row>
-              <Cell value='Marca' header />
-              <Cell value='Clave' header />
-              <Cell value='Dispositivo' header flex={2} />
-              <Cell value='Descripción' header flex={2} />
-              <Cell value='Costo' header />
-              <Cell value='Instalación' header />
-              <Cell value='Precio público' header />
-              <Cell value='Utilidad' header />
-            </Row>
-            <FlatList
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-            />
+          <Card style={{flex: 1, marginBottom: moderateScale(8)}} >
+            <Table>
+              <Row>
+                { HEADERS.map((header, key) => (
+                  <Cell key={key} value={header} header width={WIDTH[key]} />
+                ))}
+              </Row>
+              <FlatList
+                data={data}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+              />
+            </Table>
           </Card>
         }
       />

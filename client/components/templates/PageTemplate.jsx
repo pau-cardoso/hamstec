@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import { neutral } from '../config/colors';
-import { moderateScale, scale } from '../config/utils';
+import { moderateScale } from '../config/utils';
 
 export default function PageTemplate({header, body, bottomNavigation, style}) {
   return(
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: neutral.white,
-    paddingHorizontal: scale(32),
+    paddingHorizontal: moderateScale(24),
     paddingVertical: moderateScale(20),
   },
   body: {
     flex: 1,
-    paddingHorizontal: scale(32),
+    paddingHorizontal: moderateScale(24),
     paddingTop: moderateScale(22),
   }
 });

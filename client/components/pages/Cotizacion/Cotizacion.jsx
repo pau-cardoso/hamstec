@@ -17,7 +17,15 @@ import Cell from '../../molecules/Table/Cell';
 import { moderateScale, showErrorMessage } from '../../config/utils';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
-const FLEX = [1, 1, 2, 1, 3, 1, 1];
+const WIDTH = [
+  moderateScale(100, 0.2), // Area
+  moderateScale(100, 0.2), // Zona
+  moderateScale(150, 0.2), // Observaciones
+  moderateScale(75, 0.2), // Cantidad
+  moderateScale(200, 0.2), // Dispositivo
+  moderateScale(80, 0.2), // Costo U
+  moderateScale(80, 0.2) // Importe
+];
 
 export default function Cotizacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
@@ -82,13 +90,13 @@ export default function Cotizacion({style, navigation, route}) {
       });
       return(
         <Row>
-          <Cell value={item.area} flex={1} />
-          <Cell value={item.zone} flex={1} />
-          <Cell value={item.observations} flex={2} />
-          <Cell value={item.quantity} flex={1} />
-          <Cell value={item.product.name} flex={3} />
-          <Cell value={item.product.public_price} flex={1} />
-          <Cell value={formatter.format(Number(item.product.public_price.replace(/[^0-9.-]+/g,"")) * item.quantity)} flex={1} />
+          <Cell value={item.area} width={WIDTH[0]} />
+          <Cell value={item.zone} width={WIDTH[1]} />
+          <Cell value={item.observations} width={WIDTH[2]} />
+          <Cell value={item.quantity} width={WIDTH[3]} />
+          <Cell value={item.product.name} width={WIDTH[4]} />
+          <Cell value={item.product.public_price} width={WIDTH[5]} />
+          <Cell value={formatter.format(Number(item.product.public_price.replace(/[^0-9.-]+/g,"")) * item.quantity)} width={WIDTH[6]} />
           <IconButton
             iconName='pencil-sharp'
             size={20}
@@ -116,7 +124,7 @@ export default function Cotizacion({style, navigation, route}) {
           <Table>
             <Row>
               { HEADERS.map((header, key) => (
-                <Cell key={key} value={header} header flex={FLEX[key]} />
+                <Cell key={key} value={header} header width={WIDTH[key]} />
               ))}
               <View style={{width: 20}} />
             </Row>
@@ -142,7 +150,7 @@ export default function Cotizacion({style, navigation, route}) {
     <View style={[styles.container, style]}>
       <FlatList
         data={data}
-        contentContainerStyle={{paddingHorizontal: 32, paddingTop: 22}}
+        contentContainerStyle={{paddingHorizontal: moderateScale(32), paddingTop: moderateScale(22)}}
         renderItem={renderItem}
         refreshing={refreshing}
         onRefresh={() => {setRefreshing(true)}}

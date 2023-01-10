@@ -4,6 +4,7 @@ import PageHeader from '../../molecules/PageHeader/PageHeader';
 import { TopTabNavigation } from '../../../Navigation';
 import { neutral } from '../../config/colors';
 import { useState } from 'react';
+import { moderateScale } from '../../config/utils';
 
 export default function Main({style, navigation, route}) {
   const [title, setTitle] = useState("");
@@ -42,10 +43,10 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: neutral.white,
-    paddingHorizontal: 32,
-    paddingTop: 20,
+    paddingHorizontal: moderateScale(32),
+    paddingTop: moderateScale(20),
   },
   gap: {
-    marginBottom: 12,
+    marginBottom: moderateScale(12),
   },
 });
