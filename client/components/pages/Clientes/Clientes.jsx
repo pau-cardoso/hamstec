@@ -4,7 +4,7 @@ import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showErrorMessage } from '../../config/utils';
-import { DeleteModal } from '../../../assets/HelperComponents';
+import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
 
 
 export default function Clientes({style, navigation, route}) {
@@ -12,6 +12,7 @@ export default function Clientes({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [clientDeleting, setClientDeleting] = React.useState({id: null, name: ''});
 
   const url = "http://localhost:3000/client/";
@@ -35,7 +36,10 @@ export default function Clientes({style, navigation, route}) {
         <View style={styles.item}>
           <ListItem
             text={item.name}
-            onLongPress={() => {setClientDeleting({id: item.id, name: item.name}); setModalVisible(true);}}
+            onLongPress={() => {
+              setClientDeleting({id: item.id, name: item.name});
+              setModalVisible(true);
+            }}
             // secondaryText={item.email} TODO ask if secondary text is wanted
           />
         </View>
@@ -46,11 +50,17 @@ export default function Clientes({style, navigation, route}) {
   return(
     <View style={[styles.container, style]}>
       <DeleteModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
         deletedItem={clientDeleting}
         url={'http://localhost:3000/client/' + clientDeleting.id}
         setRefreshing={setRefreshing}
+      />
+      <MenuModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        onDeletePress={() => { setModalVisible(false); setDeleteModalVisible(true) }}
+        onEditPress={() => { setModalVisible(false); navigation.navigate('AgregarCliente', {setRefreshing: setRefreshing, clientId: clientDeleting.id}); }}
       />
       <PageTemplate
         header={

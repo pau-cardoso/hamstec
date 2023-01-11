@@ -13,12 +13,24 @@ export default function AgregarCliente({style, navigation, route}) {
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
 
+  const isEditing = route.params.clientId != undefined;
+
   useEffect(() => {
+    if (isEditing) {
+      fetch('http://localhost:3000/client/' + route.params.clientId)
+        .then((response) => response.json())
+        .then((json) => {
+          setName(json.name);
+          setPhone(json.phone);
+          setEmail(json.email);
+        })
+        .catch((error) => { console.error(error); showErrorMessage(); })
+    }
   }, []);
 
   function addClient() {
-    fetch('http://localhost:3000/client', {
-      method: 'POST',
+    fetch(`http://localhost:3000/client/${isEditing? route.params.clientId : ''}`, {
+      method: isEditing? 'PUT' : 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -28,12 +40,15 @@ export default function AgregarCliente({style, navigation, route}) {
         email: email,
         phone: phone,
       })
-    }).then(showMessage({
-        message: 'Cliente creado correctamente',
-        type: 'success',
-        icon: 'auto'
-      })
-    ).catch((error) => {
+    }).then((response) => {
+      if (response.status === 200) {
+        showMessage({
+          message: `Cliente ${isEditing? 'editado' : 'creado'} correctamente`,
+          type: 'success',
+          icon: 'auto'
+        });
+      }
+    }).catch((error) => {
       console.error(error);
       showErrorMessage();
     }).finally(() => {
