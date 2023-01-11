@@ -52,3 +52,19 @@ export async function deleteProject(request, response) {
   });
   return response.send(results);
 }
+
+export async function updateProject(request, response) {
+  try {
+    const project = await AppDataSource.getRepository(Project).findOneBy({
+      id: request.params.id,
+    });
+    AppDataSource.getRepository(Project).merge(project, request.body);
+    const results = await AppDataSource.getRepository(Project).save(project);
+    return response.send(results);
+
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
+    return error;
+  }
+};
