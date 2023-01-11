@@ -4,13 +4,14 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
-import { DeleteModal } from '../../../assets/HelperComponents';
+import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
 
 export default function Proyectos({style, navigation}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [projectDeleting, setProjectDeleting] = React.useState({id: null, name: ''});
 
   const url = "http://localhost:3000/project";
@@ -22,22 +23,6 @@ export default function Proyectos({style, navigation}) {
       .then((json) => setData(json))
       .finally(setRefreshing(false));
   }, [refreshing]);
-
-  function deleteProject() {
-    fetch('http://localhost:3000/project/' + projectDeleting.id, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-    }).catch((error) => {
-      console.error(error);
-      showErrorMessage();
-    }).finally(() => {
-      setModalVisible(false);
-      setRefreshing(true);
-    });
-  }
 
   const renderItem = ({ item }) => {
     if ( searchPhrase === "" ||
@@ -62,11 +47,17 @@ export default function Proyectos({style, navigation}) {
   return(
     <View style={[styles.container, style]}>
       <DeleteModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
         deletedItem={projectDeleting}
         url={'http://localhost:3000/project/' + projectDeleting.id}
         setRefreshing={setRefreshing}
+      />
+      <MenuModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        onDeletePress={() => {setModalVisible(false); setDeleteModalVisible(true)}}
+        onEditPress={() => {setModalVisible(false); navigation.navigate('AgregarProyecto');}}
       />
       <PageTemplate
         header={

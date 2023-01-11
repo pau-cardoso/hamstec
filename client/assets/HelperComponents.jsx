@@ -1,10 +1,10 @@
-import { Modal, StyleSheet, View } from "react-native";
+import { Modal, Pressable, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 import Button from "../components/atoms/Button/Button";
 import Card from "../components/atoms/Card/Card";
 import TextPairing from "../components/atoms/TextPairing/TextPairing";
 import { neutral, others } from "../components/config/colors";
-import { showErrorMessage } from "../components/config/utils";
-
+import { moderateScale, showErrorMessage } from "../components/config/utils";
 
 export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, setRefreshing}) => {
   function deleteItem() {
@@ -60,8 +60,50 @@ export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, se
   )
 };
 
+export const MenuModal = ({setModalVisible, modalVisible, onDeletePress, onEditPress}) => {
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(false);
+      }}
+    >
+      <TouchableOpacity
+        style={styles.container}
+        activeOpacity={1}
+        onPressOut={() => {setModalVisible(false)}} >
+        <View style={styles.menuModalContainer}>
+          <TouchableWithoutFeedback>
+            <View style={styles.menuModalStyle}>
+              <Pressable style={({pressed}) => pressableStyle({pressed})} onPress={onEditPress} >
+                  <Ionicons style={styles.iconButton} name='pencil' size={moderateScale(20, 0.25)} color={neutral.s300} />
+                  <TextPairing text='Editar' />
+              </Pressable>
+              <Pressable style={({pressed}) => pressableStyle({pressed})} onPress={onDeletePress} >
+                  <Ionicons style={styles.iconButton} name='trash' size={moderateScale(20, 0.25)} color={neutral.s300} />
+                  <TextPairing text='Eliminar' />
+              </Pressable>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableOpacity>
+    </Modal>
+  );
+};
+
+const pressableStyle = ({pressed}) => ([
+  { backgroundColor: pressed? neutral.s100 : null },
+  styles.optionContainer,
+]);
 
 const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    width: '100%',
+    flex: 1,
+  },
   modalView: {
     alignItems: 'center',
   },
@@ -75,5 +117,35 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  menuModalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  menuModalStyle: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    margin: 20,
+    borderRadius: 16,
+    paddingHorizontal: moderateScale(24),
+    paddingVertical: moderateScale(20),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  optionContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  iconButton: {
+    marginRight: moderateScale(8),
+    textAlign: 'center',
   },
 });
