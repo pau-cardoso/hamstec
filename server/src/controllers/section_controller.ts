@@ -48,3 +48,19 @@ export async function deleteSection(request, response) {
     return error;
   }
 }
+
+export async function updateSection(request, response) {
+  try {
+    const section = await AppDataSource.getRepository(Section).findOneBy({
+      id: request.params.id,
+    });
+    AppDataSource.getRepository(Section).merge(section, request.body);
+    const results = await AppDataSource.getRepository(Section).save(section);
+    return response.send(results);
+
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
+    return error;
+  }
+};
