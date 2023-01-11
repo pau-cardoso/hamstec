@@ -56,8 +56,8 @@ export default function Proyectos({style, navigation}) {
       <MenuModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        onDeletePress={() => {setModalVisible(false); setDeleteModalVisible(true)}}
-        onEditPress={() => {setModalVisible(false); navigation.navigate('AgregarProyecto');}}
+        onDeletePress={() => { setModalVisible(false); setDeleteModalVisible(true) }}
+        onEditPress={() => { setModalVisible(false); navigation.navigate('AgregarProyecto', {setRefreshing: setRefreshing, projectId: projectDeleting.id}); }}
       />
       <PageTemplate
         header={

@@ -14,6 +14,8 @@ export default function AgregarProyecto({style, navigation, route}) {
   const [address, setAddress] = React.useState("");
   const [clientData, setClientData] = React.useState();
 
+  const isEditing = route.params.projectId != undefined;
+
   useEffect(() => {
     fetch('http://localhost:3000/client')
       .then((response) => response.json())
@@ -21,7 +23,20 @@ export default function AgregarProyecto({style, navigation, route}) {
       .catch((error) => {
         console.error(error);
         showErrorMessage();
-      })
+      });
+    if (isEditing) {
+      fetch('http://localhost:3000/project/' + route.params.projectId)
+        .then((response) => response.json())
+        .then((json) => {
+          setName(json.name);
+          setClient({
+            id: json.client.id,
+            name: json.client.name,
+          });
+          setAddress(json.address);
+        })
+        .catch((error) => { console.error(error); showErrorMessage(); })
+    }
   }, []);
 
   function addProject() {
@@ -30,8 +45,8 @@ export default function AgregarProyecto({style, navigation, route}) {
     } else if (name.trim() === "") {
       showWarningMessage("Nombre no puede estar vacío");
     } else {
-      fetch('http://localhost:3000/project', {
-        method: 'POST',
+      fetch(`http://localhost:3000/project/${isEditing? route.params.projectId : null}`, {
+        method: isEditing? 'PUT' : 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -44,7 +59,7 @@ export default function AgregarProyecto({style, navigation, route}) {
       }).then((response) => {
         if (response.status === 200) {
           showMessage({
-            message: 'Proyecto creado correctamente',
+            message: `Proyecto ${isEditing? 'editado' : 'creado'} correctamente`,
             type: 'success',
             icon: 'auto'
           });
@@ -57,7 +72,7 @@ export default function AgregarProyecto({style, navigation, route}) {
         route.params.setRefreshing(true);
       });
     }
-  }
+  };
 
   return(
     <View style={[styles.container, style]}>
