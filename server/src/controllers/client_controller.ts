@@ -36,3 +36,19 @@ export async function deleteClient(request, response) {
   });
   return response.send(results);
 }
+
+export async function updateClient(request, response) {
+  try {
+    const client = await AppDataSource.getRepository(Client).findOneBy({
+      id: request.params.id,
+    });
+    AppDataSource.getRepository(Client).merge(client, request.body);
+    const results = await AppDataSource.getRepository(Client).save(client);
+    return response.send(results);
+
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
+    return error;
+  }
+};
