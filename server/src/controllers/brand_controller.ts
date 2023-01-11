@@ -37,3 +37,19 @@ export async function deleteBrand(request, response) {
   });
   return response.send(results);
 }
+
+export async function updateBrand(request, response) {
+  try {
+    const brand = await AppDataSource.getRepository(Brand).findOneBy({
+      id: request.params.id,
+    });
+    AppDataSource.getRepository(Brand).merge(brand, request.body);
+    const results = await AppDataSource.getRepository(Brand).save(brand);
+    return response.send(results);
+
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
+    return error;
+  }
+};
