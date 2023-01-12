@@ -23,15 +23,15 @@ export default function BottomNavigation({ state, descriptors, navigation }) {
               iconName = 'home';
               break;
 
-            case 'Proyectos':
+            case 'ProyectosTab':
               iconName = 'document-text-outline';
               break;
 
-            case 'ListaProductos':
+            case 'ProductosTab':
               iconName = 'list';
               break;
 
-            case 'Perfil':
+            case 'PerfilTab':
               iconName = 'person';
               break;
 

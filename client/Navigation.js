@@ -79,11 +79,11 @@ const ListProductsStack = createNativeStackNavigator();
 function ListProductsStackNav() {
   return (
     <ListProductsStack.Navigator
-      initialRouteName='ListaProductos'
+      initialRouteName='Productos'
       screenOptions={{
         headerShown: false,
       }} >
-      <ListProductsStack.Screen name="ListaProductos" component={ListaProductos} />
+      <ListProductsStack.Screen name="Productos" component={ListaProductos} />
       <ListProductsStack.Screen name="DetalleProducto" component={DetalleProducto} />
       <ListProductsStack.Screen name="AgregarProducto" component={AgregarProducto} options={{presentation: 'modal'}} />
     </ListProductsStack.Navigator>
@@ -124,9 +124,9 @@ export function TabNavigation() {
         tabBarStyle: [styles.tabBarStyle],
         headerShown: false,
       }} >
-      <Tab.Screen name="Proyectos" component={ProjectStack} />
-      <Tab.Screen name="ListaProductos" component={ListProductsStackNav} />
-      <Tab.Screen name="Perfil" component={ProfileStackNav} />
+      <Tab.Screen name="ProyectosTab" component={ProjectStack} />
+      <Tab.Screen name="ProductosTab" component={ListProductsStackNav} />
+      <Tab.Screen name="PerfilTab" component={ProfileStackNav} />
     </Tab.Navigator>
   );
 }
