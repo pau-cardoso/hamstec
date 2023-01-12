@@ -45,7 +45,7 @@ export default function AgregarProyecto({style, navigation, route}) {
     } else if (name.trim() === "") {
       showWarningMessage("Nombre no puede estar vacío");
     } else {
-      fetch(`http://localhost:3000/project/${isEditing? route.params.projectId : null}`, {
+      fetch(`http://localhost:3000/project/${isEditing? route.params.projectId : ''}`, {
         method: isEditing? 'PUT' : 'POST',
         headers: {
           Accept: 'application/json',
