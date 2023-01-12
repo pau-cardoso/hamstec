@@ -4,7 +4,7 @@ import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showErrorMessage } from '../../config/utils';
-import { DeleteModal } from '../../../assets/HelperComponents';
+import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
 
 
 export default function Marcas({style, navigation, route}) {
@@ -12,6 +12,7 @@ export default function Marcas({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [brandDeleting, setBrandDeleting] = React.useState({id: null, name: ''});
 
   const url = "http://localhost:3000/brand/";
@@ -45,11 +46,17 @@ export default function Marcas({style, navigation, route}) {
   return(
     <View style={[styles.container, style]}>
       <DeleteModal
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
+        deletedItem={brandDeleting}
+        url={url + brandDeleting.id}
+        setRefreshing={setRefreshing}
+      />
+      <MenuModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        deletedItem={brandDeleting}
-        url={'http://localhost:3000/brand/' + brandDeleting.id}
-        setRefreshing={setRefreshing}
+        onDeletePress={() => { setModalVisible(false); setDeleteModalVisible(true) }}
+        onEditPress={() => { setModalVisible(false); navigation.navigate('AgregarMarca', {setRefreshing: setRefreshing, brandId: brandDeleting.id}); }}
       />
       <PageTemplate
         header={

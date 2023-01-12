@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ModalTemplate from '../../templates/ModalTemplate';
 import PageHeader from '../../molecules/PageHeader/PageHeader';
@@ -11,9 +11,20 @@ import TextField from '../../atoms/TextField/TextField';
 export default function AgregarMarca({style, navigation, route}) {
   const [name, setName] = React.useState("");
 
+  const isEditing = route.params.brandId != undefined;
+
+  useEffect(() => {
+    if (isEditing) {
+      fetch('http://localhost:3000/brand/' + route.params.brandId)
+        .then((response) => response.json())
+        .then((json) => setName(json.name))
+        .catch((error) => { console.error(error); showErrorMessage(); })
+    }
+  }, []);
+
   function addSection() {
-    fetch('http://localhost:3000/brand', {
-      method: 'POST',
+    fetch(`http://localhost:3000/brand/${isEditing? route.params.brandId : ''}`, {
+      method: isEditing? 'PUT' : 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -21,12 +32,15 @@ export default function AgregarMarca({style, navigation, route}) {
       body: JSON.stringify({
         name: name,
       })
-    }).then(showMessage({
-        message: 'Marca creada correctamente',
-        type: 'success',
-        icon: 'auto'
-      })
-    ).catch((error) => {
+    }).then((response) => {
+      if (response.status === 200) {
+        showMessage({
+          message: `Marca ${isEditing? 'editada' : 'creada'} correctamente`,
+          type: 'success',
+          icon: 'auto'
+        });
+      }
+    }).catch((error) => {
       console.error(error);
       showErrorMessage();
     }).finally(() => {
