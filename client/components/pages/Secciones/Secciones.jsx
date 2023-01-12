@@ -4,7 +4,7 @@ import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showErrorMessage } from '../../config/utils';
-import { DeleteModal } from '../../../assets/HelperComponents';
+import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
 
 
 export default function Secciones({style, navigation, route}) {
@@ -12,6 +12,7 @@ export default function Secciones({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [sectionDeleting, setSectionDeleting] = React.useState({id: null, name: ''});
 
   const url = "http://localhost:3000/section/";
@@ -45,11 +46,17 @@ export default function Secciones({style, navigation, route}) {
   return(
     <View style={[styles.container, style]}>
       <DeleteModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
         deletedItem={sectionDeleting}
         url={'http://localhost:3000/section/' + sectionDeleting.id}
         setRefreshing={setRefreshing}
+      />
+      <MenuModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        onDeletePress={() => { setModalVisible(false); setDeleteModalVisible(true) }}
+        onEditPress={() => { setModalVisible(false); navigation.navigate('AgregarSecciones', {setRefreshing: setRefreshing, sectionId: sectionDeleting.id}); }}
       />
       <PageTemplate
         header={
