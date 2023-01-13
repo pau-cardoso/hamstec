@@ -15,6 +15,7 @@ import Table from '../../molecules/Table/Table';
 import Row from '../../molecules/Table/Row';
 import Cell from '../../molecules/Table/Cell';
 import { moderateScale, showErrorMessage } from '../../config/utils';
+import { DeleteModal } from '../../../assets/HelperComponents';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const WIDTH = [
@@ -33,6 +34,8 @@ export default function Cotizacion({style, navigation, route}) {
   const [quoteData, setQuoteData] = React.useState({expenses: 0});
   const [quoteSummary, setQuoteSummary] = React.useState({total: "", anticipo: "", instalacion: "", cost: "", installation: "", utility: ""});
   const [refreshing, setRefreshing] = React.useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
+  const [sectionDeleting, setSectionDeleting] = React.useState({id: 0, name: ""});
 
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
@@ -71,6 +74,26 @@ export default function Cotizacion({style, navigation, route}) {
         showErrorMessage();
       })
     }, [refreshing]);
+
+  const deleteSection = () => {
+    fetch(`${url}/delete-section`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        phase: 'COTIZACION',
+        section: sectionDeleting.id,
+      }),
+    }).catch((error) => {
+      console.error(error);
+      showErrorMessage();
+    }).finally(() => {
+      setDeleteModalVisible(false);
+      setRefreshing(true);
+    });
+  }
 
   let generatePDF = async () => {
     const html = getQuotePDF(data, quoteSummary, projectData);
@@ -115,7 +138,16 @@ export default function Cotizacion({style, navigation, route}) {
   const renderItem = ({ item }) => {
     return (<View style={styles.item}>
       <Card style={{width: '100%'}}>
-        <TextPairing text={item.name} type='semibold' size={32} style={{marginBottom: 8}} />
+        <View style={styles.sectionTitle}>
+          <TextPairing text={item.name} type='semibold' size={32} />
+          <IconButton
+            onPress={() => {setSectionDeleting({id: item.id, name: item.name}); setDeleteModalVisible(true);}}
+            iconName='trash'
+            color={primary.brand}
+            size={24}
+            style={{marginLeft: moderateScale(4)}}
+          />
+        </View>
         <ScrollView
           horizontal
           contentContainerStyle={{width: '100%'}}
@@ -148,6 +180,14 @@ export default function Cotizacion({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
+      <DeleteModal
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
+        deletedItem={sectionDeleting}
+        setRefreshing={setRefreshing}
+        secondaryMessage='Esto eliminará todos los productos en esta sección'
+        onDeletePress={() => deleteSection()}
+      />
       <FlatList
         data={data}
         contentContainerStyle={{paddingHorizontal: moderateScale(32), paddingTop: moderateScale(22)}}
@@ -257,6 +297,12 @@ const styles = StyleSheet.create({
   marginBottom: {
     marginBottom: moderateScale(24),
   },
+  sectionTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    justifyContent: 'space-between',
+  }
 });
 
 Cotizacion.propTypes = {

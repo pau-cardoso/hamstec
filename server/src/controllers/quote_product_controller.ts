@@ -107,6 +107,7 @@ export async function getProductsByQuote(request, response) {
     for (let key in productResult) {
       const section = {
         name: productResult[key][0].section.name,
+        id: productResult[key][0].section.id,
         data: productResult[key]
       }
       newResults.push(section);
@@ -155,6 +156,7 @@ export async function getProductsInstalledByQuote(request, response) {
     for (let key in productResult) {
       const section = {
         name: productResult[key][0].section.name,
+        id: productResult[key][0].section.id,
         data: productResult[key]
       }
       newResults.push(section);
@@ -269,3 +271,27 @@ export async function deleteProduct(request, response) {
     return error;
   }
 }
+
+export async function deleteSection(request, response) {
+  try {
+    const results = await AppDataSource.getRepository(QuoteProduct).delete({
+      quote: {
+        id: request.params.id_quote,
+      },
+      section: {
+        id: request.body.section,
+      },
+      phase: request.body.phase,
+    });
+
+    if (request.body.phase === 'COTIZACION') {
+      await updateExpenses(request.params.id_quote);
+    };
+
+    return response.send(results);
+
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

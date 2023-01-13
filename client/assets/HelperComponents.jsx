@@ -6,7 +6,7 @@ import TextPairing from "../components/atoms/TextPairing/TextPairing";
 import { neutral, others } from "../components/config/colors";
 import { moderateScale, showErrorMessage } from "../components/config/utils";
 
-export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, setRefreshing}) => {
+export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, setRefreshing, onDeletePress, secondaryMessage }) => {
   function deleteItem() {
     fetch(url, {
       method: 'DELETE',
@@ -37,6 +37,7 @@ export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, se
           <View style={styles.modalView}>
             <TextPairing text='¿Estás seguro que quieres eliminar' />
             <TextPairing text={deletedItem.name + '?'} type='medium' />
+            { secondaryMessage && <TextPairing text={secondaryMessage} type='light' /> }
             <View style={styles.modalButtons}>
               <Button
                 type='contained'
@@ -50,7 +51,7 @@ export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, se
                 textColor='danger'
                 iconName='trash-outline'
                 iconColor={others.danger}
-                onPress={() => deleteItem()}
+                onPress={onDeletePress? onDeletePress : () => deleteItem()}
               />
             </View>
           </View>
