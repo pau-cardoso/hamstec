@@ -8,7 +8,7 @@ import Cell from '../molecules/Table/Cell';
 import Table from '../molecules/Table/Table';
 import { moderateScale } from '../config/utils';
 
-const WIDTH = [moderateScale(70, 0.2), moderateScale(75, 0.2), moderateScale(150, 0.2), moderateScale(200, 0.2), moderateScale(85, 0.2), moderateScale(85, 0.2), moderateScale(100, 0.2), moderateScale(85, 0.2)];
+const WIDTH = [moderateScale(90), moderateScale(90), moderateScale(150), moderateScale(200), moderateScale(100), moderateScale(90), moderateScale(100), moderateScale(85)];
 const HEADERS = ['Marca', 'Clave', 'Dispositivo', 'Descripción', 'Costo', 'Instalación', 'Precio público', 'Utilidad'];
 
 export default function ListaProductos({style, navigation, route}) {
@@ -18,12 +18,14 @@ export default function ListaProductos({style, navigation, route}) {
   const [activeTab, setActiveTab] = React.useState("Todos");
   const [searchPhrase, setSearchPhrase] = React.useState("");
 
+  const {BASE_URL} = process.env;
+
   useEffect(() => {
-    fetch('http://localhost:3000/product')
+    fetch(BASE_URL + 'product')
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
-    fetch('http://localhost:3000/brand')
+    fetch(BASE_URL + 'brand')
       .then((response) => response.json())
       .then((json) => {
         const brands = ["Todos"].concat(json.map(brand => brand.name));

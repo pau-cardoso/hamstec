@@ -11,15 +11,17 @@ export default function AgregarProyecto({style, navigation, route}) {
   const [section, setSection] = React.useState({id:0, name: ""});
   const [sectionData, setSectionData] = React.useState();
 
+  const {BASE_URL} = process.env;
+
   useEffect(() => {
-    fetch('http://localhost:3000/section')
+    fetch(BASE_URL + 'section')
       .then((response) => response.json())
       .then((json) => setSectionData(json))
       .catch((error) => {console.error(error); showErrorMessage();})
   }, []);
 
   function addSection() {
-    fetch('http://localhost:3000/quote-product', {
+    fetch(BASE_URL + 'quote-product', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

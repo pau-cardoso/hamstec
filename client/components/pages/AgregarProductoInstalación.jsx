@@ -18,6 +18,8 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
   const [observations, setObservations] = React.useState("");
   const [isEditing, setIsEditing] = React.useState(false);
 
+  const {BASE_URL} = process.env;
+  const url = BASE_URL + 'quote-product/'
   const {idQuote, idSection, idQuoteProduct} = route.params;
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
   }, [])
 
   function setDetails() {
-    fetch('http://localhost:3000/quote-product/' + idQuoteProduct)
+    fetch(url + idQuoteProduct)
       .then((response) => response.json())
       .then((json) => {
         setArea(json.area);
@@ -43,7 +45,7 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
   }
 
   function deleteProductQuote() {
-    fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
+    fetch(url + idQuoteProduct, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -60,7 +62,7 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
 
   function addProductQuote() {
     if (isEditing) {
-      fetch('http://localhost:3000/quote-product/' + idQuoteProduct, {
+      fetch(url + idQuoteProduct, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -86,7 +88,7 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
         route.params.setRefreshing(true);
       });
     } else {
-      fetch('http://localhost:3000/quote-product', {
+      fetch(url, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

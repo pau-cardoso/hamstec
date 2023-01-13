@@ -5,6 +5,7 @@ import PageHeader from '../molecules/PageHeader/PageHeader';
 import IconButton from '../atoms/IconButton/IconButton';
 import TextPairing from '../atoms/TextPairing/TextPairing';
 import Card from '../atoms/Card/Card';
+import { moderateScale } from '../config/utils';
 
 export default function DetalleProducto({route, navigation, style}) {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -24,10 +25,11 @@ export default function DetalleProducto({route, navigation, style}) {
     }
   });
 
+  const {BASE_URL} = process.env;
   const {productId} = route.params;
 
   useEffect(() => {
-    fetch("http://localhost:3000/product/" + productId)
+    fetch(BASE_URL + "product/" + productId)
       .then((response) => response.json())
       .then((json) => setProduct(json))
       .catch((error) => console.error(error))
@@ -99,11 +101,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'start',
     padding: 24,
+    flexWrap: 'wrap',
   },
   image: {
-    width: 250,
-    height: 250,
-    marginRight: 24,
+    width: moderateScale(250),
+    height: moderateScale(250),
+    marginRight: moderateScale(24),
+    marginBottom: moderateScale(24),
     alignSelf: 'grow',
   },
   details: {

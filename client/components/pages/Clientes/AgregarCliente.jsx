@@ -13,11 +13,12 @@ export default function AgregarCliente({style, navigation, route}) {
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
 
+  const {BASE_URL} = process.env;
   const isEditing = route.params.clientId != undefined;
 
   useEffect(() => {
     if (isEditing) {
-      fetch('http://localhost:3000/client/' + route.params.clientId)
+      fetch(`${BASE_URL}client/` + route.params.clientId)
         .then((response) => response.json())
         .then((json) => {
           setName(json.name);
@@ -29,7 +30,7 @@ export default function AgregarCliente({style, navigation, route}) {
   }, []);
 
   function addClient() {
-    fetch(`http://localhost:3000/client/${isEditing? route.params.clientId : ''}`, {
+    fetch(`${BASE_URL}client/${isEditing? route.params.clientId : ''}`, {
       method: isEditing? 'PUT' : 'POST',
       headers: {
         Accept: 'application/json',

@@ -26,11 +26,12 @@ export default function Instalacion({style, navigation, route}) {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const {quoteId} = route.params;
-  const url = "http://localhost:3000/quote-product/quote-installed/" + quoteId;
+  const {BASE_URL} = process.env;
+
   const tabActive = navigation.isFocused()? 'INSTALACION' : 'COTIZACION';
 
   useEffect(() => {
-    fetch(url)
+    fetch(BASE_URL + "quote-product/quote-installed/" + quoteId)
       .then((response) => response.json())
       .then((json) => {
         setData(json);

@@ -15,7 +15,8 @@ export default function Secciones({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [sectionDeleting, setSectionDeleting] = React.useState({id: null, name: ''});
 
-  const url = "http://localhost:3000/section/";
+  const {BASE_URL} = process.env;
+  const url = `${BASE_URL}section/`;
 
   useEffect(() => {
     fetch(url)
@@ -49,7 +50,7 @@ export default function Secciones({style, navigation, route}) {
         modalVisible={deleteModalVisible}
         setModalVisible={setDeleteModalVisible}
         deletedItem={sectionDeleting}
-        url={'http://localhost:3000/section/' + sectionDeleting.id}
+        url={url + sectionDeleting.id}
         setRefreshing={setRefreshing}
       />
       <MenuModal

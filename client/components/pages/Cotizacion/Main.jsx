@@ -10,9 +10,10 @@ export default function Main({style, navigation, route}) {
   const [title, setTitle] = useState("");
   const [clientVersion, setClientVersion] = useState("");
   const { projectId } = route.params;
+  const {BASE_URL} = process.env;
 
   useEffect(() => {
-    fetch("http://localhost:3000/project/" + projectId)
+    fetch(BASE_URL + "project/" + projectId)
       .then((response) => response.json())
       .then((json) => {
         setTitle(json.name)

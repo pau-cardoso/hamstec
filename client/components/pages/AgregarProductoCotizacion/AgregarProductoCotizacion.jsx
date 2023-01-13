@@ -11,17 +11,17 @@ export default function AgregarProductoCotizacion({route, navigation, style}) {
   const [data, setData] = React.useState([]);
   const [tabs, setTabs] = React.useState([]);
 
-  const url = "http://localhost:3000/product/";
+  const {BASE_URL} = process.env;
   const {setProduct} = route.params;
 
   useEffect(() => {
-    fetch(url)
+    fetch(`${BASE_URL}product/`)
       .then((response) => response.json())
       .then((json) => {
         setData(json)
       })
       .catch((error) => console.error(error))
-    fetch('http://localhost:3000/brand')
+    fetch(`${BASE_URL}brand/`)
       .then((response) => response.json())
       .then((json) => {
         const brands = ["Todos"].concat(json.map(brand => brand.name));

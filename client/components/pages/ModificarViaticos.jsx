@@ -4,16 +4,17 @@ import ModalTemplate from '../templates/ModalTemplate';
 import PageHeader from '../molecules/PageHeader/PageHeader';
 import FormGroup from '../molecules/FormGroup/FormGroup';
 import TextField from '../atoms/TextField/TextField';
-import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../config/utils';
 
 export default function ModificarViaticos({style, navigation, route}) {
   const [expenses, setExpenses] = React.useState(0);
 
+  const {BASE_URL} = process.env;
   const {quoteId} = route.params;
+  const url = `${BASE_URL}quote/`
 
   useEffect(() => {
-    fetch("http://localhost:3000/quote/" + quoteId)
+    fetch(url + quoteId)
       .then((response) => response.json())
       .then((json) => {
         setExpenses(json.expenses);
@@ -22,7 +23,7 @@ export default function ModificarViaticos({style, navigation, route}) {
   }, []);
 
   function editExpenses() {
-    fetch('http://localhost:3000/quote/' + quoteId, {
+    fetch(url + quoteId, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',

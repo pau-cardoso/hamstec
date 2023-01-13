@@ -16,10 +16,11 @@ export default function Versiones({style, navigation, route}) {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [quoteDeleting, setQuoteDeleting] = React.useState({id: null, name: ''});
 
-  const url = "http://localhost:3000/quote/project/" + route.params.id_project;
+  const {BASE_URL} = process.env;
+  const url = BASE_URL + "quote/" ;
 
   useEffect(() => {
-    fetch(url)
+    fetch(url + "project/" + route.params.id_project)
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {
@@ -30,7 +31,7 @@ export default function Versiones({style, navigation, route}) {
   }, [refreshing]);
 
   const addVersion = () => {
-    fetch("http://localhost:3000/quote/add/" + route.params.id_project)
+    fetch(url + "add/" + route.params.id_project)
       .then((response) => {
         response.json();
         showMessage({
@@ -68,7 +69,7 @@ export default function Versiones({style, navigation, route}) {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         deletedItem={quoteDeleting}
-        url={'http://localhost:3000/quote/' + quoteDeleting.id}
+        url={url + quoteDeleting.id}
         setRefreshing={setRefreshing}
       />
       <PageTemplate

@@ -15,7 +15,8 @@ export default function Clientes({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [clientDeleting, setClientDeleting] = React.useState({id: null, name: ''});
 
-  const url = "http://localhost:3000/client/";
+  const {BASE_URL} = process.env;
+  const url = `${BASE_URL}client/`;
 
   useEffect(() => {
     fetch(url)
@@ -53,7 +54,7 @@ export default function Clientes({style, navigation, route}) {
         modalVisible={deleteModalVisible}
         setModalVisible={setDeleteModalVisible}
         deletedItem={clientDeleting}
-        url={'http://localhost:3000/client/' + clientDeleting.id}
+        url={url + clientDeleting.id}
         setRefreshing={setRefreshing}
       />
       <MenuModal

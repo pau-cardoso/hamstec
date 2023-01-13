@@ -11,11 +11,13 @@ import TextField from '../../atoms/TextField/TextField';
 export default function AgregarMarca({style, navigation, route}) {
   const [name, setName] = React.useState("");
 
+  const {BASE_URL} = process.env;
+  const url = `${BASE_URL}brand/`;
   const isEditing = route.params.brandId != undefined;
 
   useEffect(() => {
     if (isEditing) {
-      fetch('http://localhost:3000/brand/' + route.params.brandId)
+      fetch(`${url + route.params.brandId}`)
         .then((response) => response.json())
         .then((json) => setName(json.name))
         .catch((error) => { console.error(error); showErrorMessage(); })
@@ -23,7 +25,7 @@ export default function AgregarMarca({style, navigation, route}) {
   }, []);
 
   function addSection() {
-    fetch(`http://localhost:3000/brand/${isEditing? route.params.brandId : ''}`, {
+    fetch(`${url}${isEditing? route.params.brandId : ''}`, {
       method: isEditing? 'PUT' : 'POST',
       headers: {
         Accept: 'application/json',

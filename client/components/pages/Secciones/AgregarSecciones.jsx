@@ -11,11 +11,13 @@ import TextField from '../../atoms/TextField/TextField';
 export default function AgregarSecciones({style, navigation, route}) {
   const [name, setName] = React.useState("");
 
+  const {BASE_URL} = process.env;
+  const url = `${BASE_URL}section/`;
   const isEditing = route.params.sectionId != undefined;
 
   useEffect(() => {
     if (isEditing) {
-      fetch('http://localhost:3000/section/' + route.params.sectionId)
+      fetch(url + route.params.sectionId)
         .then((response) => response.json())
         .then((json) => {
           setName(json.name);
@@ -25,7 +27,7 @@ export default function AgregarSecciones({style, navigation, route}) {
   }, []);
 
   function addSection() {
-    fetch(`http://localhost:3000/section/${isEditing? route.params.sectionId : ''}`, {
+    fetch(url + (isEditing? route.params.sectionId : ''), {
       method: isEditing? 'PUT' : 'POST',
       headers: {
         Accept: 'application/json',

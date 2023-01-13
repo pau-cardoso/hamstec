@@ -14,7 +14,8 @@ export default function Proyectos({style, navigation}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [projectDeleting, setProjectDeleting] = React.useState({id: null, name: ''});
 
-  const url = "http://localhost:3000/project";
+  const {BASE_URL} = process.env;
+  const url = BASE_URL + "project";
 
   useEffect(() => {
     fetch(url)
@@ -50,7 +51,7 @@ export default function Proyectos({style, navigation}) {
         modalVisible={deleteModalVisible}
         setModalVisible={setDeleteModalVisible}
         deletedItem={projectDeleting}
-        url={'http://localhost:3000/project/' + projectDeleting.id}
+        url={url + projectDeleting.id}
         setRefreshing={setRefreshing}
       />
       <MenuModal

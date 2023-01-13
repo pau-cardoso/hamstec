@@ -24,9 +24,9 @@ export default function ResumenDispositivos({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
 
+  const {BASE_URL} = process.env;
   const {quoteId} = route.params;
   let tableData = new Array(0);
-  const url = "http://localhost:3000/quote-product/count/" + quoteId;
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -35,7 +35,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
   });
 
   useEffect(() => {
-    fetch(url)
+    fetch(`${BASE_URL}quote-product/count/${quoteId}`)
       .then((response) => response.json())
       .then((json) => {
         setData(Object.values(json));

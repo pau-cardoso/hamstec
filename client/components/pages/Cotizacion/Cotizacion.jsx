@@ -39,7 +39,9 @@ export default function Cotizacion({style, navigation, route}) {
 
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
-  const url = "http://localhost:3000/quote-product/quote/" + quoteId;
+
+  const {BASE_URL} = process.env;
+  const url = BASE_URL + "quote-product/quote/" + quoteId;
 
   useEffect(() => {
     fetch(url)
@@ -54,7 +56,7 @@ export default function Cotizacion({style, navigation, route}) {
         console.error(error);
         showErrorMessage();
       })
-    fetch("http://localhost:3000/project/" + projectId)
+    fetch(BASE_URL + "project/" + projectId)
       .then((response) => response.json())
       .then((json) => {
         setProjectData(json);
@@ -63,7 +65,7 @@ export default function Cotizacion({style, navigation, route}) {
         console.error(error);
         showErrorMessage();
       })
-    fetch("http://localhost:3000/quote/" + quoteId)
+    fetch(BASE_URL + "quote/" + quoteId)
       .then((response) => response.json())
       .then((json) => {
         setQuoteData(json);

@@ -14,10 +14,11 @@ export default function AgregarProyecto({style, navigation, route}) {
   const [address, setAddress] = React.useState("");
   const [clientData, setClientData] = React.useState();
 
+  const {BASE_URL} = process.env;
   const isEditing = route.params.projectId != undefined;
 
   useEffect(() => {
-    fetch('http://localhost:3000/client')
+    fetch(`${BASE_URL}client/`)
       .then((response) => response.json())
       .then((json) => setClientData(json))
       .catch((error) => {
@@ -25,7 +26,7 @@ export default function AgregarProyecto({style, navigation, route}) {
         showErrorMessage();
       });
     if (isEditing) {
-      fetch('http://localhost:3000/project/' + route.params.projectId)
+      fetch(`${BASE_URL}project/` + route.params.projectId)
         .then((response) => response.json())
         .then((json) => {
           setName(json.name);
@@ -45,7 +46,7 @@ export default function AgregarProyecto({style, navigation, route}) {
     } else if (name.trim() === "") {
       showWarningMessage("Nombre no puede estar vacío");
     } else {
-      fetch(`http://localhost:3000/project/${isEditing? route.params.projectId : ''}`, {
+      fetch(`${BASE_URL}project/${isEditing? route.params.projectId : ''}`, {
         method: isEditing? 'PUT' : 'POST',
         headers: {
           Accept: 'application/json',

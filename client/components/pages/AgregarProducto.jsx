@@ -22,6 +22,7 @@ export default function AgregarProducto({route, navigation, style}) {
   const [utility, setUtility] = React.useState("");
   const [publicPrice, setPublicPrice] = React.useState("");
 
+  const {BASE_URL} = process.env;
   const isEditing = route.params.product != undefined;
 
   function setProduct() {
@@ -41,14 +42,14 @@ export default function AgregarProducto({route, navigation, style}) {
     if (route.params.product != undefined) {
       setProduct();
     }
-    fetch('http://localhost:3000/brand')
+    fetch(BASE_URL + 'brand')
       .then((response) => response.json())
       .then((json) => setBrandData(json))
       .catch((error) => {console.error(error); showErrorMessage();})
   }, []);
 
   function deleteProduct() {
-    fetch('http://localhost:3000/product/' + route.params.product.id, {
+    fetch(BASE_URL + 'product/' + route.params.product.id, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -65,7 +66,7 @@ export default function AgregarProducto({route, navigation, style}) {
 
   function addProduct() {
     if (route.params.product != undefined) {
-      fetch('http://localhost:3000/product/' + route.params.product.id, {
+      fetch(BASE_URL + 'product/' + route.params.product.id, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -82,7 +83,7 @@ export default function AgregarProducto({route, navigation, style}) {
           public_price: publicPrice,
           brand: brand.id,
         })
-      }).then(
+      }).then(() =>
         showMessage({
           message: 'Producto modificado correctamente',
           type: 'success',
@@ -96,7 +97,7 @@ export default function AgregarProducto({route, navigation, style}) {
         route.params.setRefreshing(true);
       });
     } else {
-      fetch('http://localhost:3000/product', {
+      fetch(BASE_URL + 'product', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
