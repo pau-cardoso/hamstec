@@ -16,6 +16,7 @@ import Row from '../../molecules/Table/Row';
 import Cell from '../../molecules/Table/Cell';
 import { moderateScale, showErrorMessage } from '../../config/utils';
 import { DeleteModal } from '../../../assets/HelperComponents';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const WIDTH = [
@@ -36,6 +37,7 @@ export default function Cotizacion({style, navigation, route}) {
   const [refreshing, setRefreshing] = React.useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [sectionDeleting, setSectionDeleting] = React.useState({id: 0, name: ""});
+  const [isChecked, setIsChecked] = React.useState(false);
 
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
@@ -98,7 +100,7 @@ export default function Cotizacion({style, navigation, route}) {
   }
 
   let generatePDF = async () => {
-    const html = getQuotePDF(data, quoteSummary, projectData);
+    const html = getQuotePDF(data, quoteSummary, projectData, isChecked);
     const file = await Print.printToFileAsync({
       html: html,
     });
@@ -249,6 +251,16 @@ export default function Cotizacion({style, navigation, route}) {
                 </View>
               </Card>
             </View>
+            <View style={styles.checkboxContainer}>
+              <BouncyCheckbox
+                disableBuiltInState
+                isChecked={isChecked}
+                onPress={() => setIsChecked(!isChecked)}
+                text="Mostrar precios"
+                textStyle={styles.checkboxTextStyle}
+                style={{justifyContent: 'center'}}
+              />
+            </View>
             <Button style={styles.button} onPress={() => {generatePDF()}} title="Generar PDF" />
           </>
         }
@@ -304,7 +316,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
     justifyContent: 'space-between',
-  }
+  },
+  checkboxContainer: {
+    margin: 16,
+  },
+  checkboxTextStyle: {
+    fontFamily: "Jost_400Regular",
+    textDecorationLine: "none",
+    justifyContent: 'center',
+    color: neutral.s800,
+  },
 });
 
 Cotizacion.propTypes = {

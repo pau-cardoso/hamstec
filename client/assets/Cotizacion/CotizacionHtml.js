@@ -1,16 +1,22 @@
 import { htmlStyles } from "./CotizacionStyles";
 var moment = require('moment');
 
-export default function getQuotePDF(PRODUCT_DATA, QUOTE_DATA, PROJECT_DATA) {
+export default function getQuotePDF(PRODUCT_DATA, QUOTE_DATA, PROJECT_DATA, showPrice) {
   const {total, anticipo, instalacion} = QUOTE_DATA;
   const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   let productTable = "", sectionProducts = "", totalProducts = 0;
   const today = moment();
   const dateString = today.date() + " de " + meses[today.month()] + " de " + today.year();
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'MXN',
+    currencyDisplay: 'narrowSymbol',
+  });
+
   PRODUCT_DATA.forEach(section => {
     if (section.data.length > 1) {
-      productTable += `<tr class="section-header"><th colspan="4">${section.name}</th></tr>`;
+      productTable += `<tr class="section-header"><th colspan="${showPrice?6:4}">${section.name}</th></tr>`;
       let sectionCount = 0;
       section.data.forEach(product => {
         if (product.product != null) {
@@ -20,9 +26,15 @@ export default function getQuotePDF(PRODUCT_DATA, QUOTE_DATA, PROJECT_DATA) {
           <td></td>
           <td>${product.zone}</td>
           <td>${product.product.name}</td>
-          <td>${product.quantity}</td>
-          </tr>`
-          ;
+          <td>${product.quantity}</td>`;
+
+          if (showPrice) {
+            productTable += `
+            <td>${product.product.public_price}</td>
+            <td>${formatter.format(Number(product.product.public_price.replace(/[^0-9.-]+/g,"")) * product.quantity)}</td>`;
+          }
+
+          productTable += `</tr>`;
           totalProducts += product.quantity;
           sectionCount += product.quantity;
         }
@@ -112,6 +124,7 @@ export default function getQuotePDF(PRODUCT_DATA, QUOTE_DATA, PROJECT_DATA) {
                 <th>Zona</th>
                 <th>Observaciones</th>
                 <th>Cantidad</th>
+                ${showPrice? '<th>Costo U.</th><th>Importe</th>' : ''}
               </tr>
               ${productTable}
             </table>
