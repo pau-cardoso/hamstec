@@ -10,6 +10,7 @@ import Cell from '../../molecules/Table/Cell';
 import IconButton from '../../atoms/IconButton/IconButton';
 import Table from '../../molecules/Table/Table';
 import { moderateScale } from '../../config/utils';
+import { DeleteModal } from '../../../assets/HelperComponents';
 
 const HEADERS = ['Área', 'No. App', 'Clave', 'Dispositivo', 'Voz', 'Observaciones'];
 const WIDTH = [
@@ -24,6 +25,8 @@ const WIDTH = [
 export default function Instalacion({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
+  const [sectionDeleting, setSectionDeleting] = React.useState({id: 0, name: ""});
 
   const {quoteId} = route.params;
   const {BASE_URL} = process.env;
@@ -64,11 +67,40 @@ export default function Instalacion({style, navigation, route}) {
     }
   };
 
+  const deleteSection = () => {
+    fetch(`${BASE_URL}quote-product/quote/${quoteId}/delete-section`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        phase: 'INSTALACION',
+        section: sectionDeleting.id,
+      }),
+    }).catch((error) => {
+      console.error(error);
+      showErrorMessage();
+    }).finally(() => {
+      setDeleteModalVisible(false);
+      setRefreshing(true);
+    });
+  };
+
   const renderItem = ({ item }) => {
     return(
       <View style={styles.item}>
         <Card style={{width: '100%'}}>
-          <TextPairing text={item.name} type='semibold' size={32} style={{marginBottom: 8}} />
+          <View style={styles.sectionTitle}>
+            <TextPairing text={item.name} type='semibold' size={32} />
+            <IconButton
+              onPress={() => {setSectionDeleting({id: item.id, name: item.name}); setDeleteModalVisible(true);}}
+              iconName='trash'
+              color={primary.brand}
+              size={24}
+              style={{marginLeft: moderateScale(4)}}
+            />
+          </View>
           <ScrollView
             horizontal
             contentContainerStyle={{width: '100%'}}
@@ -101,6 +133,14 @@ export default function Instalacion({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
+      <DeleteModal
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
+        deletedItem={sectionDeleting}
+        setRefreshing={setRefreshing}
+        secondaryMessage='Esto eliminará todos los productos en esta sección'
+        onDeletePress={() => deleteSection()}
+      />
       <FlatList
         data={data}
         contentContainerStyle={{paddingHorizontal: 32, paddingTop: 22}}
@@ -133,5 +173,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  sectionTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    justifyContent: 'space-between',
   },
 });
