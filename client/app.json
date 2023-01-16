@@ -31,6 +31,11 @@
     },
     "web": {
       "favicon": "./assets/favicon_hamstec.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5bfaa61d-1356-4400-a9b3-6fdc2a18b8ab"
+      }
     }
   }
 }
