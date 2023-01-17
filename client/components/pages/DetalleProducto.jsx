@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
     height: moderateScale(250),
     marginRight: moderateScale(24),
     marginBottom: moderateScale(24),
-    alignSelf: 'grow',
   },
   details: {
     flexGrow: 1,

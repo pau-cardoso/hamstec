@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     width: moderateScale(65, 0.75),
     height: moderateScale(65, 0.75),
     marginRight: 12,
-    alignSelf: 'grow',
   },
 });
 
