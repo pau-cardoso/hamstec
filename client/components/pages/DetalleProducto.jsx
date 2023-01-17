@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   card: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'start',
+    alignItems: 'flex-start',
     padding: 24,
     flexWrap: 'wrap',
   },

@@ -36,7 +36,7 @@ export default function TextField(props) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'start',
+    alignItems: 'flex-start',
 		width: '100%',
   },
   spacing: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		alignContent: 'stretch',
-		justifyContent: 'start',
+		justifyContent: 'flex-start',
 		backgroundColor: neutral.s050,
 		borderRadius: 8,
 		...fontSize.x60,

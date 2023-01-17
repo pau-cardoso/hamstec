@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'column',
-    alignItems: 'start',
+    alignItems: 'flex-start',
   },
   image: {
     width: moderateScale(65, 0.75),

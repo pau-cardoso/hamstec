@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     justifyContent: 'center',
-    aspectRatio: "1 / 1",
+    aspectRatio: 1/1,
   },
   addSection: {
     flexDirection: 'row',

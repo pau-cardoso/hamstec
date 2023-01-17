@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 	leftContainer: {
     display: 'flex',
-    alignItems: 'start',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
