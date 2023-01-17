@@ -113,7 +113,7 @@ export default function Cotizacion({style, navigation, route}) {
       const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'MXN',
-        currencyDisplay: 'narrowSymbol',
+        currencyDisplay: 'symbol'
       });
       return(
         <Row>
@@ -123,7 +123,7 @@ export default function Cotizacion({style, navigation, route}) {
           <Cell value={item.quantity} width={WIDTH[3]} />
           <Cell value={item.product.name} width={WIDTH[4]} />
           <Cell value={item.product.public_price} width={WIDTH[5]} />
-          <Cell value={formatter.format(Number(item.product.public_price.replace(/[^0-9.-]+/g,"")) * item.quantity)} width={WIDTH[6]} />
+          <Cell value={(formatter.format(Number(item.product.public_price.replace(/[^0-9.-]+/g,"")) * item.quantity)).slice(2)} width={WIDTH[6]} />
           <IconButton
             iconName='pencil-sharp'
             size={20}

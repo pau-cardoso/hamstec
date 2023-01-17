@@ -11,7 +11,7 @@ export default function getQuotePDF(PRODUCT_DATA, QUOTE_DATA, PROJECT_DATA, show
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'MXN',
-    currencyDisplay: 'narrowSymbol',
+    currencyDisplay: 'symbol',
   });
 
   PRODUCT_DATA.forEach(section => {
@@ -31,7 +31,7 @@ export default function getQuotePDF(PRODUCT_DATA, QUOTE_DATA, PROJECT_DATA, show
           if (showPrice) {
             productTable += `
             <td>${product.product.public_price}</td>
-            <td>${formatter.format(Number(product.product.public_price.replace(/[^0-9.-]+/g,"")) * product.quantity)}</td>`;
+            <td>${formatter.format(Number(product.product.public_price.replace(/[^0-9.-]+/g,"")) * product.quantity).slice(2)}</td>`;
           }
 
           productTable += `</tr>`;

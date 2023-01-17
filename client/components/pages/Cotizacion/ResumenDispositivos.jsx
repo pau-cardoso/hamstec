@@ -31,7 +31,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'MXN',
-    currencyDisplay: 'narrowSymbol',
+    currencyDisplay: 'symbol',
   });
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
             </View>
             <View style={styles.textRow}>
               <TextPairing text='Diferencia MXN' type='medium' size={16} />
-              <TextPairing text={formatter.format(Math.abs(priceDifference))} size={16} />
+              <TextPairing text={formatter.format(Math.abs(priceDifference)).slice(2)} size={16} />
             </View>
           </Card>
         </View>
