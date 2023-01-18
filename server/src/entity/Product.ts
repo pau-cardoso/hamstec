@@ -34,4 +34,7 @@ export class Product {
     @ManyToOne(() => Brand)
     brand: Brand
 
+    @Column("boolean", {default: false})
+    favorite: boolean
+
 }

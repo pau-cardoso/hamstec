@@ -20,4 +20,7 @@ export class Quote {
     @Column("money", {default: 0, nullable: true })
     expenses: number
 
+    @Column("boolean", {default: false})
+    authorized: boolean
+
 }
