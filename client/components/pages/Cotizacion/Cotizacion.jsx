@@ -6,6 +6,7 @@ import Card from '../../atoms/Card/Card';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
+import * as FileSystem from 'expo-file-system'
 import getQuotePDF from '../../../assets/Cotizacion/CotizacionHtml';
 import { neutral, primary } from '../../config/colors';
 import { Ionicons } from '@expo/vector-icons';
@@ -104,8 +105,13 @@ export default function Cotizacion({style, navigation, route}) {
     const file = await Print.printToFileAsync({
       html: html,
     });
+    const pdfName = `${file.uri.slice(0,file.uri.lastIndexOf('/')+1)+projectId}_${quoteData.version}_${projectData.name.replace(/\s/g, '')}.pdf`;
+    await FileSystem.moveAsync({
+      from: file.uri,
+      to: pdfName,
+    });
 
-    await shareAsync(file.uri);
+    await shareAsync(pdfName);
   }
 
   const Item = ({ item }) => {
