@@ -6,7 +6,7 @@ import IconButton from '../../atoms/IconButton/IconButton'
 import { neutral, primary } from '../../config/colors';
 import { moderateScale } from '../../config/utils';
 
-export default function PageHeader({ title, secondaryTitle, onPressBackButton, onRightButtonClick, rightButtonIcon, style }) {
+export default function PageHeader({ title, secondaryTitle, onPressBackButton, onRightButtonClick, rightButtonIcon, iconSize = 40, iconColor = primary.brand, style }) {
   return(
     <SafeAreaView>
       <View style={[styles.container, style]}>
@@ -35,8 +35,8 @@ export default function PageHeader({ title, secondaryTitle, onPressBackButton, o
         { onRightButtonClick &&
             <IconButton
               iconName={rightButtonIcon}
-              size={40}
-              color={primary.brand}
+              size={iconSize}
+              color={iconColor}
               onPress={onRightButtonClick} />
         }
       </View>

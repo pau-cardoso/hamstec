@@ -5,10 +5,12 @@ import { TopTabNavigation } from '../../../Navigation';
 import { neutral } from '../../config/colors';
 import { useState } from 'react';
 import { moderateScale } from '../../config/utils';
+import { CustomModal, ModalPressable } from '../../../assets/HelperComponents';
 
 export default function Main({style, navigation, route}) {
   const [title, setTitle] = useState("");
   const [clientVersion, setClientVersion] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
   const { projectId } = route.params;
   const {BASE_URL} = process.env;
 
@@ -24,12 +26,19 @@ export default function Main({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
+      <CustomModal setModalVisible={setModalVisible} modalVisible={modalVisible}>
+        <ModalPressable text='Autorizar cotización' iconName='shield-checkmark' onPress={() => {}} />
+      </CustomModal>
       <View style={styles.header}>
         <PageHeader
           style={styles.gap}
           title={title}
           secondaryTitle={clientVersion}
-          onPressBackButton={() => navigation.goBack()} />
+          onPressBackButton={() => navigation.goBack()}
+          rightButtonIcon='ellipsis-vertical'
+          iconSize={32}
+          iconColor={neutral.s300}
+          onRightButtonClick={() => {setModalVisible(true)}} />
       </View>
       <TopTabNavigation route={route} />
     </View>

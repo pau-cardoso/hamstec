@@ -94,6 +94,41 @@ export const MenuModal = ({setModalVisible, modalVisible, onDeletePress, onEditP
   );
 };
 
+export const CustomModal = ({setModalVisible, modalVisible, children}) => {
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(false);
+      }}
+    >
+      <TouchableOpacity
+        style={styles.container}
+        activeOpacity={1}
+        onPressOut={() => {setModalVisible(false)}} >
+        <View style={styles.menuModalContainer}>
+          <TouchableWithoutFeedback>
+            <View style={styles.menuModalStyle}>
+              { children }
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableOpacity>
+    </Modal>
+  );
+};
+
+export const ModalPressable = ({onPress, text, iconName, iconColor = neutral.s300}) => {
+  return (
+    <Pressable style={({pressed}) => pressableStyle({pressed})} onPress={onPress} >
+      <Ionicons style={styles.iconButton} name={iconName} size={moderateScale(20, 0.25)} color={iconColor} />
+      <TextPairing text={text} />
+    </Pressable>
+  )
+}
+
 const pressableStyle = ({pressed}) => ([
   { backgroundColor: pressed? neutral.s100 : null },
   styles.optionContainer,
