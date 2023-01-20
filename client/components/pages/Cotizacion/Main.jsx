@@ -6,11 +6,13 @@ import { neutral } from '../../config/colors';
 import { useState } from 'react';
 import { moderateScale } from '../../config/utils';
 import { CustomModal, ModalPressable } from '../../../assets/HelperComponents';
+import { ConfirmationCodeModal } from '../../organisms/ConfirmationCodeModal';
 
 export default function Main({style, navigation, route}) {
   const [title, setTitle] = useState("");
   const [clientVersion, setClientVersion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [codeModalVisible, setCodeModalVisible] = useState(false);
   const { projectId } = route.params;
   const {BASE_URL} = process.env;
 
@@ -26,8 +28,9 @@ export default function Main({style, navigation, route}) {
 
   return(
     <View style={[styles.container, style]}>
+      <ConfirmationCodeModal setModalVisible={setCodeModalVisible} modalVisible={codeModalVisible} />
       <CustomModal setModalVisible={setModalVisible} modalVisible={modalVisible}>
-        <ModalPressable text='Autorizar cotización' iconName='shield-checkmark' onPress={() => {}} />
+        <ModalPressable text='Autorizar cotización' iconName='shield-checkmark' onPress={() => { setModalVisible(false); setCodeModalVisible(true);}} />
       </CustomModal>
       <View style={styles.header}>
         <PageHeader
