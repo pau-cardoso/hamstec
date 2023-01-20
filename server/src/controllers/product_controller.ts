@@ -5,6 +5,10 @@ export async function getAllProducts(request, response) {
   const users = await AppDataSource.getRepository(Product).find({
     relations: {
       brand: true,
+    },
+    order: {
+      favorite: 'DESC',
+      name: 'ASC',
     }
   }).catch((error) => {
     console.log(error);
