@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from "../components/atoms/Button/Button";
 import Card from "../components/atoms/Card/Card";
 import TextPairing from "../components/atoms/TextPairing/TextPairing";
-import { neutral, others } from "../components/config/colors";
+import { neutral, others, primary } from "../components/config/colors";
 import { moderateScale, showErrorMessage } from "../components/config/utils";
 
 export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, setRefreshing, onDeletePress, secondaryMessage }) => {
@@ -57,6 +57,49 @@ export const DeleteModal = ({setModalVisible, modalVisible, deletedItem, url, se
           </View>
         </Card>
       </View>
+    </Modal>
+  )
+};
+
+export const CustomCenteredModal = ({setModalVisible, modalVisible, onConfirmPress, children }) => {
+  return (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(false);
+      }}>
+      <TouchableOpacity
+        style={styles.container}
+        activeOpacity={1}
+        onPressOut={() => {setModalVisible(false)}} >
+        <View style={styles.modalContainer}>
+          <Card>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalView}>
+                { children }
+                <View style={styles.modalButtons}>
+                  <Button
+                    type='contained'
+                    title='Cancelar'
+                    textColor='s400'
+                    style={{backgroundColor: neutral.s100, marginRight: 12}}
+                    onPress={() => setModalVisible(false)}
+                  />
+                  <Button
+                    type='contained'
+                    title='Aceptar'
+                    textColor='brand'
+                    style={{backgroundColor: primary.s100}}
+                    onPress={onConfirmPress}
+                  />
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </Card>
+        </View>
+      </TouchableOpacity>
     </Modal>
   )
 };
@@ -142,10 +185,16 @@ const styles = StyleSheet.create({
   },
   modalView: {
     alignItems: 'center',
+    width: moderateScale(300),
+    justifyContent: 'center',
+    padding: moderateScale(8),
+  },
+  alignItems: {
+    alignItems: 'center',
   },
   modalButtons: {
     flexDirection: 'row',
-    marginTop: 12,
+    marginTop: 16,
   },
   modalContainer: {
     width: '100%',
