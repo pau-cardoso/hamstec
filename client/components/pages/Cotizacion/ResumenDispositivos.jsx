@@ -8,6 +8,11 @@ import { neutral } from '../../config/colors';
 import Table from '../../molecules/Table/Table';
 import { moderateScale } from '../../config/utils';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
+import * as FileSystem from 'expo-file-system'
+import getSummaryPDF from '../../../assets/Cotizacion/ResumenDispositivos';
+import Button from '../../atoms/Button/Button';
 
 const HEADERS = ['Marca', 'Clave', 'Dispositivo', 'Instalado', 'Contratado', 'Diferencia', 'Estado'];
 const WIDTH = [
@@ -47,6 +52,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
   let totalHired = 0;
   let totalInstalled = 0;
   let priceDifference = 0;
+  let tableHtml = '';
 
   for (let i = 0; i < data.length; i++) {
     const element = data[i];
@@ -65,6 +71,17 @@ export default function ResumenDispositivos({style, navigation, route}) {
       }
     });
     const row = new Array(0);
+    tableHtml += `
+      <tr class="data">
+        <td>${element[0].brand_name}</td>
+        <td>${element[0].product_code}</td>
+        <td>${element[0].product_name}</td>
+        <td>${installed}</td>
+        <td>${hired}</td>
+        <td>${hired-installed}</td>
+        <td>${(hired-installed) > 0? 'Sobrante' : (hired-installed) < 0? 'Faltante' : ''}</td>
+      </tr>
+    `;
     row.push(element[0].brand_name);
     row.push(element[0].product_code);
     row.push(element[0].product_name);
@@ -82,6 +99,19 @@ export default function ResumenDispositivos({style, navigation, route}) {
       ))}
     </Row>
   );
+
+  const generatePDF = async () => {
+    const html = getSummaryPDF(tableHtml);
+    const file = await Print.printToFileAsync({
+      html: html,
+    });
+    const pdfName = `${file.uri.slice(0,file.uri.lastIndexOf('/')+1)}Summary.pdf`;
+    await FileSystem.moveAsync({
+      from: file.uri,
+      to: pdfName,
+    });
+    await shareAsync(pdfName);
+  };
 
   return(
     <View style={[styles.container, style]}>
@@ -127,6 +157,9 @@ export default function ResumenDispositivos({style, navigation, route}) {
             </View>
           </Card>
         </View>
+        <View style={styles.pdfBtn}>
+          <Button title='Generar PDF' onPress={() => {generatePDF()}} />
+        </View>
       </ScrollView>
     </View>
   );
@@ -160,5 +193,8 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     backgroundColor: neutral.white,
     borderRadius: 10,
-  }
+  },
+  pdfBtn: {
+    marginBottom: 16,
+  },
 });
