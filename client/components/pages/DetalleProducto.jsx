@@ -6,6 +6,9 @@ import IconButton from '../atoms/IconButton/IconButton';
 import TextPairing from '../atoms/TextPairing/TextPairing';
 import Card from '../atoms/Card/Card';
 import { moderateScale } from '../config/utils';
+import { CustomCenteredModal } from '../../assets/HelperComponents';
+import { primary } from '../config/colors';
+import { showMessage } from 'react-native-flash-message';
 
 export default function DetalleProducto({route, navigation, style}) {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -24,6 +27,8 @@ export default function DetalleProducto({route, navigation, style}) {
       name: ""
     }
   });
+  const [favorite, setFavorite] = React.useState(false);
+  const [favoriteModalVisible, setFavoriteModalVisible] = React.useState(false);
 
   const {BASE_URL} = process.env;
   const {productId} = route.params;
@@ -31,13 +36,44 @@ export default function DetalleProducto({route, navigation, style}) {
   useEffect(() => {
     fetch(BASE_URL + "product/" + productId)
       .then((response) => response.json())
-      .then((json) => setProduct(json))
+      .then((json) => {setProduct(json); setFavorite(json.favorite)})
       .catch((error) => console.error(error))
       .finally(setRefreshing(false));
   }, [refreshing]);
 
+  function updateFavoriteProduct() {
+    fetch(`${BASE_URL}product/${productId}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        favorite: !favorite,
+      })
+    }).then(
+      showMessage({
+        message: `Producto ${favorite? 'eliminado de' : 'agregado a'} favoritos`,
+        type: 'success',
+        icon: 'auto'
+      })
+    ).catch((error) => {
+      console.error(error);
+      showErrorMessage();
+    }).finally(() => {
+      setFavoriteModalVisible(false);
+      setRefreshing(true);
+    });
+  }
+
   return(
     <View style={[styles.container, style]}>
+      <CustomCenteredModal
+        modalVisible={favoriteModalVisible}
+        onConfirmPress={() => {updateFavoriteProduct()}}
+        setModalVisible={setFavoriteModalVisible} >
+        <TextPairing text={`¿Estás seguro que quieres ${favorite? 'eliminar de' : 'agregar a'} favoritos ${product.name}?`} style={{textAlign: 'center'}} />
+      </CustomCenteredModal>
       <PageTemplate
         header={
           <PageHeader title={product.name} onPressBackButton={() => {navigation.goBack(); route.params.setRefreshing(true);}} />
@@ -50,7 +86,21 @@ export default function DetalleProducto({route, navigation, style}) {
                 source={{ uri: product.image }}
               />
               <View style={styles.details}>
-                <TextPairing text={product.brand.name} color='s400' />
+                <View style={styles.brandRow}>
+                  <TextPairing text={product.brand.name} color='s400' />
+                  <View style={styles.iconGroup}>
+                    <IconButton
+                      iconName={favorite? 'star' : 'star-outline'}
+                      color={favorite? primary.brand : undefined}
+                      onPress={() => {setFavoriteModalVisible(true)}}
+                      size={20}
+                      style={{marginRight: 8}} />
+                    <IconButton
+                      iconName='md-pencil-sharp'
+                      onPress={() => navigation.navigate('AgregarProducto', {setRefreshing: setRefreshing, refreshList: route.params.setRefreshing, product: product})}
+                      size={20} />
+                  </View>
+                </View>
                 <TextPairing text={product.name} size={32} />
                 <TextPairing text={product.description} />
                 <View style={styles.specifications}>
@@ -76,10 +126,6 @@ export default function DetalleProducto({route, navigation, style}) {
                   </View>
                 </View>
               </View>
-              <IconButton
-                iconName='md-pencil-sharp'
-                onPress={() => navigation.navigate('AgregarProducto', {setRefreshing: setRefreshing, refreshList: route.params.setRefreshing, product: product})}
-                size={20} />
             </View>
           </Card>
         }
@@ -120,5 +166,12 @@ const styles = StyleSheet.create({
   },
   rowText: {
     flexDirection: 'row',
-  }
+  },
+  brandRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  iconGroup: {
+    flexDirection: 'row',
+  },
 });
