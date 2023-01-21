@@ -245,7 +245,7 @@ export default function Cotizacion({style, navigation, route}) {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <View style={[styles.textRow, {flex: 1, marginRight: 10}]}>
-                    <TextPairing text='Viáticos' type='medium' size={16} />
+                    <TextPairing text='Puesta punto' type='medium' size={16} />
                     <TextPairing text={quoteData.expenses} size={16} />
                   </View>
                   <IconButton
