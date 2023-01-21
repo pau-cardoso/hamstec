@@ -37,4 +37,7 @@ export class Product {
     @Column("boolean", {default: false})
     favorite: boolean
 
+    @Column("boolean", {default: false})
+    deleted: boolean
+
 }

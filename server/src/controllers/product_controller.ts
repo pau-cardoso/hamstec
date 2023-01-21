@@ -9,6 +9,9 @@ export async function getAllProducts(request, response) {
     order: {
       favorite: 'DESC',
       name: 'ASC',
+    },
+    where: {
+      deleted: false,
     }
   }).catch((error) => {
     console.log(error);

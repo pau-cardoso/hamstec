@@ -50,17 +50,20 @@ export default function AgregarProducto({route, navigation, style}) {
 
   function deleteProduct() {
     fetch(BASE_URL + 'product/' + route.params.product.id, {
-      method: 'DELETE',
+      method: 'PUT',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify({
+        deleted: true,
+      })
     }).catch((error) => {
       console.error(error);
       showErrorMessage();
     }).finally(() => {
-      navigation.pop(2);
       route.params.refreshList(true);
+      navigation.pop(2);
     });
   }
 
