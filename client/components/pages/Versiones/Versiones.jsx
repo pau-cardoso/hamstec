@@ -6,7 +6,7 @@ import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showMessage } from "react-native-flash-message";
 import { showErrorMessage } from '../../config/utils';
-import { DeleteModal } from '../../../assets/HelperComponents';
+import { CustomModal, DeleteModal, ModalPressable } from '../../../assets/HelperComponents';
 
 
 export default function Versiones({style, navigation, route}) {
@@ -14,13 +14,15 @@ export default function Versiones({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [quoteDeleting, setQuoteDeleting] = React.useState({id: null, name: ''});
 
   const {BASE_URL} = process.env;
+  const {id_project} = route.params;
   const url = BASE_URL + "quote/" ;
 
   useEffect(() => {
-    fetch(url + "project/" + route.params.id_project)
+    fetch(url + "project/" + id_project)
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {
@@ -31,7 +33,7 @@ export default function Versiones({style, navigation, route}) {
   }, [refreshing]);
 
   const addVersion = () => {
-    fetch(url + "add/" + route.params.id_project)
+    fetch(url + "add/" + id_project)
       .then((response) => {
         response.json();
         showMessage({
@@ -45,6 +47,31 @@ export default function Versiones({style, navigation, route}) {
         showErrorMessage();
       })
       .finally(setRefreshing(true));
+  }
+
+  const cloneVersion = () => {
+    fetch(`${url}clone/${quoteDeleting.id}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        projectId: id_project,
+      })
+    }).then((response) => {
+      response.json();
+      showMessage({
+        message: 'Versión duplicada correctamente',
+        type: 'success',
+        icon: 'auto'
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      showErrorMessage();
+    })
+    .finally(() => {setModalVisible(false); setRefreshing(true);});
   }
 
   const renderItem = ({ item }) => {
@@ -66,12 +93,18 @@ export default function Versiones({style, navigation, route}) {
   return(
     <View style={[styles.container, style]}>
       <DeleteModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={deleteModalVisible}
+        setModalVisible={setDeleteModalVisible}
         deletedItem={quoteDeleting}
         url={url + quoteDeleting.id}
         setRefreshing={setRefreshing}
       />
+      <CustomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible} >
+        <ModalPressable iconName='copy' text='Duplicar' onPress={() => cloneVersion()} />
+        <ModalPressable iconName='trash' text='Eliminar' onPress={() => {setModalVisible(false); setDeleteModalVisible(true);}} />
+      </CustomModal>
       <PageTemplate
         header={
           <HeaderSearch

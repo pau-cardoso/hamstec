@@ -106,6 +106,77 @@ export async function addQuote(request, response) {
   }
 }
 
+export async function cloneQuote(request, response) {
+  try {
+    const lastVersion = (await AppDataSource.getRepository(Quote).findOne({
+      relations: {
+        project: true,
+      },
+      where: {
+        project: {
+          id: request.body.projectId,
+        },
+      },
+      order: {
+        id: "DESC",
+        version: "DESC",
+      }
+    })).version;
+
+    const cloningQuote = await AppDataSource.getRepository(Quote).findOne({
+      relations: {
+        project: true,
+      },
+      where: {
+        id: request.params.quote_id,
+      },
+    });
+
+    const newQuote = new Quote();
+    newQuote.project = request.body.projectId;
+    newQuote.version = +lastVersion + 1;
+    const addedQuote = await AppDataSource.getRepository(Quote).save(newQuote);
+
+    // Cloning all quote products from the quote to clone
+    const quoteProducts = await AppDataSource.getRepository(QuoteProduct).find({
+      relations: {
+        quote: true,
+        product: true,
+        section: true,
+      },
+      where: {
+        quote: {
+          id: cloningQuote.id,
+        },
+        phase: 'COTIZACION'
+      },
+      select: {
+        quantity: true,
+        zone: true,
+        observations: true,
+        phase: true,
+        voice: true,
+      }
+    });
+
+    quoteProducts.forEach(product => {
+      product.quote.id = addedQuote.id;
+      product.quote.version = addedQuote.version;
+    });
+
+    await AppDataSource.createQueryBuilder()
+      .insert()
+      .into(QuoteProduct)
+      .values(quoteProducts)
+      .execute();
+
+    return response.send(addedQuote)
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 export async function updateQuote(request, response) {
   try {
     const quote = await AppDataSource.getRepository(Quote).findOneBy({
