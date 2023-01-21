@@ -8,7 +8,7 @@ const removeAccents = (str) => {
 const showErrorMessage = (message = 'Ocurrió un error') => {
   showMessage({
     message: message,
-    description: 'Inténtalo más tarde',
+    description: 'Inténtalo de nuevo',
     type: 'danger',
     icon: 'auto'
   });
