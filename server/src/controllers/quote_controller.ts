@@ -35,6 +35,7 @@ export async function getQuoteByProject(request, response) {
       },
     },
     order: {
+      authorized: 'DESC',
       version: "DESC"
     }
   }).catch((error) => {

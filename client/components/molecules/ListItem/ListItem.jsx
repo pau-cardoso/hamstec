@@ -5,7 +5,7 @@ import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Card from '../../atoms/Card/Card'
 import { moderateScale } from '../../config/utils';
 
-export default function ListItem({ text, secondaryText, image, onPress, onLongPress, style }) {
+export default function ListItem({ text, secondaryText, image, onPress, onLongPress, children, style }) {
 return(
     <TouchableOpacity onPress={onPress} onLongPress={onLongPress}>
       <Card>
@@ -29,6 +29,9 @@ return(
                 size={16} />
             }
           </View>
+          <View style={styles.childrenContainer}>
+            {children}
+          </View>
         </View>
       </Card>
     </TouchableOpacity>
@@ -44,6 +47,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'column',
     alignItems: 'flex-start',
+    flex: 1,
   },
   image: {
     width: moderateScale(65, 0.75),

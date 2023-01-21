@@ -4,16 +4,18 @@ import PageHeader from '../../molecules/PageHeader/PageHeader';
 import { TopTabNavigation } from '../../../Navigation';
 import { neutral } from '../../config/colors';
 import { useState } from 'react';
-import { moderateScale } from '../../config/utils';
+import { moderateScale, showErrorMessage } from '../../config/utils';
 import { CustomModal, ModalPressable } from '../../../assets/HelperComponents';
 import { ConfirmationCodeModal } from '../../organisms/ConfirmationCodeModal';
+import { showMessage } from 'react-native-flash-message';
 
 export default function Main({style, navigation, route}) {
   const [title, setTitle] = useState("");
   const [clientVersion, setClientVersion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [codeModalVisible, setCodeModalVisible] = useState(false);
-  const { projectId } = route.params;
+  const [code, setCode] = useState('');
+  const { quoteId, projectId, authorized } = route.params;
   const {BASE_URL} = process.env;
 
   useEffect(() => {
@@ -26,9 +28,43 @@ export default function Main({style, navigation, route}) {
       .catch((error) => console.error(error))
     }, []);
 
+  const setAuthorized = () => {
+    if (code === '1234') {
+      fetch(`${BASE_URL}quote/${quoteId}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          authorized: !authorized,
+        })
+      }).then((response) => {
+        if (response.status === 200) {
+          showMessage({
+            message: 'Versión actualizada correctamente',
+            type: 'success',
+            icon: 'auto'
+          });
+        }
+      }).catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      });
+    } else {
+      showErrorMessage('Código incorrecto');
+      setCode('');
+    }
+  }
+
   return(
     <View style={[styles.container, style]}>
-      <ConfirmationCodeModal setModalVisible={setCodeModalVisible} modalVisible={codeModalVisible} />
+      <ConfirmationCodeModal
+        setModalVisible={setCodeModalVisible}
+        modalVisible={codeModalVisible}
+        value={code}
+        setValue={setCode}
+        onPress={() => {setCodeModalVisible(false); setAuthorized();}} />
       <CustomModal setModalVisible={setModalVisible} modalVisible={modalVisible}>
         <ModalPressable text='Autorizar cotización' iconName='shield-checkmark' onPress={() => { setModalVisible(false); setCodeModalVisible(true);}} />
       </CustomModal>

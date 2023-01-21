@@ -5,8 +5,10 @@ import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showMessage } from "react-native-flash-message";
-import { showErrorMessage } from '../../config/utils';
+import { moderateScale, showErrorMessage } from '../../config/utils';
 import { CustomModal, DeleteModal, ModalPressable } from '../../../assets/HelperComponents';
+import { primary } from '../../config/colors';
+import TextPairing from '../../atoms/TextPairing/TextPairing';
 
 
 export default function Versiones({style, navigation, route}) {
@@ -82,9 +84,15 @@ export default function Versiones({style, navigation, route}) {
         <View style={styles.item}>
           <ListItem
             text={item.version}
-            onPress={() => navigation.navigate('Cotizacion', { quoteId: item.id, projectId: route.params.id_project })}
+            onPress={() => navigation.navigate('Cotizacion', { quoteId: item.id, projectId: route.params.id_project, authorized: item.authorized })}
             onLongPress={() => {setModalVisible(true); setQuoteDeleting({id: item.id, name: item.version});}}
-          />
+          >
+            {item.authorized &&
+              <View style={styles.chip}>
+                <TextPairing text='Autorizado' type='regular' size={16} color='brand' />
+              </View>
+            }
+          </ListItem>
         </View>
       );
     }
@@ -136,7 +144,16 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 12,
-  }
+  },
+  chip: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    paddingHorizontal: moderateScale(12),
+    paddingVertical: 4,
+    backgroundColor: primary.s100,
+  },
 });
 
 Versiones.propTypes = {

@@ -37,8 +37,7 @@ const animateCell = ({hasValue, index, isFocused}) => {
   ]).start();
 };
 
-export const ConfirmationCodeModal = ({setModalVisible, modalVisible}) => {
-  const [value, setValue] = useState('');
+export const ConfirmationCodeModal = ({setModalVisible, modalVisible, value, setValue, onPress}) => {
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -117,7 +116,7 @@ export const ConfirmationCodeModal = ({setModalVisible, modalVisible}) => {
                   renderCell={renderCell}
                 />
               <View style={styles.nextButton}>
-                <Button title='Confirmar' />
+                <Button title='Confirmar' onPress={onPress} />
               </View>
               </>
             </View>
