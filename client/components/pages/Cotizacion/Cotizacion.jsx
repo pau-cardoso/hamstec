@@ -42,6 +42,8 @@ export default function Cotizacion({style, navigation, route}) {
   const [isChecked, setIsChecked] = React.useState(false);
   const [discountModalVisible, setDiscountModalVisible] = React.useState(false);
   const [discount, setDiscount] = React.useState('');
+  const [advanceModalVisible, setAdvanceModalVisible] = React.useState(false);
+  const [advance, setAdvance] = React.useState('');
 
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
@@ -77,6 +79,7 @@ export default function Cotizacion({style, navigation, route}) {
         setQuoteData(json);
         setRefreshing(false);
         setDiscount(json.discount.replace(/[^0-9.-]+/g,""));
+        setAdvance(json.advance.toString());
       })
       .catch((error) => {
         console.error(error);
@@ -119,12 +122,35 @@ export default function Cotizacion({style, navigation, route}) {
         console.error(error);
         showErrorMessage();
       }).finally(() => {
-        setDeleteModalVisible(false);
+        setDiscountModalVisible(false);
         setRefreshing(true);
       });
-    setDiscountModalVisible(false);
+
     } else {
       showErrorMessage('El descuento no debe ser mayor a la puesta punto');
+    }
+  };
+
+  const addAdvance = () => {
+    if ( advance <= 100) {
+      fetch(`${BASE_URL}quote/${quoteId}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          advance: advance,
+        }),
+      }).catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      }).finally(() => {
+        setAdvanceModalVisible(false);
+        setRefreshing(true);
+      });
+    } else {
+      showErrorMessage('El anticipo no debe ser mayor a 100');
     }
   };
 
@@ -232,6 +258,12 @@ export default function Cotizacion({style, navigation, route}) {
         onConfirmPress={() => {addDiscount()}}>
           <TextField value={discount} onChangeText={setDiscount} inputMode='decimal' placeholder='Descuento' />
       </CustomCenteredModal>
+      <CustomCenteredModal
+        setModalVisible={setAdvanceModalVisible}
+        modalVisible={advanceModalVisible}
+        onConfirmPress={() => {addAdvance()}}>
+          <TextField value={advance} onChangeText={setAdvance} inputMode='numeric' placeholder='% de anticipo' />
+      </CustomCenteredModal>
       <FlatList
         data={data}
         contentContainerStyle={{paddingHorizontal: moderateScale(32), paddingTop: moderateScale(22)}}
@@ -260,6 +292,15 @@ export default function Cotizacion({style, navigation, route}) {
                 <View style={styles.textRow}>
                   <TextPairing text='Antes de instalación' type='medium' size={16} />
                   <TextPairing text={quoteSummary.instalacion} size={16} />
+                </View>
+                <View style={{marginTop: 8}}>
+                  <Button
+                    title='%  Modificar anticipo'
+                    type='contained'
+                    textColor='s400'
+                    textType='regular'
+                    onPress={() => {setAdvanceModalVisible(true)}}
+                    style={styles.discountBtn} />
                 </View>
               </Card>
 

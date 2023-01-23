@@ -66,13 +66,15 @@ export async function getProductsByQuote(request, response) {
       .andWhere('quoteProduct.phase = :phase', { phase: 'COTIZACION' })
       .groupBy('quote.expenses')
       .addGroupBy('quote.discount')
+      .addGroupBy('quote.advance')
       .select('SUM(product.price)', 'cost')
       .addSelect('SUM(product.installation)', 'installation')
       .addSelect('SUM(product.utility)', 'utility')
       .addSelect('quote.expenses', 'expenses')
+      .addSelect('quote.advance', 'advance')
       .addSelect('SUM(product.public_price * quoteProduct.quantity) + quote.expenses - quote.discount', 'total')
-      .addSelect('(SUM(product.public_price * quoteProduct.quantity) + quote.expenses - quote.discount) * 0.8', 'anticipo')
-      .addSelect('(SUM(product.public_price * quoteProduct.quantity) + quote.expenses - quote.discount) * 0.2', 'instalacion')
+      .addSelect('((SUM(product.public_price * quoteProduct.quantity) + quote.expenses - quote.discount) * quote.advance)/100', 'anticipo')
+      .addSelect('((SUM(product.public_price * quoteProduct.quantity) + quote.expenses - quote.discount) * (100 - quote.advance))/100', 'instalacion')
       .getRawOne();
 
     const products = await AppDataSource.getRepository(QuoteProduct).find({

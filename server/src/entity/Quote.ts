@@ -26,4 +26,7 @@ export class Quote {
     @Column("money", {default: 0})
     discount: number
 
+    @Column({default: 80})
+    advance: number
+
 }
