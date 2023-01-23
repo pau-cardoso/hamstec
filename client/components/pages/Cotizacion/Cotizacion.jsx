@@ -16,8 +16,9 @@ import Table from '../../molecules/Table/Table';
 import Row from '../../molecules/Table/Row';
 import Cell from '../../molecules/Table/Cell';
 import { moderateScale, showErrorMessage } from '../../config/utils';
-import { DeleteModal } from '../../../assets/HelperComponents';
+import { CustomCenteredModal, DeleteModal } from '../../../assets/HelperComponents';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import TextField from '../../atoms/TextField/TextField';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const WIDTH = [
@@ -39,6 +40,8 @@ export default function Cotizacion({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [sectionDeleting, setSectionDeleting] = React.useState({id: 0, name: ""});
   const [isChecked, setIsChecked] = React.useState(false);
+  const [discountModalVisible, setDiscountModalVisible] = React.useState(false);
+  const [discount, setDiscount] = React.useState('');
 
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
@@ -73,6 +76,7 @@ export default function Cotizacion({style, navigation, route}) {
       .then((json) => {
         setQuoteData(json);
         setRefreshing(false);
+        setDiscount(json.discount.replace(/[^0-9.-]+/g,""));
       })
       .catch((error) => {
         console.error(error);
@@ -99,6 +103,30 @@ export default function Cotizacion({style, navigation, route}) {
       setRefreshing(true);
     });
   }
+
+  const addDiscount = () => {
+    if ( discount <= Number(quoteData.expenses.replace(/[^0-9.-]+/g,""))) {
+      fetch(`${BASE_URL}quote/${quoteId}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          discount: discount,
+        }),
+      }).catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      }).finally(() => {
+        setDeleteModalVisible(false);
+        setRefreshing(true);
+      });
+    setDiscountModalVisible(false);
+    } else {
+      showErrorMessage('El descuento no debe ser mayor a la puesta punto');
+    }
+  };
 
   let generatePDF = async () => {
     const html = getQuotePDF(data, quoteSummary, projectData, isChecked);
@@ -198,6 +226,12 @@ export default function Cotizacion({style, navigation, route}) {
         secondaryMessage='Esto eliminará todos los productos en esta sección'
         onDeletePress={() => deleteSection()}
       />
+      <CustomCenteredModal
+        setModalVisible={setDiscountModalVisible}
+        modalVisible={discountModalVisible}
+        onConfirmPress={() => {addDiscount()}}>
+          <TextField value={discount} onChangeText={setDiscount} inputMode='decimal' placeholder='Descuento' />
+      </CustomCenteredModal>
       <FlatList
         data={data}
         contentContainerStyle={{paddingHorizontal: moderateScale(32), paddingTop: moderateScale(22)}}
@@ -213,7 +247,7 @@ export default function Cotizacion({style, navigation, route}) {
               </Card>
             </TouchableOpacity>
             <View style={styles.cards}>
-              <Card style={styles.marginBottom}>
+              <Card style={[styles.marginBottom, styles.card]}>
                 <TextPairing text='Resumen de inversión' type='medium' size={24} style={styles.cardTitle} />
                 <View style={styles.textRow}>
                   <TextPairing text='Total' type='medium' size={16} />
@@ -229,7 +263,7 @@ export default function Cotizacion({style, navigation, route}) {
                 </View>
               </Card>
 
-              <Card>
+              <Card style={styles.card}>
                 <TextPairing text='Información de utilidad' type='medium' size={24} style={styles.cardTitle} />
                 <View style={[styles.textRow, {marginRight: 30}]}>
                   <TextPairing text='Costo' type='medium' size={16} />
@@ -254,6 +288,21 @@ export default function Cotizacion({style, navigation, route}) {
                     style={{alignSelf: 'center'}}
                     onPress={() => navigation.navigate('ModificarViaticos', {quoteId: quoteId, setRefreshing: setRefreshing})}
                   />
+                </View>
+                <View style={[styles.textRow, {marginRight: 30}]}>
+                  <TextPairing text='Descuento' type='medium' size={16} />
+                  <TextPairing text={quoteData.discount} size={16} />
+                </View>
+                <View style={{marginTop: 8}}>
+                  <Button
+                    title='Añadir descuento'
+                    type='contained'
+                    textColor='s400'
+                    textType='regular'
+                    iconName='add'
+                    iconColor={neutral.s400}
+                    onPress={() => {setDiscountModalVisible(true)}}
+                    style={styles.discountBtn} />
                 </View>
               </Card>
             </View>
@@ -294,8 +343,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: moderateScale(24, 0.8),
   },
+  card: {
+    width: moderateScale(300),
+  },
   cardTitle: {
-    marginHorizontal: moderateScale(24),
+    textAlign: 'center',
     marginBottom: moderateScale(8),
   },
   textRow: {
@@ -331,6 +383,11 @@ const styles = StyleSheet.create({
     textDecorationLine: "none",
     justifyContent: 'center',
     color: neutral.s800,
+  },
+  discountBtn: {
+    backgroundColor: "#F7F8FA",
+    width: '100%',
+    paddingVertical: 8,
   },
 });
 

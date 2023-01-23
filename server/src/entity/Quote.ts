@@ -23,4 +23,7 @@ export class Quote {
     @Column("boolean", {default: false})
     authorized: boolean
 
+    @Column("money", {default: 0})
+    discount: number
+
 }
