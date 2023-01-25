@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, FlatList, ScrollView } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, View, FlatList } from 'react-native';
 import Card from '../../atoms/Card/Card';
-import { Ionicons } from '@expo/vector-icons';
 import { neutral, primary } from '../../config/colors';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Row from '../../molecules/Table/Row';
@@ -11,6 +9,7 @@ import IconButton from '../../atoms/IconButton/IconButton';
 import Table from '../../molecules/Table/Table';
 import { moderateScale } from '../../config/utils';
 import { DeleteModal } from '../../../assets/HelperComponents';
+import Button from '../../atoms/Button/Button';
 
 const HEADERS = ['Área', 'No. App', 'Clave', 'Dispositivo', 'Voz', 'Observaciones'];
 const WIDTH = [
@@ -101,24 +100,17 @@ export default function Instalacion({style, navigation, route}) {
               style={{marginLeft: moderateScale(4)}}
             />
           </View>
-          <ScrollView
-            horizontal
-            contentContainerStyle={{width: '100%'}}
-            showsHorizontalScrollIndicator={false} >
-
-            <Table>
-              <Row>
-                { HEADERS.map((header, key) => (
-                  <Cell key={key} value={header} header width={WIDTH[key]} />
-                ))}
-                <View style={{width: 20}} />
-              </Row>
-              { item.data.map((product, key) => (
-                <Item key={key} item={product} />
+          <Table>
+            <Row>
+              { HEADERS.map((header, key) => (
+                <Cell key={key} value={header} header width={WIDTH[key]} />
               ))}
-            </Table>
-
-          </ScrollView>
+              <View style={{width: 20}} />
+            </Row>
+            { item.data.map((product, key) => (
+              <Item key={key} item={product} />
+            ))}
+          </Table>
           <IconButton
             onPress={() => navigation.navigate('AgregarProductoInstalacion', { idSection: item.data[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })}
             iconName='add'
@@ -148,12 +140,15 @@ export default function Instalacion({style, navigation, route}) {
         refreshing={refreshing}
         onRefresh={() => {setRefreshing(true)}}
         ListFooterComponent={
-          <TouchableOpacity style={{marginBottom: 24}} onPress={() => navigation.navigate('AgregarSeccion', { idQuote: quoteId, phase: tabActive, setRefreshing: setRefreshing })}>
-            <Card style={styles.addSection}>
-              <Ionicons style={{textAlign: 'center', marginRight: 10}} name='add' size={24} color={neutral.s500} />
-              <TextPairing text="Agregar sección" color='s500' />
-            </Card>
-          </TouchableOpacity>
+          <Button
+            title='Agregar sección'
+            type='contained'
+            textColor='s500'
+            textType='regular'
+            iconName='add'
+            iconColor={neutral.s500}
+            onPress={() => {navigation.navigate('AgregarSeccion', { idQuote: quoteId, phase: tabActive, setRefreshing: setRefreshing })}}
+            style={styles.addSectionBtn} />
         }
       />
     </View>
@@ -179,5 +174,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
     justifyContent: 'space-between',
+  },
+  addSectionBtn: {
+    backgroundColor: neutral.white,
+    width: '100%',
+    paddingVertical: moderateScale(20),
+    borderRadius: 15,
+    marginBottom: 24
   },
 });

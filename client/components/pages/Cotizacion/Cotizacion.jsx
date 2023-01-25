@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import Button from '../../atoms/Button/Button';
 import Card from '../../atoms/Card/Card';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
@@ -9,8 +9,6 @@ import { shareAsync } from 'expo-sharing';
 import * as FileSystem from 'expo-file-system'
 import getQuotePDF from '../../../assets/Cotizacion/CotizacionHtml';
 import { neutral, primary } from '../../config/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import IconButton from '../../atoms/IconButton/IconButton';
 import Table from '../../molecules/Table/Table';
 import Row from '../../molecules/Table/Row';
@@ -19,6 +17,7 @@ import { moderateScale, showErrorMessage } from '../../config/utils';
 import { CustomCenteredModal, DeleteModal } from '../../../assets/HelperComponents';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import TextField from '../../atoms/TextField/TextField';
+import { IntlProvider, FormattedNumber } from 'react-intl';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const WIDTH = [
@@ -170,31 +169,35 @@ export default function Cotizacion({style, navigation, route}) {
 
   const Item = ({ item }) => {
     if (item.product !== null) {
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'MXN',
-        currencyDisplay: 'symbol'
-      });
       return(
-        <Row>
-          <Cell value={item.area} width={WIDTH[0]} />
-          <Cell value={item.zone} width={WIDTH[1]} />
-          <Cell value={item.observations} width={WIDTH[2]} />
-          <Cell value={item.quantity} width={WIDTH[3]} />
-          <Cell value={item.product.name} width={WIDTH[4]} />
-          <Cell value={item.product.public_price} width={WIDTH[5]} />
-          <Cell value={(formatter.format(Number(item.product.public_price.replace(/[^0-9.-]+/g,"")) * item.quantity)).slice(2)} width={WIDTH[6]} />
-          <IconButton
-            iconName='pencil-sharp'
-            size={20}
-            style={{alignSelf: 'center'}}
-            onPress={ () => navigation.navigate('AgregarDetalles',
-              { idQuoteProduct: item.id,
-                idQuote: quoteId,
-                setRefreshing: setRefreshing,
-              })}
-          />
-        </Row>
+        <IntlProvider locale="en">
+          <Row>
+            <Cell value={item.area} width={WIDTH[0]} />
+            <Cell value={item.zone} width={WIDTH[1]} />
+            <Cell value={item.observations} width={WIDTH[2]} />
+            <Cell value={item.quantity} width={WIDTH[3]} />
+            <Cell value={item.product.name} width={WIDTH[4]} />
+            <Cell value={item.product.public_price} width={WIDTH[5]} />
+            <Cell width={WIDTH[6]}
+              value={
+                <FormattedNumber
+                  value={Number(item.product.public_price.replace(/[^0-9.-]+/g,"")) * item.quantity}
+                  style="currency"
+                  currency="USD"
+                />}
+            />
+            <IconButton
+              iconName='pencil-sharp'
+              size={20}
+              style={{alignSelf: 'center'}}
+              onPress={ () => navigation.navigate('AgregarDetalles',
+                { idQuoteProduct: item.id,
+                  idQuote: quoteId,
+                  setRefreshing: setRefreshing,
+                })}
+            />
+          </Row>
+        </IntlProvider>
       );
     }
   };
@@ -212,24 +215,17 @@ export default function Cotizacion({style, navigation, route}) {
             style={{marginLeft: moderateScale(4)}}
           />
         </View>
-        <ScrollView
-          horizontal
-          contentContainerStyle={{width: '100%'}}
-          showsHorizontalScrollIndicator={false} >
-
-          <Table>
-            <Row>
-              { HEADERS.map((header, key) => (
-                <Cell key={key} value={header} header width={WIDTH[key]} />
-              ))}
-              <View style={{width: 20}} />
-            </Row>
-            { item.data.map((product, key) => (
-              <Item key={key} item={product} />
+        <Table>
+          <Row>
+            { HEADERS.map((header, key) => (
+              <Cell key={key} value={header} header width={WIDTH[key]} />
             ))}
-          </Table>
-
-        </ScrollView>
+            <View style={{width: 20}} />
+          </Row>
+          { item.data.map((product, key) => (
+            <Item key={key} item={product} />
+          ))}
+        </Table>
         <IconButton
           onPress={() => {
             navigation.navigate('AgregarDetalles', { idSection: item.data[0].section.id, idQuote: quoteId, setRefreshing: setRefreshing })}}
@@ -272,12 +268,15 @@ export default function Cotizacion({style, navigation, route}) {
         onRefresh={() => {setRefreshing(true)}}
         ListFooterComponent={
           <>
-            <TouchableOpacity onPress={() => navigation.navigate('AgregarSeccion', { idQuote: quoteId, phase: tabActive, setRefreshing: setRefreshing })}>
-              <Card style={styles.addSection}>
-                <Ionicons style={{textAlign: 'center', marginRight: moderateScale(10)}} name='add' size={24} color={neutral.s500} />
-                <TextPairing text="Agregar sección" color='s500' />
-              </Card>
-            </TouchableOpacity>
+            <Button
+              title='Agregar sección'
+              type='contained'
+              textColor='s500'
+              textType='regular'
+              iconName='add'
+              iconColor={neutral.s500}
+              onPress={() => {navigation.navigate('AgregarSeccion', { idQuote: quoteId, phase: tabActive, setRefreshing: setRefreshing })}}
+              style={styles.addSectionBtn} />
             <View style={styles.cards}>
               <Card style={[styles.marginBottom, styles.card]}>
                 <TextPairing text='Resumen de inversión' type='medium' size={24} style={styles.cardTitle} />
@@ -429,6 +428,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F8FA",
     width: '100%',
     paddingVertical: 8,
+  },
+  addSectionBtn: {
+    backgroundColor: neutral.white,
+    width: '100%',
+    paddingVertical: moderateScale(20),
+    borderRadius: 15,
   },
 });
 

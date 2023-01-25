@@ -1,3 +1,4 @@
+import 'intl';
 import React, { useEffect } from 'react';
 import { RefreshControl, StyleSheet, View } from 'react-native';
 import Card from '../../atoms/Card/Card';
@@ -13,6 +14,7 @@ import { shareAsync } from 'expo-sharing';
 import * as FileSystem from 'expo-file-system'
 import getSummaryPDF from '../../../assets/Cotizacion/ResumenDispositivos';
 import Button from '../../atoms/Button/Button';
+import { IntlProvider, FormattedNumber } from 'react-intl';
 
 const HEADERS = ['Marca', 'Clave', 'Dispositivo', 'Instalado', 'Contratado', 'Diferencia', 'Estado'];
 const WIDTH = [
@@ -32,12 +34,6 @@ export default function ResumenDispositivos({style, navigation, route}) {
   const {BASE_URL} = process.env;
   const {quoteId} = route.params;
   let tableData = new Array(0);
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'MXN',
-    currencyDisplay: 'symbol',
-  });
 
   useEffect(() => {
     fetch(`${BASE_URL}quote-product/count/${quoteId}`)
@@ -114,54 +110,62 @@ export default function ResumenDispositivos({style, navigation, route}) {
   };
 
   return(
-    <View style={[styles.container, style]}>
-      <ScrollView
-        contentContainerStyle={{justifyContent: 'center'}}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => setRefreshing(true)} />
-        }>
-        <Table>
-          <Row style={styles.cardRow}>
-            { HEADERS.map((header, key) => (
-              <Cell key={key} value={header} header width={WIDTH[key]} />
+    <IntlProvider locale="en">
+      <View style={[styles.container, style]}>
+        <ScrollView
+          contentContainerStyle={{justifyContent: 'center'}}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => setRefreshing(true)} />
+          }>
+          <Table>
+            <Row style={styles.cardRow}>
+              { HEADERS.map((header, key) => (
+                <Cell key={key} value={header} header width={WIDTH[key]} />
+              ))}
+            </Row>
+            { Array.from(tableData).map((product, key) => (
+              <Item key={key} item={product} />
             ))}
-          </Row>
-          { Array.from(tableData).map((product, key) => (
-            <Item key={key} item={product} />
-          ))}
-        </Table>
-        <View style={styles.cards}>
-          <Card style={{marginTop: 24}}>
-            <TextPairing text='Total dispositivos' type='medium' size={24} style={{marginHorizontal: 64, marginBottom: 8}} />
-            <View style={styles.textRow}>
-              <TextPairing text='Instalado' type='medium' size={16} />
-              <TextPairing text={totalInstalled} size={16} />
-            </View>
-            <View style={styles.textRow}>
-              <TextPairing text='Contratado' type='medium' size={16} />
-              <TextPairing text={totalHired} size={16} />
-            </View>
-            <View style={styles.textRow}>
-              <TextPairing text='Diferencia' type='medium' size={16} />
-              <TextPairing text={totalInstalled-totalHired} size={16} />
-            </View>
-            <View style={styles.textRow}>
-              <TextPairing text='Estado' type='medium' size={16} />
-              <TextPairing text={(totalHired-totalInstalled) > 0? 'Sobrante' : (totalHired-totalInstalled) < 0? 'Faltante' : ''} size={16} />
-            </View>
-            <View style={styles.textRow}>
-              <TextPairing text='Diferencia MXN' type='medium' size={16} />
-              <TextPairing text={formatter.format(Math.abs(priceDifference)).slice(2)} size={16} />
-            </View>
-          </Card>
-        </View>
-        <View style={styles.pdfBtn}>
-          <Button title='Generar PDF' onPress={() => {generatePDF()}} />
-        </View>
-      </ScrollView>
-    </View>
+          </Table>
+          <View style={styles.cards}>
+            <Card style={{marginTop: 24}}>
+              <TextPairing text='Total dispositivos' type='medium' size={24} style={{marginHorizontal: 64, marginBottom: 8}} />
+              <View style={styles.textRow}>
+                <TextPairing text='Instalado' type='medium' size={16} />
+                <TextPairing text={totalInstalled} size={16} />
+              </View>
+              <View style={styles.textRow}>
+                <TextPairing text='Contratado' type='medium' size={16} />
+                <TextPairing text={totalHired} size={16} />
+              </View>
+              <View style={styles.textRow}>
+                <TextPairing text='Diferencia' type='medium' size={16} />
+                <TextPairing text={totalInstalled-totalHired} size={16} />
+              </View>
+              <View style={styles.textRow}>
+                <TextPairing text='Estado' type='medium' size={16} />
+                <TextPairing text={(totalHired-totalInstalled) > 0? 'Sobrante' : (totalHired-totalInstalled) < 0? 'Faltante' : ''} size={16} />
+              </View>
+              <View style={styles.textRow}>
+                <TextPairing text='Diferencia MXN' type='medium' size={16} />
+                <TextPairing text={
+                  <FormattedNumber
+                    value={Math.abs(priceDifference)}
+                    style="currency"
+                    currency="USD"
+                  />
+                } size={16} />
+              </View>
+            </Card>
+          </View>
+          <View style={styles.pdfBtn}>
+            <Button title='Generar PDF' onPress={() => {generatePDF()}} />
+          </View>
+        </ScrollView>
+      </View>
+    </IntlProvider>
   );
 }
 
