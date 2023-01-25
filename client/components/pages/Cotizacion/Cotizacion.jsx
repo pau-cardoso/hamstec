@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(24, 0.8),
   },
   card: {
-    width: moderateScale(300),
+    width: moderateScale(300, 0.2),
   },
   cardTitle: {
     textAlign: 'center',
