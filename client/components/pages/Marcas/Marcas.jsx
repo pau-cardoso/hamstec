@@ -15,8 +15,8 @@ export default function Marcas({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [brandDeleting, setBrandDeleting] = React.useState({id: null, name: ''});
 
-  const {BASE_URL} = process.env;
-  const url = `${BASE_URL}brand/`;
+  const {PROD_API} = process.env;
+  const url = `${PROD_API}brand/`;
 
   useEffect(() => {
     fetch(url)

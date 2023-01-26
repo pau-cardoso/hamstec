@@ -11,8 +11,8 @@ import TextField from '../../atoms/TextField/TextField';
 export default function AgregarSecciones({style, navigation, route}) {
   const [name, setName] = React.useState("");
 
-  const {BASE_URL} = process.env;
-  const url = `${BASE_URL}section/`;
+  const {PROD_API} = process.env;
+  const url = `${PROD_API}section/`;
   const isEditing = route.params.sectionId != undefined;
 
   useEffect(() => {

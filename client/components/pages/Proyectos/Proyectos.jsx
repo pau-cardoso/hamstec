@@ -14,8 +14,8 @@ export default function Proyectos({style, navigation}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [projectDeleting, setProjectDeleting] = React.useState({id: null, name: ''});
 
-  const {BASE_URL} = process.env;
-  const url = BASE_URL + "project";
+  const {PROD_API} = process.env;
+  const url = PROD_API + "project";
 
   useEffect(() => {
     fetch(url)

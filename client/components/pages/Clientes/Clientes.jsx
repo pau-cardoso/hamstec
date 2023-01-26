@@ -15,8 +15,8 @@ export default function Clientes({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [clientDeleting, setClientDeleting] = React.useState({id: null, name: ''});
 
-  const {BASE_URL} = process.env;
-  const url = `${BASE_URL}client/`;
+  const {PROD_API} = process.env;
+  const url = `${PROD_API}client/`;
 
   useEffect(() => {
     fetch(url)

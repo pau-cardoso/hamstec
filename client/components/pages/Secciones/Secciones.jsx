@@ -15,8 +15,8 @@ export default function Secciones({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [sectionDeleting, setSectionDeleting] = React.useState({id: null, name: ''});
 
-  const {BASE_URL} = process.env;
-  const url = `${BASE_URL}section/`;
+  const {PROD_API} = process.env;
+  const url = `${PROD_API}section/`;
 
   useEffect(() => {
     fetch(url)

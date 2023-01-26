@@ -31,12 +31,12 @@ export default function ResumenDispositivos({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const {BASE_URL} = process.env;
+  const {PROD_API} = process.env;
   const {quoteId} = route.params;
   let tableData = new Array(0);
 
   useEffect(() => {
-    fetch(`${BASE_URL}quote-product/count/${quoteId}`)
+    fetch(`${PROD_API}quote-product/count/${quoteId}`)
       .then((response) => response.json())
       .then((json) => {
         setData(Object.values(json));

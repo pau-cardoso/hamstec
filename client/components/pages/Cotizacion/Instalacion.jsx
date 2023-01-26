@@ -28,12 +28,12 @@ export default function Instalacion({style, navigation, route}) {
   const [sectionDeleting, setSectionDeleting] = React.useState({id: 0, name: ""});
 
   const {quoteId} = route.params;
-  const {BASE_URL} = process.env;
+  const {PROD_API} = process.env;
 
   const tabActive = navigation.isFocused()? 'INSTALACION' : 'COTIZACION';
 
   useEffect(() => {
-    fetch(BASE_URL + "quote-product/quote-installed/" + quoteId)
+    fetch(PROD_API + "quote-product/quote-installed/" + quoteId)
       .then((response) => response.json())
       .then((json) => {
         setData(json);
@@ -67,7 +67,7 @@ export default function Instalacion({style, navigation, route}) {
   };
 
   const deleteSection = () => {
-    fetch(`${BASE_URL}quote-product/quote/${quoteId}/delete-section`, {
+    fetch(`${PROD_API}quote-product/quote/${quoteId}/delete-section`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',

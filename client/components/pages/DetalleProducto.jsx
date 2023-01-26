@@ -30,11 +30,11 @@ export default function DetalleProducto({route, navigation, style}) {
   const [favorite, setFavorite] = React.useState(false);
   const [favoriteModalVisible, setFavoriteModalVisible] = React.useState(false);
 
-  const {BASE_URL} = process.env;
+  const {PROD_API} = process.env;
   const {productId} = route.params;
 
   useEffect(() => {
-    fetch(BASE_URL + "product/" + productId)
+    fetch(PROD_API + "product/" + productId)
       .then((response) => response.json())
       .then((json) => {setProduct(json); setFavorite(json.favorite)})
       .catch((error) => console.error(error))
@@ -42,7 +42,7 @@ export default function DetalleProducto({route, navigation, style}) {
   }, [refreshing]);
 
   function updateFavoriteProduct() {
-    fetch(`${BASE_URL}product/${productId}`, {
+    fetch(`${PROD_API}product/${productId}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',

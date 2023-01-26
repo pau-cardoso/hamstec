@@ -16,10 +16,10 @@ export default function Main({style, navigation, route}) {
   const [codeModalVisible, setCodeModalVisible] = useState(false);
   const [code, setCode] = useState('');
   const { quoteId, projectId, authorized } = route.params;
-  const {BASE_URL} = process.env;
+  const {PROD_API} = process.env;
 
   useEffect(() => {
-    fetch(BASE_URL + "project/" + projectId)
+    fetch(PROD_API + "project/" + projectId)
       .then((response) => response.json())
       .then((json) => {
         setTitle(json.name)
@@ -30,7 +30,7 @@ export default function Main({style, navigation, route}) {
 
   const setAuthorized = () => {
     if (code === '1234') {
-      fetch(`${BASE_URL}quote/${quoteId}`, {
+      fetch(`${PROD_API}quote/${quoteId}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',

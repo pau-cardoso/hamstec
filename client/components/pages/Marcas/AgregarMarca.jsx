@@ -11,8 +11,8 @@ import TextField from '../../atoms/TextField/TextField';
 export default function AgregarMarca({style, navigation, route}) {
   const [name, setName] = React.useState("");
 
-  const {BASE_URL} = process.env;
-  const url = `${BASE_URL}brand/`;
+  const {PROD_API} = process.env;
+  const url = `${PROD_API}brand/`;
   const isEditing = route.params.brandId != undefined;
 
   useEffect(() => {

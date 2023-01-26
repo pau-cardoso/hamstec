@@ -47,8 +47,8 @@ export default function Cotizacion({style, navigation, route}) {
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
 
-  const {BASE_URL} = process.env;
-  const url = BASE_URL + "quote-product/quote/" + quoteId;
+  const {PROD_API} = process.env;
+  const url = PROD_API + "quote-product/quote/" + quoteId;
 
   useEffect(() => {
     fetch(url)
@@ -63,7 +63,7 @@ export default function Cotizacion({style, navigation, route}) {
         console.error(error);
         showErrorMessage();
       })
-    fetch(BASE_URL + "project/" + projectId)
+    fetch(PROD_API + "project/" + projectId)
       .then((response) => response.json())
       .then((json) => {
         setProjectData(json);
@@ -72,7 +72,7 @@ export default function Cotizacion({style, navigation, route}) {
         console.error(error);
         showErrorMessage();
       })
-    fetch(BASE_URL + "quote/" + quoteId)
+    fetch(PROD_API + "quote/" + quoteId)
       .then((response) => response.json())
       .then((json) => {
         setQuoteData(json);
@@ -108,7 +108,7 @@ export default function Cotizacion({style, navigation, route}) {
 
   const addDiscount = () => {
     if ( discount <= Number(quoteData.expenses.replace(/[^0-9.-]+/g,""))) {
-      fetch(`${BASE_URL}quote/${quoteId}`, {
+      fetch(`${PROD_API}quote/${quoteId}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -132,7 +132,7 @@ export default function Cotizacion({style, navigation, route}) {
 
   const addAdvance = () => {
     if ( advance <= 100) {
-      fetch(`${BASE_URL}quote/${quoteId}`, {
+      fetch(`${PROD_API}quote/${quoteId}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',

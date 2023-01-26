@@ -19,9 +19,9 @@ export default function Versiones({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [quoteDeleting, setQuoteDeleting] = React.useState({id: null, name: ''});
 
-  const {BASE_URL} = process.env;
+  const {PROD_API} = process.env;
   const {id_project} = route.params;
-  const url = BASE_URL + "quote/" ;
+  const url = PROD_API + "quote/" ;
 
   useEffect(() => {
     fetch(url + "project/" + id_project)

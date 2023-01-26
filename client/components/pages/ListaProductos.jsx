@@ -18,14 +18,14 @@ export default function ListaProductos({style, navigation, route}) {
   const [activeTab, setActiveTab] = React.useState("Todos");
   const [searchPhrase, setSearchPhrase] = React.useState("");
 
-  const {BASE_URL} = process.env;
+  const {PROD_API} = process.env;
 
   useEffect(() => {
-    fetch(BASE_URL + 'product')
+    fetch(PROD_API + 'product')
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
-    fetch(BASE_URL + 'brand')
+    fetch(PROD_API + 'brand')
       .then((response) => response.json())
       .then((json) => {
         const brands = ["Todos"].concat(json.map(brand => brand.name));

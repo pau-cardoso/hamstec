@@ -9,9 +9,9 @@ import { showErrorMessage } from '../config/utils';
 export default function ModificarViaticos({style, navigation, route}) {
   const [expenses, setExpenses] = React.useState(0);
 
-  const {BASE_URL} = process.env;
+  const {PROD_API} = process.env;
   const {quoteId} = route.params;
-  const url = `${BASE_URL}quote/`
+  const url = `${PROD_API}quote/`
 
   useEffect(() => {
     fetch(url + quoteId)

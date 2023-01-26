@@ -18,8 +18,8 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
   const [observations, setObservations] = React.useState("");
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const {BASE_URL} = process.env;
-  const url = BASE_URL + 'quote-product/'
+  const {PROD_API} = process.env;
+  const url = PROD_API + 'quote-product/'
   const {idQuote, idSection, idQuoteProduct} = route.params;
 
   useEffect(() => {

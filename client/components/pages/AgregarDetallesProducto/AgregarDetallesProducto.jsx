@@ -21,8 +21,8 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
   const [product, setProduct] = React.useState({id: 0, name: ""});
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const {BASE_URL} = process.env;
-  const url = `${BASE_URL}quote-product/`;
+  const {PROD_API} = process.env;
+  const url = `${PROD_API}quote-product/`;
   const {idQuote, idSection, idQuoteProduct} = route.params;
 
   useEffect(() => {
