@@ -35,7 +35,8 @@
     "extra": {
       "eas": {
         "projectId": "5bfaa61d-1356-4400-a9b3-6fdc2a18b8ab"
-      }
+      },
+      "PROD_API": "http://147.182.253.114:3000/"
     }
   }
 }

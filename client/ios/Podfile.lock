@@ -91,7 +91,7 @@ PODS:
     - expo-dev-menu/GestureHandler
     - expo-dev-menu/Reanimated
     - expo-dev-menu/SafeAreaView
-  - ExpoKeepAwake (10.2.1):
+  - ExpoKeepAwake (10.2.0):
     - ExpoModulesCore
   - ExpoModulesCore (0.11.10):
     - React-Core
@@ -646,7 +646,7 @@ SPEC CHECKSUMS:
   expo-dev-launcher: 5a2a86276911631997b8821d278a964252bfbbf7
   expo-dev-menu: 5c8f08081eedb470fc8384195c044feba5055cec
   expo-dev-menu-interface: 27047461614aee1dc082cacc0e0f5b4c7b8edd1b
-  ExpoKeepAwake: 8b47e5358d54ea4922b630a74f2acb026ab7a28b
+  ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
   ExpoModulesCore: 1b2f5f91eff132671f6d0642aad2ba7915c6ff41
   EXPrint: feb397c99845f8a5aaf8e831fdead89a2f8d631c
   EXSharing: 8530ef08cb899328a7c61de7f4836af6208b567b
