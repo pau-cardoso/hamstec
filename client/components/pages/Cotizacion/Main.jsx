@@ -8,6 +8,7 @@ import { moderateScale, showErrorMessage } from '../../config/utils';
 import { CustomModal, ModalPressable } from '../../../assets/HelperComponents';
 import { ConfirmationCodeModal } from '../../organisms/ConfirmationCodeModal';
 import { showMessage } from 'react-native-flash-message';
+import Constants from 'expo-constants';
 
 export default function Main({style, navigation, route}) {
   const [title, setTitle] = useState("");
@@ -16,7 +17,7 @@ export default function Main({style, navigation, route}) {
   const [codeModalVisible, setCodeModalVisible] = useState(false);
   const [code, setCode] = useState('');
   const { quoteId, projectId, authorized } = route.params;
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
 
   useEffect(() => {
     fetch(PROD_API + "project/" + projectId)

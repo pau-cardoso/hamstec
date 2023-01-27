@@ -6,12 +6,13 @@ import FormGroup from '../molecules/FormGroup/FormGroup';
 import SearchableSelect from '../molecules/SearchableSelect/SearchableSelect';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../config/utils';
+import Constants from 'expo-constants';
 
 export default function AgregarProyecto({style, navigation, route}) {
   const [section, setSection] = React.useState({id:0, name: ""});
   const [sectionData, setSectionData] = React.useState();
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
 
   useEffect(() => {
     fetch(PROD_API + 'section')

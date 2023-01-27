@@ -5,11 +5,12 @@ import PageHeader from '../molecules/PageHeader/PageHeader';
 import FormGroup from '../molecules/FormGroup/FormGroup';
 import TextField from '../atoms/TextField/TextField';
 import { showErrorMessage } from '../config/utils';
+import Constants from 'expo-constants';
 
 export default function ModificarViaticos({style, navigation, route}) {
   const [expenses, setExpenses] = React.useState(0);
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const {quoteId} = route.params;
   const url = `${PROD_API}quote/`
 

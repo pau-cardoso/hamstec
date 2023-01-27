@@ -9,6 +9,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../config/utils';
 import Button from '../atoms/Button/Button';
+import Constants from 'expo-constants';
 
 export default function AgregarProducto({route, navigation, style}) {
   const [brand, setBrand] = React.useState({id:0, name: ""});
@@ -22,7 +23,7 @@ export default function AgregarProducto({route, navigation, style}) {
   const [utility, setUtility] = React.useState("");
   const [publicPrice, setPublicPrice] = React.useState("");
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const isEditing = route.params.product != undefined;
 
   function setProduct() {

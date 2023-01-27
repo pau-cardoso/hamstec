@@ -9,6 +9,7 @@ import { moderateScale } from '../config/utils';
 import { CustomCenteredModal } from '../../assets/HelperComponents';
 import { primary } from '../config/colors';
 import { showMessage } from 'react-native-flash-message';
+import Constants from 'expo-constants';
 
 export default function DetalleProducto({route, navigation, style}) {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -30,7 +31,7 @@ export default function DetalleProducto({route, navigation, style}) {
   const [favorite, setFavorite] = React.useState(false);
   const [favoriteModalVisible, setFavoriteModalVisible] = React.useState(false);
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const {productId} = route.params;
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import PageTemplate from '../../templates/PageTemplate';
 import ProductSearch from '../../organisms/ProductSearch/ProductSearch';
 import ListItem from '../../molecules/ListItem/ListItem';
+import Constants from 'expo-constants';
 
 export default function AgregarProductoCotizacion({route, navigation, style}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
@@ -11,7 +12,7 @@ export default function AgregarProductoCotizacion({route, navigation, style}) {
   const [data, setData] = React.useState([]);
   const [tabs, setTabs] = React.useState([]);
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const {setProduct} = route.params;
 
   useEffect(() => {

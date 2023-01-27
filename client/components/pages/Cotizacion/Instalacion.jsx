@@ -10,6 +10,7 @@ import Table from '../../molecules/Table/Table';
 import { moderateScale } from '../../config/utils';
 import { DeleteModal } from '../../../assets/HelperComponents';
 import Button from '../../atoms/Button/Button';
+import Constants from 'expo-constants';
 
 const HEADERS = ['Área', 'No. App', 'Clave', 'Dispositivo', 'Voz', 'Observaciones'];
 const WIDTH = [
@@ -28,7 +29,7 @@ export default function Instalacion({style, navigation, route}) {
   const [sectionDeleting, setSectionDeleting] = React.useState({id: 0, name: ""});
 
   const {quoteId} = route.params;
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
 
   const tabActive = navigation.isFocused()? 'INSTALACION' : 'COTIZACION';
 

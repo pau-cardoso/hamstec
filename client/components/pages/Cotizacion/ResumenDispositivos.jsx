@@ -15,6 +15,7 @@ import * as FileSystem from 'expo-file-system'
 import getSummaryPDF from '../../../assets/Cotizacion/ResumenDispositivos';
 import Button from '../../atoms/Button/Button';
 import { IntlProvider, FormattedNumber } from 'react-intl';
+import Constants from 'expo-constants';
 
 const HEADERS = ['Marca', 'Clave', 'Dispositivo', 'Instalado', 'Contratado', 'Diferencia', 'Estado'];
 const WIDTH = [
@@ -31,7 +32,7 @@ export default function ResumenDispositivos({style, navigation, route}) {
   const [data, setData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const {quoteId} = route.params;
   let tableData = new Array(0);
 

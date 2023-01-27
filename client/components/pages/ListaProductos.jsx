@@ -7,6 +7,7 @@ import Row from '../molecules/Table/Row';
 import Cell from '../molecules/Table/Cell';
 import Table from '../molecules/Table/Table';
 import { moderateScale } from '../config/utils';
+import Constants from 'expo-constants';
 
 const WIDTH = [moderateScale(90), moderateScale(90), moderateScale(150), moderateScale(200), moderateScale(100), moderateScale(90), moderateScale(100), moderateScale(85)];
 const HEADERS = ['Marca', 'Clave', 'Dispositivo', 'Descripción', 'Costo', 'Instalación', 'Precio público', 'Utilidad'];
@@ -18,7 +19,7 @@ export default function ListaProductos({style, navigation, route}) {
   const [activeTab, setActiveTab] = React.useState("Todos");
   const [searchPhrase, setSearchPhrase] = React.useState("");
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
 
   useEffect(() => {
     fetch(PROD_API + 'product')

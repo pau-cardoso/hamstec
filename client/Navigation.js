@@ -18,7 +18,7 @@ import Instalacion from './components/pages/Cotizacion/Instalacion';
 import ListaProductos from './components/pages/ListaProductos';
 import DetalleProducto from './components/pages/DetalleProducto';
 import AgregarProducto from './components/pages/AgregarProducto';
-import AgregarProductoInstalacion from './components/pages/AgregarProductoInstalación';
+import AgregarProductoInstalacion from './components/pages/AgregarProductoInstalacion';
 import ResumenDispositivos from './components/pages/Cotizacion/ResumenDispositivos';
 import ModificarViaticos from './components/pages/ModificarViaticos';
 import FlashMessage from 'react-native-flash-message';

@@ -10,6 +10,7 @@ import Button from '../atoms/Button/Button';
 import TextPairing from '../atoms/TextPairing/TextPairing';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../config/utils';
+import Constants from 'expo-constants';
 
 export default function AgregarProductoInstalacion({style, navigation, route}) {
   const [area, setArea] = React.useState("");
@@ -18,7 +19,7 @@ export default function AgregarProductoInstalacion({style, navigation, route}) {
   const [observations, setObservations] = React.useState("");
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const url = PROD_API + 'quote-product/'
   const {idQuote, idSection, idQuoteProduct} = route.params;
 

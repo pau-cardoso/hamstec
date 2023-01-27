@@ -5,6 +5,7 @@ import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showErrorMessage } from '../../config/utils';
 import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
+import Constants from 'expo-constants';
 
 
 export default function Secciones({style, navigation, route}) {
@@ -15,7 +16,7 @@ export default function Secciones({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [sectionDeleting, setSectionDeleting] = React.useState({id: null, name: ''});
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const url = `${PROD_API}section/`;
 
   useEffect(() => {

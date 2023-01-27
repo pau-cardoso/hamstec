@@ -9,6 +9,7 @@ import { moderateScale, showErrorMessage } from '../../config/utils';
 import { CustomModal, DeleteModal, ModalPressable } from '../../../assets/HelperComponents';
 import { primary } from '../../config/colors';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
+import Constants from 'expo-constants';
 
 
 export default function Versiones({style, navigation, route}) {
@@ -19,7 +20,7 @@ export default function Versiones({style, navigation, route}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [quoteDeleting, setQuoteDeleting] = React.useState({id: null, name: ''});
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const {id_project} = route.params;
   const url = PROD_API + "quote/" ;
 

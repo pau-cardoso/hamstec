@@ -11,6 +11,7 @@ import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Button from '../../atoms/Button/Button';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../../config/utils';
+import Constants from 'expo-constants';
 
 export default function AgregarDetallesProducto({style, navigation, route}) {
   const [zone, setZone] = React.useState("");
@@ -21,7 +22,7 @@ export default function AgregarDetallesProducto({style, navigation, route}) {
   const [product, setProduct] = React.useState({id: 0, name: ""});
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const url = `${PROD_API}quote-product/`;
   const {idQuote, idSection, idQuoteProduct} = route.params;
 

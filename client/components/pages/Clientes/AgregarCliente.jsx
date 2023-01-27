@@ -6,6 +6,7 @@ import FormGroup from '../../molecules/FormGroup/FormGroup';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../../config/utils';
 import TextField from '../../atoms/TextField/TextField';
+import Constants from 'expo-constants';
 
 // TODO: Handle empty fields
 export default function AgregarCliente({style, navigation, route}) {
@@ -13,7 +14,7 @@ export default function AgregarCliente({style, navigation, route}) {
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const isEditing = route.params.clientId != undefined;
 
   useEffect(() => {

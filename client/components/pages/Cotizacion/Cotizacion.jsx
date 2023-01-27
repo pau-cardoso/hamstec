@@ -18,6 +18,7 @@ import { CustomCenteredModal, DeleteModal } from '../../../assets/HelperComponen
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import TextField from '../../atoms/TextField/TextField';
 import { IntlProvider, FormattedNumber } from 'react-intl';
+import Constants from 'expo-constants';
 
 const HEADERS = ['Area', 'Zona', 'Observaciones', 'Cantidad', 'Dispositivo', 'Costo U.', 'Importe'];
 const WIDTH = [
@@ -47,7 +48,7 @@ export default function Cotizacion({style, navigation, route}) {
   const tabActive = navigation.isFocused()? 'COTIZACION' : 'INSTALACION';
   const {quoteId, projectId} = route.params;
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const url = PROD_API + "quote-product/quote/" + quoteId;
 
   useEffect(() => {

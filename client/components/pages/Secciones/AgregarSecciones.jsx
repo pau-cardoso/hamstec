@@ -6,12 +6,13 @@ import FormGroup from '../../molecules/FormGroup/FormGroup';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage } from '../../config/utils';
 import TextField from '../../atoms/TextField/TextField';
+import Constants from 'expo-constants';
 
 // TODO: Handle empty fields
 export default function AgregarSecciones({style, navigation, route}) {
   const [name, setName] = React.useState("");
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const url = `${PROD_API}section/`;
   const isEditing = route.params.sectionId != undefined;
 

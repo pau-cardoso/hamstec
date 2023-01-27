@@ -7,6 +7,7 @@ import TextField from '../../atoms/TextField/TextField';
 import SearchableSelect from '../../molecules/SearchableSelect/SearchableSelect';
 import { showMessage } from 'react-native-flash-message';
 import { showErrorMessage, showWarningMessage } from '../../config/utils';
+import Constants from 'expo-constants';
 
 export default function AgregarProyecto({style, navigation, route}) {
   const [name, setName] = React.useState("");
@@ -14,7 +15,7 @@ export default function AgregarProyecto({style, navigation, route}) {
   const [address, setAddress] = React.useState("");
   const [clientData, setClientData] = React.useState();
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const isEditing = route.params.projectId != undefined;
 
   useEffect(() => {

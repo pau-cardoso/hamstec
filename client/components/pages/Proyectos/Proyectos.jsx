@@ -5,6 +5,7 @@ import PageTemplate from '../../templates/PageTemplate';
 import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
+import Constants from 'expo-constants';
 
 export default function Proyectos({style, navigation}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
@@ -14,7 +15,7 @@ export default function Proyectos({style, navigation}) {
   const [deleteModalVisible, setDeleteModalVisible] = React.useState(false);
   const [projectDeleting, setProjectDeleting] = React.useState({id: null, name: ''});
 
-  const {PROD_API} = process.env;
+  const {PROD_API} = Constants.expoConfig.extra;
   const url = PROD_API + "project";
 
   useEffect(() => {
