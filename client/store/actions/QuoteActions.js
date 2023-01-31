@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import { showErrorMessage } from '../../components/config/utils';
 
 const {PROD_API} = Constants.expoConfig.extra;
 

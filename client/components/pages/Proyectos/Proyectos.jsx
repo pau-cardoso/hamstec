@@ -20,7 +20,7 @@ export default function Proyectos({style, navigation}) {
   const {PROD_API} = Constants.expoConfig.extra;
   const url = PROD_API + "project";
 
-  const projects = useSelector((state) => state.projectReducer. projects);
+  const projects = useSelector((state) => state.projectReducer.projects);
   const dispatch = useDispatch();
 
   useEffect(() => {
