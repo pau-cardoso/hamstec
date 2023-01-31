@@ -10,12 +10,14 @@ import { store, persistor } from './store/configureStore';
 import { PersistGate } from 'redux-persist/integration/react';
 import { fetchProjects } from './store/actions/ProjectActions';
 import { useEffect } from 'react';
+import { fetchQuotes } from './store/actions/QuoteActions';
 
 // Ignore all log notifications:
 LogBox.ignoreAllLogs();
 
 const fetchData = () => {
   fetchProjects();
+  fetchQuotes();
 };
 
 export default function App() {

@@ -10,6 +10,9 @@ import { CustomModal, DeleteModal, ModalPressable } from '../../../assets/Helper
 import { primary } from '../../config/colors';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Constants from 'expo-constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchQuotes } from '../../../store/actions/QuoteActions';
+import { selectQuotesByProjectId } from '../../../store/selectors';
 
 
 export default function Versiones({style, navigation, route}) {
@@ -24,14 +27,15 @@ export default function Versiones({style, navigation, route}) {
   const {id_project} = route.params;
   const url = PROD_API + "quote/" ;
 
+  const quotes = useSelector((state) => selectQuotesByProjectId(state, id_project));
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetch(url + "project/" + id_project)
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => {
-        console.error(error);
-        showErrorMessage();
-      });
+    dispatch(fetchQuotes());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setData(quotes);
     setRefreshing(false);
   }, [refreshing]);
 
