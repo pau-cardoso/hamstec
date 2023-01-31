@@ -6,6 +6,8 @@ import ListItem from '../../molecules/ListItem/ListItem';
 import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
 import Constants from 'expo-constants';
+import { fetchProjects } from '../../../store/actions/ProjectActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Proyectos({style, navigation}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
@@ -18,12 +20,16 @@ export default function Proyectos({style, navigation}) {
   const {PROD_API} = Constants.expoConfig.extra;
   const url = PROD_API + "project";
 
+  const projects = useSelector((state) => state.projectReducer. projects);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .catch((error) => console.error(error))
-      .then((json) => setData(json))
-      .finally(setRefreshing(false));
+    dispatch(fetchProjects());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setRefreshing(false);
+    setData(projects);
   }, [refreshing]);
 
   const renderItem = ({ item }) => {
