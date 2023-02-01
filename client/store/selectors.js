@@ -7,3 +7,23 @@
 export const selectQuotesByProjectId = (state, id) => {
   return state.quoteReducer.quotes.filter(quote => quote.project.id === id);
 };
+
+/**
+ * Selector to retrieve a quote by a given id
+ * @param {*} state
+ * @param {*} id id of the quote searched
+ * @returns quotes array of a given project
+ */
+export const selectQuoteById = (state, id) => {
+  return state.quoteReducer.quotes.find(quote => quote.id === id);
+};
+
+/**
+ * Selector to retrieve a project by a given id
+ * @param {*} state
+ * @param {*} id id of the project searched
+ * @returns project with given id
+ */
+export const selectProjectById = (state, id) => {
+  return state.projectReducer.projects.find(project => project.id === id);
+};
