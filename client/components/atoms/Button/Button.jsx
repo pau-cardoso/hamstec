@@ -6,7 +6,7 @@ import TextPairing from '../TextPairing/TextPairing';
 import { Ionicons } from '@expo/vector-icons';
 import { moderateScale } from '../../config/utils';
 
-export default function Button({ onPress, title, type, textColor, style, iconName, iconColor, textType = 'medium' }) {
+export default function Button({ onPress, title, type, textColor, style, iconName, iconColor, textType = 'medium', textSize = 16 }) {
   const typeStyle = [style, styles.shadow];
   switch (type) {
     case 'primary':
@@ -35,7 +35,7 @@ export default function Button({ onPress, title, type, textColor, style, iconNam
           <TextPairing
             text={title}
             type={textType}
-            size={16}
+            size={textSize}
             color={textColor} />
         </View>
       </TouchableOpacity>

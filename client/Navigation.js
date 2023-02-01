@@ -29,6 +29,8 @@ import Secciones from './components/pages/Secciones/Secciones';
 import AgregarSecciones from './components/pages/Secciones/AgregarSecciones';
 import Marcas from './components/pages/Marcas/Marcas';
 import AgregarMarca from './components/pages/Marcas/AgregarMarca';
+import {useAuth0} from 'react-native-auth0';
+import SignIn from './components/pages/SignIn';
 
 /**
  * Stack navigator for Project tab
@@ -132,9 +134,12 @@ export function TabNavigation() {
 }
 
 export default function Navigation() {
+  const {user} = useAuth0();
+  const loggedIn = user !== undefined && user !== null;
+
   return (
     <NavigationContainer theme={HamstecTheme}>
-      <TabNavigation />
+      {loggedIn? <TabNavigation /> : <SignIn /> }
       <FlashMessage position='top' />
     </NavigationContainer>
   );

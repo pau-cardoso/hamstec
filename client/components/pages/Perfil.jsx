@@ -19,6 +19,8 @@ export default function Perfil({style, navigation}) {
     }
   };
 
+  const loggedIn = user !== undefined && user !== null;
+
   return(
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -27,9 +29,9 @@ export default function Perfil({style, navigation}) {
           <View style={styles.profile}>
             <Image
               style={styles.image}
-              source={{ uri: user.picture }} />
-            <TextPairing text={user.name} type='semibold' size={32} />
-            <TextPairing text={user.email} type='light' size={24} />
+              source={{ uri: loggedIn? user.picture : null }} />
+            <TextPairing text={loggedIn? user.name : 'Not logged in'} type='semibold' size={32} />
+            <TextPairing text={loggedIn? user.email : 'Not logged in'} type='light' size={24} />
             <View style={styles.listCells}>
               <ListCell text='Clientes' iconName='people' style={styles.configItem} onPress={() => navigation.navigate('Clientes')} />
               <ListCell text='Secciones' iconName='folder-open' style={styles.configItem} onPress={() => navigation.navigate('Secciones')} />
