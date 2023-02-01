@@ -143,6 +143,9 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
+// @generated begin react-native-auth0-manifest-placeholder - expo prebuild (DO NOT MODIFY) sync-b9f249b4e8c29103f2e2e465c6744826eeec2122
+manifestPlaceholders = [auth0Domain: "dev-1kf6imnvoqr5pawj.us.auth0.com", auth0Scheme: "com.hamstec.hamstec"]
+// @generated end react-native-auth0-manifest-placeholder
         applicationId 'com.hamstec.hamstec'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

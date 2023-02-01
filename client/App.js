@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { fetchProjects } from './store/actions/ProjectActions';
 import { useEffect } from 'react';
 import { fetchQuotes } from './store/actions/QuoteActions';
+import {useAuth0, Auth0Provider} from 'react-native-auth0';
 
 // Ignore all log notifications:
 LogBox.ignoreAllLogs();
@@ -38,11 +39,13 @@ export default function App() {
     );
   } else {
     return (
-      <Provider store={store} persistor={persistor}>
-        <PersistGate persistor={persistor}>
-          <Navigation />
-        </PersistGate>
-      </Provider>
+      <Auth0Provider domain={"dev-1kf6imnvoqr5pawj.us.auth0.com"} clientId={"hTQt0olhlSRi3iUzpQsEAMhltyOsqXyy"}>
+        <Provider store={store} persistor={persistor}>
+          <PersistGate persistor={persistor}>
+            <Navigation />
+          </PersistGate>
+        </Provider>
+      </Auth0Provider>
     );
   }
 }

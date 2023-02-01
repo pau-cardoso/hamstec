@@ -12,6 +12,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "dev-1kf6imnvoqr5pawj.us.auth0.com"
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },

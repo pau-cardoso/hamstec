@@ -3,11 +3,22 @@ import { StyleSheet, View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import ListCell from '../molecules/ListCell/ListCell';
-import colors, { primary } from '../config/colors';
+import colors, { neutral, primary } from '../config/colors';
 import TextPairing from '../atoms/TextPairing/TextPairing';
 import { moderateScale } from '../config/utils';
+import {useAuth0} from 'react-native-auth0';
 
 export default function Perfil({style, navigation}) {
+  const {authorize, clearSession, user} = useAuth0();
+
+  const onLogout = async () => {
+    try {
+      await clearSession();
+    } catch (e) {
+      console.log('Log out cancelled');
+    }
+  };
+
   return(
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -16,12 +27,14 @@ export default function Perfil({style, navigation}) {
           <View style={styles.profile}>
             <Image
               style={styles.image}
-              source={{ uri: 'https://www.fakepersongenerator.com/Face/male/male20171086010783539.jpg' }} />
-            <TextPairing text='Paulina' type='semibold' size={32} />
+              source={{ uri: user.picture }} />
+            <TextPairing text={user.name} type='semibold' size={32} />
+            <TextPairing text={user.email} type='light' size={24} />
             <View style={styles.listCells}>
               <ListCell text='Clientes' iconName='people' style={styles.configItem} onPress={() => navigation.navigate('Clientes')} />
               <ListCell text='Secciones' iconName='folder-open' style={styles.configItem} onPress={() => navigation.navigate('Secciones')} />
               <ListCell text='Marcas' iconName='pricetag' style={styles.configItem} onPress={() => navigation.navigate('Marcas')} />
+              <ListCell text='Log out' iconName='log-out' style={styles.configItem} onPress={() => onLogout()} />
             </View>
           </View>
         </View>
@@ -66,5 +79,10 @@ const styles = StyleSheet.create({
   },
   configItem: {
     marginBottom: 8,
+  },
+  discountBtn: {
+    backgroundColor: neutral.white,
+    width: '100%',
+    paddingVertical: 8,
   },
 });
