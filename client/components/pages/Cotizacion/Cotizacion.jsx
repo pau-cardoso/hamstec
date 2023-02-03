@@ -165,7 +165,28 @@ export default function Cotizacion({style, navigation, route}) {
       to: pdfName,
     });
 
-    await shareAsync(pdfName);
+    await shareAsync(pdfName).then(() => {
+      const data = new FormData();
+      data.append('myFile', {
+        uri: pdfName,
+        type: 'application/pdf',
+        name: `${projectId}_${quoteData.version}_${projectData.name.replace(/\s/g, '')}.pdf`,
+      });
+      fetch(`${PROD_API}upload`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data'
+        },
+        body: data,
+      }).catch((error) => {
+        console.error(error);
+        showErrorMessage();
+      }).finally(() => {
+        setDiscountModalVisible(false);
+        setRefreshing(true);
+      });
+    });
   }
 
   const Item = ({ item }) => {

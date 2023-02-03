@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const brandRouter = require('./routes/brand.js')
 const quoteRouter = require('./routes/quote.js')
+const uploadRouter = require('./routes/upload.js')
 const clientRouter = require('./routes/client.js')
 const sectionRouter = require('./routes/section.js')
 const projectRouter = require('./routes/project.js')
@@ -21,6 +22,7 @@ app.use(cors())
 
 app.use('/brand', brandRouter);
 app.use('/quote', quoteRouter);
+app.use('/upload', uploadRouter);
 app.use('/client', clientRouter);
 app.use('/section', sectionRouter);
 app.use('/product', productRouter);
