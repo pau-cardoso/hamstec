@@ -20,7 +20,8 @@
       "typeorm": "0.3.10"
    },
    "scripts": {
-      "start": "npx nodemon src/index.ts",
+      "start": "ts-node src/index.ts",
+      "nodemon": "npx nodemon src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs"
    }
 }
