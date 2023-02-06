@@ -85,6 +85,8 @@ export default function ListaProductos({style, navigation, route}) {
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                refreshing={refreshing}
+                onRefresh={() => {setRefreshing(true)}}
               />
             </Table>
           </Card>
