@@ -29,7 +29,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.hamstec.hamstec",
-      "buildNumber": "1"
+      "buildNumber": "2"
     },
     "android": {
       "package": "com.hamstec.hamstec",
@@ -45,7 +45,7 @@
       "eas": {
         "projectId": "5bfaa61d-1356-4400-a9b3-6fdc2a18b8ab"
       },
-      "PROD_API": "http://localhost:3000/"
+      "PROD_API": "http://147.182.253.114:3000/"
     }
   }
 }
