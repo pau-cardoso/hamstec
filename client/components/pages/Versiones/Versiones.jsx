@@ -11,7 +11,7 @@ import { primary } from '../../config/colors';
 import TextPairing from '../../atoms/TextPairing/TextPairing';
 import Constants from 'expo-constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchQuotes } from '../../../store/actions/QuoteActions';
+import { fetchQuotes, addQuote } from '../../../store/actions/QuoteActions';
 import { selectQuotesByProjectId } from '../../../store/selectors';
 
 
@@ -31,18 +31,15 @@ export default function Versiones({style, navigation, route}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchQuotes());
-  }, [dispatch]);
-
-  useEffect(() => {
     setData(quotes);
+    dispatch(fetchQuotes());
     setRefreshing(false);
-  }, [refreshing]);
+  }, [refreshing, dispatch]);
 
   const addVersion = () => {
     fetch(url + "add/" + id_project)
       .then((response) => {
-        response.json();
+        response.json().then((data) => dispatch(addQuote(data)));
         showMessage({
           message: 'Nueva versión creada correctamente',
           type: 'success',
@@ -67,7 +64,7 @@ export default function Versiones({style, navigation, route}) {
         projectId: id_project,
       })
     }).then((response) => {
-      response.json();
+      response.json().then((data) => dispatch(addQuote(data)));
       showMessage({
         message: 'Versión duplicada correctamente',
         type: 'success',

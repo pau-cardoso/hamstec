@@ -5,7 +5,8 @@
  * @returns quotes array of a given project
  */
 export const selectQuotesByProjectId = (state, id) => {
-  return state.quoteReducer.quotes.filter(quote => quote.project.id === id);
+  const quotes = (state.quoteReducer.quotes.filter(quote => quote.project.id === id)).sort((a, b) => b.version - a.version);
+  return quotes.sort((a, b) => b.authorized - a.authorized);
 };
 
 /**

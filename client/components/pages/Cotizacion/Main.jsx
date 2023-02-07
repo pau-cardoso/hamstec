@@ -30,7 +30,7 @@ export default function Main({style, navigation, route}) {
     }, []);
 
   const setAuthorized = () => {
-    if (code === '1234') {
+    if (code === '4321') {
       fetch(`${PROD_API}quote/${quoteId}`, {
         method: 'PUT',
         headers: {

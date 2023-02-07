@@ -25,12 +25,9 @@ export default function Proyectos({style, navigation}) {
 
   useEffect(() => {
     dispatch(fetchProjects());
-  }, [dispatch]);
-
-  useEffect(() => {
-    setRefreshing(false);
     setData(projects);
-  }, [refreshing]);
+    setRefreshing(false);
+  }, [refreshing, dispatch]);
 
   const renderItem = ({ item }) => {
     if ( searchPhrase === "" ||
