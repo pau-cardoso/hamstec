@@ -33,12 +33,12 @@ export default function PageHeader({ title, secondaryTitle, onPressBackButton, o
             size={32} />
         </View>
         { onRightButtonClick &&
-            <IconButton
-              iconName={rightButtonIcon}
-              size={iconSize}
-              color={iconColor}
-              onPress={onRightButtonClick} />
-        }
+          <IconButton
+            iconName={rightButtonIcon}
+            size={iconSize}
+            color={iconColor}
+            onPress={onRightButtonClick} />
+          }
       </View>
     </SafeAreaView>
   );
@@ -56,9 +56,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    flexShrink: 1,
   },
   backButtonContainer: {
-	  marginRight: moderateScale(12),
+    marginRight: moderateScale(12),
   },
 });
 
