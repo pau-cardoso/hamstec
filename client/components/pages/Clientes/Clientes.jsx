@@ -6,7 +6,7 @@ import HeaderSearch from '../../organisms/HeaderSearch/HeaderSearch';
 import { showErrorMessage } from '../../config/utils';
 import { DeleteModal, MenuModal } from '../../../assets/HelperComponents';
 import Constants from 'expo-constants';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Clientes({style, navigation, route}) {
   const [searchPhrase, setSearchPhrase] = React.useState("");
@@ -19,8 +19,29 @@ export default function Clientes({style, navigation, route}) {
   const {PROD_API} = Constants.expoConfig.extra;
   const url = `${PROD_API}client/`;
 
+  React.useEffect(() => {
+    if (response) {
+      const { access_token } = response.params;
+      console.log(`Access token: ${access_token}`);
+    }
+  }, [response]);
+
+
   useEffect(() => {
-    fetch(url)
+    async function fetchData() {
+      try {
+        const value = await AsyncStorage.getItem('token');
+        console.log("value", value);
+        return value
+      } catch {}
+    }
+    const value = fetchData();
+    console.log(value);
+    fetch(url, {
+      headers: {
+        "Authorization": "Bearer " + value
+      }
+    })
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {

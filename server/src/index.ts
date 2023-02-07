@@ -3,6 +3,7 @@ import { AppDataSource } from "./data-source"
 const cors = require('cors')
 const express = require('express')
 const bodyParser = require('body-parser');
+const { auth } = require('express-oauth2-jwt-bearer');
 
 const brandRouter = require('./routes/brand.js')
 const quoteRouter = require('./routes/quote.js')
@@ -17,6 +18,14 @@ const app = express()
 const port = 3000
 AppDataSource.initialize().catch((error) => console.log(error));
 
+// const jwtCheck = auth({
+//   audience: 'https://hamstec-api-endpoint',
+//   issuerBaseURL: 'https://dev-2wwzzdwaumez74kc.us.auth0.com/',
+//   tokenSigningAlg: 'RS256'
+// });
+
+// // enforce on all endpoints
+// app.use(jwtCheck);
 app.use(bodyParser.json())
 app.use(cors())
 
