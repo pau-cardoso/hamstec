@@ -3,7 +3,7 @@
     "name": "Hamstec",
     "description": "Gestión de proyectos de clientes y tareas internas",
     "slug": "Hamstec",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon_hamstec.png",
     "userInterfaceStyle": "light",
@@ -28,7 +28,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.hamstec.hamstec"
+      "bundleIdentifier": "com.hamstec.hamstec",
+      "buildNumber": "1"
     },
     "android": {
       "package": "com.hamstec.hamstec",
@@ -44,7 +45,7 @@
       "eas": {
         "projectId": "5bfaa61d-1356-4400-a9b3-6fdc2a18b8ab"
       },
-      "PROD_API": "http://147.182.253.114:3000/"
+      "PROD_API": "http://localhost:3000/"
     }
   }
 }

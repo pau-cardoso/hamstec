@@ -39,7 +39,7 @@ export default function App() {
     );
   } else {
     return (
-      <Auth0Provider domain={"dev-1kf6imnvoqr5pawj.us.auth0.com"} clientId={"hTQt0olhlSRi3iUzpQsEAMhltyOsqXyy"}>
+      <Auth0Provider domain={"dev-2wwzzdwaumez74kc.us.auth0.com"} clientId={"MyeGeaRTeWeBcqeMnzfiDz5jZJcGifRg"}>
         <Provider store={store} persistor={persistor}>
           <PersistGate persistor={persistor}>
             <Navigation />
